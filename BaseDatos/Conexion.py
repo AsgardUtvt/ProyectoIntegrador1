@@ -27,4 +27,4 @@ class Conexion:
         print("Encendiendo conexion a base de datos")
 
     def CloseBD(self):
-        print("Cerrando conexion a base de datosi")
+        print("Cerrando conexion a base de datos")
