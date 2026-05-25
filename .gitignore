@@ -1,2 +1,5 @@
 # Igonrar carpetas.
 __pycache__/
+#Ignorar archivos
+*.bak_000f
+*.lck
