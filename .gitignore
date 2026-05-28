@@ -1,5 +1,7 @@
 # Igonrar carpetas.
 __pycache__/
+CasosDeUso/
 #Ignorar archivos
-*.bak_000f
+*.bak_[0-9][0-9][0-9][a-z]
 *.lck
+
