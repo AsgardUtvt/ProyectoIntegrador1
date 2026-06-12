@@ -3,5 +3,7 @@ __pycache__/
 CasosDeUso/
 #Ignorar archivos
 *.bak_[0-9][0-9][0-9][a-z]
+*.bak[0-9]
+*.bak
 *.lck
 
