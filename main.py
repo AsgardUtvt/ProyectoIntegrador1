@@ -18,4 +18,4 @@ if __name__ == '__main__':
     HOST = "127.0.0.1"
     PORT = 8000
     RELOAD = True
-    uvicorn.run("main:app",host=HOST,port=PORT, reload=RELOAD)
+    uvicorn.run("main:app", host=HOST, port=PORT, reload=RELOAD)
