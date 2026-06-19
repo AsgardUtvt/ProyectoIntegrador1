@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="SIHMED" company="JAU&amp;TS" webLink="http://sihmed.com" view-date="2026-06-08" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3322" locale="es_ES">
+    <description><![CDATA[Universidad Tecnológica del Valle de Toluca
+TSU en Desarrollo de Software Multiplataforma
+Proyecto Integrador 1
+SIHMED (Sistema Integral Hospitalario y de Medicamentos)
+JAU & TS (Jessica Asgard Uriel & Tecnical Solutions)
+Grupo DSM-31
+Equipo 3
+18/06/26]]></description>
+    <view zooming-state="default:4" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="200" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="75" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="75" order="2"/>
+        <field id="tpd15" name="Notas" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#ff0000 #ffff33]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars base-id="mx">
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+        <date year="" month="1" date="1" type="HOLIDAY"><![CDATA[New Year's Day]]></date>
+        <date year="" month="5" date="1" type="HOLIDAY"><![CDATA[Labour Day]]></date>
+        <date year="" month="9" date="16" type="HOLIDAY"><![CDATA[Independence Day]]></date>
+        <date year="" month="11" date="1" type="NEUTRAL"><![CDATA[All Saints Day]]></date>
+        <date year="" month="11" date="2" type="NEUTRAL"><![CDATA[Day of the Dead]]></date>
+        <date year="" month="12" date="12" type="HOLIDAY"><![CDATA[Day of the Virgin of Guadalupe]]></date>
+        <date year="" month="12" date="25" type="HOLIDAY"><![CDATA[Christmas Day]]></date>
+        <date year="2026" month="2" date="2" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2026" month="3" date="16" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday]]></date>
+        <date year="2026" month="4" date="2" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2026" month="4" date="3" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2026" month="10" date="12" type="HOLIDAY"><![CDATA[Day of the Pluricultural Nation]]></date>
+        <date year="2026" month="11" date="16" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2025" month="2" date="3" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2025" month="3" date="17" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday]]></date>
+        <date year="2025" month="4" date="17" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2025" month="4" date="18" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2025" month="10" date="12" type="HOLIDAY"><![CDATA[Day of the Pluricultural Nation]]></date>
+        <date year="2025" month="11" date="17" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2022" month="2" date="7" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2022" month="3" date="21" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday]]></date>
+        <date year="2022" month="4" date="14" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2022" month="4" date="15" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2022" month="11" date="21" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2016" month="2" date="1" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2016" month="3" date="14" type="HOLIDAY"><![CDATA[Birthday of Benito Juárez]]></date>
+        <date year="2016" month="3" date="24" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2016" month="3" date="25" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2016" month="11" date="21" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2017" month="1" date="2" type="HOLIDAY"><![CDATA[New Year's Holiday]]></date>
+        <date year="2017" month="2" date="6" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2017" month="3" date="20" type="HOLIDAY"><![CDATA[Day off for Benito Juárez's Birthday Memorial]]></date>
+        <date year="2017" month="3" date="21" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday Memorial]]></date>
+        <date year="2017" month="4" date="13" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2017" month="4" date="14" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2017" month="11" date="20" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2018" month="2" date="5" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2018" month="3" date="19" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday]]></date>
+        <date year="2018" month="3" date="29" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2018" month="3" date="30" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2018" month="11" date="19" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2018" month="12" date="1" type="HOLIDAY"><![CDATA[New President of Mexico]]></date>
+        <date year="2019" month="2" date="4" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2019" month="3" date="18" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday]]></date>
+        <date year="2019" month="4" date="18" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2019" month="4" date="19" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2019" month="11" date="18" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2020" month="2" date="3" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2020" month="3" date="16" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday]]></date>
+        <date year="2020" month="4" date="9" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2020" month="4" date="10" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2020" month="11" date="16" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+        <date year="2021" month="2" date="1" type="HOLIDAY"><![CDATA[Constitution Day]]></date>
+        <date year="2021" month="3" date="15" type="HOLIDAY"><![CDATA[Benito Juárez's Birthday]]></date>
+        <date year="2021" month="4" date="1" type="HOLIDAY"><![CDATA[Maundy Thursday]]></date>
+        <date year="2021" month="4" date="2" type="HOLIDAY"><![CDATA[Good Friday]]></date>
+        <date year="2021" month="11" date="16" type="HOLIDAY"><![CDATA[Revolution Day]]></date>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="9752a3747e72426ab2cac4d8d49e3956" name="Fase 1: Analisis y requisitos." meeting="false" start="2026-05-12" duration="9" complete="0" expand="true">
+            <depend id="20" type="2" difference="0" hardness="Strong"/>
+            <task id="17" uid="1c2f56fa75394201a1182088a1715996" name="Entrevista a médicos." color="#ff0000" meeting="false" start="2026-05-12" duration="3" complete="0" priority="2" expand="true"/>
+            <task id="18" uid="ece707464187474089f240e6e8b43949" name="Definir requerimientos funcionales y no funcionales." color="#ffff33" meeting="false" start="2026-05-12" duration="8" complete="0" expand="true">
+                <depend id="22" type="2" difference="0" hardness="Strong"/>
+                <depend id="23" type="2" difference="0" hardness="Strong"/>
+                <depend id="25" type="2" difference="0" hardness="Strong"/>
+                <depend id="26" type="2" difference="0" hardness="Strong"/>
+                <depend id="27" type="2" difference="0" hardness="Strong"/>
+                <depend id="28" type="2" difference="0" hardness="Strong"/>
+                <depend id="29" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="19" uid="0e224a98495442ab82dd5d3b948f68f2" name="Investigación de tecnologías." color="#ffff33" meeting="false" start="2026-05-12" duration="9" complete="0" expand="true">
+                <depend id="22" type="2" difference="0" hardness="Strong"/>
+                <depend id="23" type="2" difference="0" hardness="Strong"/>
+                <depend id="24" type="2" difference="0" hardness="Strong"/>
+                <depend id="25" type="2" difference="0" hardness="Strong"/>
+                <depend id="26" type="2" difference="0" hardness="Strong"/>
+                <depend id="27" type="2" difference="0" hardness="Strong"/>
+                <depend id="28" type="2" difference="0" hardness="Strong"/>
+                <depend id="29" type="2" difference="0" hardness="Strong"/>
+                <depend id="31" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="20" uid="6234456e717841e5a8fc71d47dbb82f9" name="Fase 2: Diseño del sistema." meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+            <depend id="30" type="2" difference="0" hardness="Strong"/>
+            <task id="21" uid="ca04ef7a3efd4ff2a58cedf08ec49436" name="Diseño de diagramas." meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+                <task id="22" uid="a8a4bfec97d940149a14a77d3cfaeb11" name="Diagrama de clases." color="#ffff33" meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+                    <depend id="35" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="23" uid="e74ac63f29d04f769938b018f2376c21" name="Diagrama de casos de uso." color="#ffff33" meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+                    <depend id="35" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="24" uid="018254dabc7946458e9eebddab0fa421" name="Diagrama de actividades." color="#ffff33" meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+                    <depend id="35" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="25" uid="90fbc4ce43854236b2a4a483bdd1f76a" name="Diagrama entidad relación." color="#ffff33" meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+                    <depend id="33" type="2" difference="0" hardness="Strong"/>
+                    <depend id="34" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="26" uid="a6e6ccb1b5984acdb7b0bbf3af773b55" name="Diagrama realcional." color="#ff0000" meeting="false" start="2026-05-22" duration="8" complete="0" priority="2" expand="true">
+                    <depend id="33" type="2" difference="0" hardness="Strong"/>
+                    <depend id="34" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="27" uid="ad3ac29791ec4d67aecc3a6ae5fa8e00" name="Diccionario de datos." color="#ff0000" meeting="false" start="2026-05-22" duration="8" complete="0" priority="2" expand="true">
+                    <depend id="33" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="28" uid="976819df1c9f469f811a198090cdc4ab" name="Wireframes." color="#ffff33" meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+                    <depend id="36" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="29" uid="f3f966b6539e4066bb3d063815efecb4" name="Mockups." color="#ffff33" meeting="false" start="2026-05-22" duration="8" complete="0" expand="true">
+                    <depend id="36" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+        </task>
+        <task id="30" uid="5cbe4162421d4bdfa2962f0d81c14097" name="Fase 3: Desarrollo (Backend &amp; Frontend)" meeting="false" start="2026-06-01" duration="36" complete="0" expand="true">
+            <depend id="37" type="2" difference="0" hardness="Strong"/>
+            <task id="31" uid="0a903c331cc24e8a8db772816ec6532c" name="Configuración de entorno (Python y librerias)" color="#ff0000" meeting="false" start="2026-06-01" duration="3" complete="0" priority="2" expand="true"/>
+            <task id="32" uid="8ee67d48e8024da694118218075a43b0" name="Backend (APIs, Logica de negocio, Base de datos)" meeting="false" start="2026-06-01" duration="36" complete="0" expand="true">
+                <depend id="38" type="2" difference="0" hardness="Strong"/>
+                <depend id="41" type="2" difference="0" hardness="Strong"/>
+                <task id="33" uid="638d10109eda46aca45a94188189f462" name="Crear base de datos." color="#ffff33" meeting="false" start="2026-06-01" duration="12" complete="0" expand="true">
+                    <depend id="34" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="34" uid="1ed704c715014930ac1285a72c0d66ce" name="Desarrollar CRUD de los diferentes modulos" color="#ffff33" meeting="false" start="2026-06-15" duration="12" complete="0" expand="true">
+                    <depend id="35" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="35" uid="ed78bd39099f499eacff7a71a2a5aa48" name="Desarrollar APIs." color="#ffff33" meeting="false" start="2026-06-29" duration="12" complete="0" expand="true"/>
+            </task>
+            <task id="36" uid="07e0aa5a5da74e5a877f578d8f7acce0" name="Frontend (Generar interfaces)" color="#ffff33" meeting="false" start="2026-06-01" duration="7" complete="0" expand="true">
+                <depend id="45" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="45" uid="853194fa5cd647f58c56565387802b3a" name="Prueba de interfaces UI/UX." color="#ff0000" meeting="false" start="2026-06-09" duration="7" complete="0" priority="2" expand="true"/>
+        </task>
+        <task id="37" uid="ba3d4dc9b56b418f81c114f8ca1f48f3" name="Fase 4: Pruebas." meeting="false" start="2026-07-13" duration="18" complete="0" expand="true">
+            <depend id="42" type="2" difference="0" hardness="Strong"/>
+            <task id="38" uid="6a7da261dcca48e4b7be54332c2a336f" name="Pruebas unitarias." color="#ff0000" meeting="false" start="2026-07-13" duration="9" complete="0" priority="2" expand="true">
+                <depend id="40" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="41" uid="96e32fe33f354477bfe670880f6c0b69" name="Pruebas de integración." color="#ff0000" meeting="false" start="2026-07-13" duration="9" complete="0" priority="2" expand="true">
+                <depend id="39" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="39" uid="49f9d906eb734ca2945262b43333d3ab" name="Pruebas de usuario." color="#ff0000" meeting="false" start="2026-07-23" duration="9" complete="0" priority="2" expand="true"/>
+            <task id="40" uid="3fca542cc739463bafa3feb222a6c5f0" name="Corrección de errores." color="#ff0000" meeting="false" start="2026-07-23" duration="9" complete="0" priority="2" expand="true">
+                <depend id="43" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="42" uid="10045d7479624a95b048b685cd0d2bd7" name="Fase 5: Lanzamiento y mantenimiento." meeting="false" start="2026-08-03" duration="9" complete="0" expand="true">
+            <task id="43" uid="9c5efd8ab5754d32b334e9555b7781a3" name="Despliegue de servidor propio y en la nube." color="#ff0000" meeting="false" start="2026-08-03" duration="3" complete="0" priority="2" expand="true"/>
+            <task id="44" uid="e8374bd2069d440698f8509e34552939" name="Documentación del sistema." color="#ffff33" meeting="false" start="2026-08-03" duration="9" complete="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources>
+        <resource id="0" name="Asgard Juarez Campos" function="Default:1" contacts="" phone=""/>
+        <resource id="1" name="Jessica Alvarez Centeno" function="1" contacts="" phone=""/>
+        <resource id="2" name="Uriel Tonatiuh Gonzalez Miranda" function="1" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="17" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="18" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="19" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="22" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="23" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="24" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="26" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="28" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="29" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="31" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="33" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="34" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="35" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="36" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="38" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="41" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="39" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="40" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="43" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="44" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="45" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="18" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="19" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="22" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="23" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="24" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="25" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="28" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="27" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="29" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="34" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="36" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="38" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="41" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="39" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="40" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="43" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="44" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="45" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="18" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="19" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="22" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="23" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="24" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="25" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="28" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="27" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="29" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="34" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="35" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="36" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="38" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="41" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="39" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="40" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="43" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="44" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="45" resource-id="2" function="1" responsible="false" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles>
+        <role id="1" name="Desarrollador fullstack"/>
+    </roles>
+</project>
