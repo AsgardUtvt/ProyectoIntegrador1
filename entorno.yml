@@ -2,6 +2,7 @@ name: ProyectoIntegrador
 channels:
   - defaults
 dependencies:
-  - python=3.12
   - fastapi
+  - python=3.12
+  - argon2-cffi
 prefix: /home/asgard/anaconda3/envs/ProyectoIntegrador

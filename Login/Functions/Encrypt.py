@@ -1,19 +1,15 @@
 # Se importan liberrias
-import crypt
 
+from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
+ph = PasswordHasher
 
 class Encrypt:
-    def __init__(self, password):
+    def __init__(self, password:str):
         self._password = password
-    @property
-    def password(self):
-        return self._password
-    @password.setter
-    def password(self,password):
-        if not password and password.strip():
-            return  "La cadena esta vacia"
-        else:
-            
-
-
-
+    def parssword_hash(self, hash_bd:str):
+        try:
+            ph.verify(hash_bd, self._password)
+            return True
+        except VerifyMismatchError:
+            return False
