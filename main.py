@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from Login.LoginController import router as login_router
 from Documentacion.EjemploApi import router as doc_router
+from Usuario.UsuarioController import router as us_router
 import sys
 import os.path
 
@@ -13,6 +14,7 @@ if __package__ is None and not getattr(sys, 'frozen', False):
 app = FastAPI()
 app.include_router(login_router)
 app.include_router(doc_router)
+app.include_router(us_router)
 
 if __name__ == '__main__':
     HOST = "127.0.0.1"
