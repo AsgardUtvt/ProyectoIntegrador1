@@ -1,0 +1,9 @@
+name: ProyectoIntegrador
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - argon2-cffi
+  - python-dotenv
+  - pymysql
+prefix: /home/asgard/anaconda3/envs/ProyectoIntegrador
