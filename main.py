@@ -1,21 +1,35 @@
-import uvicorn
-from fastapi import FastAPI
-from Login.LoginController import router as login_router
-from Documentacion.EjemploApi import router as doc_router
+from dotenv import load_dotenv
+import pymysql
+from BaseDatos.MySqlManager import MySqlManager
 import sys
 import os.path
+import os
 
 if __package__ is None and not getattr(sys, 'frozen', False):
     # Obtiene la ruta absoluta de este main.py
     path = os.path.realpath(os.path.abspath(__file__))
     # Agrega la carpeta raíz actual (ProyectoIntegrador1) a sys.path
     sys.path.insert(0, os.path.dirname(path))
-app = FastAPI()
-app.include_router(login_router)
-app.include_router(doc_router)
+
+def main():
+    load_dotenv()
+    config = {
+        "user": os.getenv('DB_USER'),
+        "password": os.getenv('DB_PASS'),
+        "host": os.getenv("DB_HOST"),
+        "port": int(os.getenv("DB_PORT")),
+        "database": os.getenv('DB_NAME'),
+        "cursorclass": pymysql.cursors.DictCursor
+    }
+    db = MySqlManager(config)
+    print(config)
+    try:
+        db.open_db()
+        print("Hay conexion a base de datos")
+    except Exception as e:
+        print(f"Error critico: {e}")
+
+
 
 if __name__ == '__main__':
-    HOST = "127.0.0.1"
-    PORT = 8000
-    RELOAD = True
-    uvicorn.run("main:app",host=HOST,port=PORT, reload=RELOAD)
+    main()
