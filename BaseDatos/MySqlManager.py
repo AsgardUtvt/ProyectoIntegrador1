@@ -17,8 +17,6 @@ class MySqlManager(DataBaseInterface):
         if self.conexion:
             self.conexion.close()
 
-
-
     @contextmanager
     def obtener_cursor(self) :
         if not self.conexion:
