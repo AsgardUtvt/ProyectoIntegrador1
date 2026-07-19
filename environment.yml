@@ -6,4 +6,4 @@ dependencies:
   - argon2-cffi
   - python-dotenv
   - pymysql
-prefix: /home/asgard/anaconda3/envs/ProyectoIntegrador
+  - pyqt6
