@@ -135,7 +135,7 @@ CREATE TABLE `Denominacion_General` (
   `id_denominacion_general` int(11) NOT NULL AUTO_INCREMENT,
   `denominacion_general` varchar(100) NOT NULL,
   PRIMARY KEY (`id_denominacion_general`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,6 +145,8 @@ CREATE TABLE `Denominacion_General` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Denominacion_General` WRITE;
 /*!40000 ALTER TABLE `Denominacion_General` DISABLE KEYS */;
+INSERT INTO `Denominacion_General` VALUES
+(1,'Sin Definir');
 /*!40000 ALTER TABLE `Denominacion_General` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -161,7 +163,7 @@ CREATE TABLE `Denominacion_Quimica` (
   `id_denominacion_quimica` int(11) NOT NULL AUTO_INCREMENT,
   `denominacion_quimica` varchar(100) NOT NULL,
   PRIMARY KEY (`id_denominacion_quimica`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,6 +173,8 @@ CREATE TABLE `Denominacion_Quimica` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Denominacion_Quimica` WRITE;
 /*!40000 ALTER TABLE `Denominacion_Quimica` DISABLE KEYS */;
+INSERT INTO `Denominacion_Quimica` VALUES
+(1,'Sin Definir');
 /*!40000 ALTER TABLE `Denominacion_Quimica` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -245,10 +249,11 @@ DROP TABLE IF EXISTS `Escuela`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Escuela` (
   `id_escuela` int(11) NOT NULL AUTO_INCREMENT,
-  `escuela` varchar(100) NOT NULL,
+  `escuela_name` varchar(200) DEFAULT NULL,
+  `escuela_acronimo` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_escuela`),
-  UNIQUE KEY `escuela` (`escuela`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `escuela` (`escuela_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,6 +263,18 @@ CREATE TABLE `Escuela` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Escuela` WRITE;
 /*!40000 ALTER TABLE `Escuela` DISABLE KEYS */;
+INSERT INTO `Escuela` VALUES
+(1,'Sin Definir','SD'),
+(2,'Universidad Nacional Autónoma de México','UNAM'),
+(3,'Instituto Politécnico Nacional','IPN'),
+(4,'Universidad Autónoma Metropolitana','UAM'),
+(5,'Centro Médico Nacional Siglo XXI del Instituto Mexicano del Seguro Social','IMSS'),
+(6,'Secretaría de Salud de la Ciudad de México','SEDESA'),
+(7,'Escuela Nacional de Enfermería e Investigación del Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado','ENEI-ISSSTE'),
+(8,'Universidad Panamericana','UP'),
+(9,'Instituto Tecnológico y de Estudios Superiores de Monterrey','ITESM'),
+(10,'Escuela de Enfermeras de Guadalupe, Asociación Civil','EEGAC'),
+(11,'Universidad de la Salud','UNISA');
 /*!40000 ALTER TABLE `Escuela` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -272,10 +289,10 @@ DROP TABLE IF EXISTS `Estado`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Estado` (
   `id_estado` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` varchar(50) NOT NULL,
+  `estado` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_estado`),
   UNIQUE KEY `estado` (`estado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,6 +302,40 @@ CREATE TABLE `Estado` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Estado` WRITE;
 /*!40000 ALTER TABLE `Estado` DISABLE KEYS */;
+INSERT INTO `Estado` VALUES
+(2,'Aguascalientes'),
+(3,'Baja California'),
+(4,'Baja California Sur'),
+(5,'Campeche'),
+(6,'Chiapas'),
+(7,'Chihuahua'),
+(8,'Ciudad de México'),
+(9,'Coahuila'),
+(10,'Colima'),
+(11,'Durango'),
+(12,'Estado de México'),
+(13,'Guanajuato'),
+(14,'Guerrero'),
+(15,'Hidalgo'),
+(16,'Jalisco'),
+(17,'Michoacán'),
+(18,'Morelos'),
+(19,'Nayarit'),
+(1,'No Asignado'),
+(20,'Nuevo León'),
+(21,'Oaxaca'),
+(22,'Puebla'),
+(23,'Querétaro'),
+(24,'Quintana Roo'),
+(25,'San Luis Potosí'),
+(26,'Sinaloa'),
+(27,'Sonora'),
+(28,'Tabasco'),
+(29,'Tamaulipas'),
+(30,'Tlaxcala'),
+(31,'Veracruz'),
+(32,'Yucatán'),
+(33,'Zacatecas');
 /*!40000 ALTER TABLE `Estado` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -613,7 +664,7 @@ CREATE TABLE `Tipo_Documento` (
   `tipo_doucmento` varchar(50) NOT NULL,
   PRIMARY KEY (`id_tipo_documento`),
   UNIQUE KEY `tipo_doucmento` (`tipo_doucmento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -623,6 +674,8 @@ CREATE TABLE `Tipo_Documento` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Tipo_Documento` WRITE;
 /*!40000 ALTER TABLE `Tipo_Documento` DISABLE KEYS */;
+INSERT INTO `Tipo_Documento` VALUES
+(1,'Sin Definir');
 /*!40000 ALTER TABLE `Tipo_Documento` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -638,8 +691,9 @@ DROP TABLE IF EXISTS `Tipo_Pago`;
 CREATE TABLE `Tipo_Pago` (
   `id_tipo_pago` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_pago` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_tipo_pago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id_tipo_pago`),
+  UNIQUE KEY `tipo_pago` (`tipo_pago`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -649,6 +703,9 @@ CREATE TABLE `Tipo_Pago` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Tipo_Pago` WRITE;
 /*!40000 ALTER TABLE `Tipo_Pago` DISABLE KEYS */;
+INSERT INTO `Tipo_Pago` VALUES
+(1,'Efectivo'),
+(2,'Tarjeta');
 /*!40000 ALTER TABLE `Tipo_Pago` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -666,7 +723,7 @@ CREATE TABLE `Tipo_Sangre` (
   `tipo_sangre` varchar(3) NOT NULL,
   PRIMARY KEY (`id_tipo_sangre`),
   UNIQUE KEY `tipo_sangre` (`tipo_sangre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -676,6 +733,16 @@ CREATE TABLE `Tipo_Sangre` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Tipo_Sangre` WRITE;
 /*!40000 ALTER TABLE `Tipo_Sangre` DISABLE KEYS */;
+INSERT INTO `Tipo_Sangre` VALUES
+(3,'A-'),
+(2,'A+'),
+(7,'AB-'),
+(6,'AB+'),
+(5,'B-'),
+(4,'B+'),
+(9,'O-'),
+(8,'O+'),
+(1,'SN');
 /*!40000 ALTER TABLE `Tipo_Sangre` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -693,7 +760,7 @@ CREATE TABLE `Tipo_Usuario` (
   `tipo_usuario` varchar(13) NOT NULL,
   PRIMARY KEY (`id_tipo_usuario`),
   UNIQUE KEY `tipo_usuario` (`tipo_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -703,6 +770,13 @@ CREATE TABLE `Tipo_Usuario` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Tipo_Usuario` WRITE;
 /*!40000 ALTER TABLE `Tipo_Usuario` DISABLE KEYS */;
+INSERT INTO `Tipo_Usuario` VALUES
+(2,'Administrador'),
+(5,'Caja'),
+(1,'Enfermero'),
+(4,'Farmacéutico'),
+(6,'Médico'),
+(3,'Propietario');
 /*!40000 ALTER TABLE `Tipo_Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -720,7 +794,7 @@ CREATE TABLE `Tratamiento` (
   `tratamiento_name` varchar(25) NOT NULL,
   PRIMARY KEY (`id_tratamiento`),
   UNIQUE KEY `tratamiento_name` (`tratamiento_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -730,6 +804,8 @@ CREATE TABLE `Tratamiento` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Tratamiento` WRITE;
 /*!40000 ALTER TABLE `Tratamiento` DISABLE KEYS */;
+INSERT INTO `Tratamiento` VALUES
+(1,'Sin Definir');
 /*!40000 ALTER TABLE `Tratamiento` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -813,4 +889,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-06-27 19:17:00
+-- Dump completed on 2026-07-19 14:15:05
