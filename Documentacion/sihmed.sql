@@ -65,7 +65,7 @@ DROP TABLE IF EXISTS `Consultorio`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Consultorio` (
   `id_consultorio` int(11) NOT NULL AUTO_INCREMENT,
-  `conultorio_name` varchar(50) NOT NULL,
+  `consultorio_name` varchar(50) NOT NULL,
   `consultorio_calle` varchar(100) DEFAULT NULL,
   `consultorio_colonia` varchar(100) DEFAULT NULL,
   `consultorio_num_exterior` varchar(3) DEFAULT NULL,
@@ -74,12 +74,14 @@ CREATE TABLE `Consultorio` (
   `id_estado` int(11) NOT NULL,
   `consultorio_telefono` varchar(13) DEFAULT NULL,
   `consultorio_telefono_dos` varchar(13) DEFAULT NULL,
+  `consultorio_municipio` varchar(100) DEFAULT NULL,
+  `consultorio_cp` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id_consultorio`),
-  UNIQUE KEY `conultorio_name` (`conultorio_name`),
+  UNIQUE KEY `conultorio_name` (`consultorio_name`),
   KEY `FK_ESTADO_CONSULTORIO` (`id_estado`),
   CONSTRAINT `FK_CONSULTORIO_ESTADO` FOREIGN KEY (`id_estado`) REFERENCES `Estado` (`id_estado`),
   CONSTRAINT `FK_ESTADO_CONSULTORIO` FOREIGN KEY (`id_estado`) REFERENCES `Estado` (`id_estado`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,6 +91,8 @@ CREATE TABLE `Consultorio` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Consultorio` WRITE;
 /*!40000 ALTER TABLE `Consultorio` DISABLE KEYS */;
+INSERT INTO `Consultorio` VALUES
+(1,'JAU Tecnologic','Celaya','San Gaspar Tlahuelilpan','7','Sn','México',12,'5591109383','5291109382','Metepec','52147');
 /*!40000 ALTER TABLE `Consultorio` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -838,7 +842,7 @@ CREATE TABLE `Usuario` (
   CONSTRAINT `FK_CONSULTORIO_USUARIO` FOREIGN KEY (`id_consultorio`) REFERENCES `Consultorio` (`id_consultorio`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_ESCUELA_USUARIO` FOREIGN KEY (`id_escuela`) REFERENCES `Escuela` (`id_escuela`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_TIPOUSUARIO_USUARIO` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `Tipo_Usuario` (`id_tipo_usuario`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -848,6 +852,8 @@ CREATE TABLE `Usuario` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
+INSERT INTO `Usuario` VALUES
+(1,'Asgard','Juarez','Campos','$argon2id$v=19$m=65536,t=3,p=4$HVLNnRQ6uBxjVlHeyFwmiw$aoEV1RaW+gYeTCZQKW5BjJo1iKizK/C+rOVH1yq6/2I','0000','0000I',3,1,1);
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -889,4 +895,7 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-07-19 14:15:05
+-- Dump completed on 2026-07-20 20:55:50
+INSERT INTO Usuario(usuario_name, usuario_paterno, usuario_materno, usuario_password, usuario_cedula_profesional, usuario_cedula_especialidad, id_tipo_usuario, id_consultorio, id_escuela)
+VALUES('Asgard'	,'Juarez', 'Campos', '$argon2id$v=19$m=65536,t=3,p=4$HVLNnRQ6uBxjVlHeyFwmiw$aoEV1RaW+gYeTCZQKW5BjJo1iKizK/C+rOVH1yq6/2I', '0000', '0000I', 3, 1, 1);
+select * from Usuario;
