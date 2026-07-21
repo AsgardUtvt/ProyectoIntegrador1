@@ -5,7 +5,7 @@ import sys
 import os.path
 import os
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
-from Documentacion.QtDesigner.login_ui import Ui_MainWindow
+from Login.LoginApp import Login_App
 from Login.Functions.Encrypt import Encrypt
 
 if __package__ is None and not getattr(sys, 'frozen', False):
@@ -16,11 +16,6 @@ if __package__ is None and not getattr(sys, 'frozen', False):
 
 en = Encrypt()
 print(en.generate_password_hash("1234"), "1234")
-class LoginApp(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
 
 
 def main():
@@ -38,8 +33,8 @@ def main():
         db.open_db()
         print("Hay conexion a base de datos")
         app = QApplication(sys.argv)
-        ventana = LoginApp()
-        ventana.show()
+        ventana = Login_App(db)
+        ventana.main_window.show()
         sys.exit(app.exec())
 
     except Exception as e:
