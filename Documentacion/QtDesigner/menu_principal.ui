@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>d_menu_principal</class>
- <widget class="QDialog" name="d_menu_principal">
+ <class>f_menu_principa</class>
+ <widget class="QWidget" name="f_menu_principa">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,21 +11,8 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Menu principal</string>
+   <string>SIHMED - Menu</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>20</y>
-     <width>101</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Menu princial</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
