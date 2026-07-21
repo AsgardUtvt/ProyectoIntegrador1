@@ -1,4 +1,6 @@
 ''' Se importan clases a utilizar '''
+from sys import exception
+
 from ...BaseDatos.MySqlManager import MySqlManager
 
 class Usuario_Model:
@@ -25,13 +27,13 @@ class Usuario_Model:
         self.id_consultorio = id_consultorio
         self.id_esucela = id_esucela
 
-    def crear_usuario(self):
+    def crear_usuario(self, db: MySqlManager):
         '''
         Para usar esta funcion se necesita cerar el consturcto de la clase
         '''
         try:
-            with MySqlManager.obtener_cursor()  as cursor:
+            with db.obtener_cursor()  as cursor:
                 sql_instert = "INSERT INTO Usuario(usuario_name, usuario_paterno, usuario_materno, usuario_password, usuario_cedula_profesional, usuario_cedula_especialidad, id_tipo_usuario, id_consultorio, id_escuela) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(sql_instert, )
-        finally:
-            cursor.commit()
+        except Exception as e:
+            print(f"Error critio: {e}")
