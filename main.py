@@ -5,7 +5,7 @@ import sys
 import os.path
 import os
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
-from Login.LoginApp import Login_App
+from ventana_indice import Ventana_Indice
 from Login.Functions.Encrypt import Encrypt
 
 if __package__ is None and not getattr(sys, 'frozen', False):
@@ -33,8 +33,8 @@ def main():
         db.open_db()
         print("Hay conexion a base de datos")
         app = QApplication(sys.argv)
-        ventana = Login_App(db)
-        ventana.main_window.show()
+        ventana = Ventana_Indice(db)
+        ventana.showMaximized()
         sys.exit(app.exec())
 
     except Exception as e:

@@ -1,39 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>d_crear_usuario</class>
- <widget class="QDialog" name="d_crear_usuario">
+ <class>f_crear_usuario</class>
+ <widget class="QWidget" name="f_crear_usuario">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>941</width>
-    <height>328</height>
+    <width>1045</width>
+    <height>373</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Crear usuario</string>
+   <string>SIHMED - Crear usuario</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>20</y>
-     <width>121</width>
-     <height>31</height>
+     <x>280</x>
+     <y>150</y>
+     <width>141</width>
+     <height>18</height>
     </rect>
    </property>
    <property name="text">
-    <string># Usuario</string>
+    <string>Apellido paterno:</string>
    </property>
-   <property name="textFormat">
-    <enum>Qt::TextFormat::MarkdownText</enum>
+  </widget>
+  <widget class="QComboBox" name="cb_escuela">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>270</y>
+     <width>351</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>140</y>
+     <width>141</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Apellido materno:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_cedula_profesional">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>190</y>
+     <width>221</width>
+     <height>25</height>
+    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>90</y>
+     <x>40</x>
+     <y>160</y>
      <width>71</width>
      <height>18</height>
     </rect>
@@ -42,24 +72,11 @@
     <string>Nombre:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>161</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cedula profesional:</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>200</y>
+     <x>40</x>
+     <y>270</y>
      <width>181</width>
      <height>18</height>
     </rect>
@@ -71,8 +88,8 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>170</y>
+     <x>40</x>
+     <y>240</y>
      <width>111</width>
      <height>18</height>
     </rect>
@@ -81,42 +98,12 @@
     <string>Tipo usuario:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cb_tipo_usuario">
+  <widget class="QLineEdit" name="le_apellido_materno">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>160</y>
-     <width>161</width>
-     <height>26</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="cb_escuela">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>200</y>
-     <width>351</width>
-     <height>26</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="le_cedula_profesional">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>120</y>
-     <width>221</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="le_nombre_usuario">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>80</y>
-     <width>181</width>
+     <x>760</x>
+     <y>130</y>
+     <width>201</width>
      <height>25</height>
     </rect>
    </property>
@@ -124,8 +111,8 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>120</y>
+     <x>440</x>
+     <y>190</y>
      <width>181</width>
      <height>18</height>
     </rect>
@@ -134,34 +121,70 @@
     <string>Cedula de especialidad:</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>820</x>
+     <y>340</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Crear usuario</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cb_tipo_usuario">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>230</y>
+     <width>161</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_nombre_usuario">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>150</y>
+     <width>181</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QLineEdit" name="le_cedula_especialidad">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>120</y>
+     <x>620</x>
+     <y>190</y>
      <width>211</width>
      <height>25</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>80</y>
-     <width>141</width>
-     <height>18</height>
+     <x>360</x>
+     <y>90</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Apellido paterno:</string>
+    <string># Usuario</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::MarkdownText</enum>
    </property>
   </widget>
   <widget class="QLineEdit" name="le_apellido_paterno">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>70</y>
+     <x>420</x>
+     <y>140</y>
      <width>191</width>
      <height>25</height>
     </rect>
@@ -170,40 +193,17 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_8">
+  <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>70</y>
-     <width>141</width>
+     <x>40</x>
+     <y>200</y>
+     <width>161</width>
      <height>18</height>
     </rect>
    </property>
    <property name="text">
-    <string>Apellido materno:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="le_apellido_materno">
-   <property name="geometry">
-    <rect>
-     <x>730</x>
-     <y>60</y>
-     <width>201</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>790</x>
-     <y>270</y>
-     <width>131</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Crear usuario</string>
+    <string>Cedula profesional:</string>
    </property>
   </widget>
  </widget>
