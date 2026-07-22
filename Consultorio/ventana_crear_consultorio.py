@@ -1,10 +1,9 @@
-from PyQt6.uic.uiparser import QtWidgets
-
 from BaseDatos.MySqlManager import MySqlManager
-from Documentacion.QtDesigner.consultorio_crear_ui import Ui_d_crear_consultorio
-from Documentacion.QtDesigner.menu_principal_ui import  Ui_d_menu_principal
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget
 from PyQt6 import uic
+from Consultorio.Model.consultorio_model import Consultorio_Model
+from Consultorio.Servicio.estado_servicio import Estado_Servicio
+from message_box import Message_Box
 
 class Vetana_Crear_Consultorio(QWidget):
 
@@ -13,5 +12,19 @@ class Vetana_Crear_Consultorio(QWidget):
         self.navegar = navegar
         self.db = db
         uic.loadUi("Documentacion/QtDesigner/consultorio_crear.ui", self)
+        self.mb = Message_Box()
+        self.es = Estado_Servicio()
+        self.cb_estado.addItems(self.llenar_cbx_estado())
 
+    def llenar_cbx_estado(self) -> list:
+        try:
+            tupla_estado = self.es.obtener_estado(self.db)
+            lista_texto = [fila["concat"] for fila in tupla_estado]
+
+            return  lista_texto
+        except Exception as e:
+            print(f"Erorr critico: {e}")
+            self.mb.message_box("info", "Error", "No se logro cargar los estados")
+            self.navegar.ir_a_ventan("login")
+            return []
 
