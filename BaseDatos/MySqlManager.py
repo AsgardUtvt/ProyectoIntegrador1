@@ -27,3 +27,6 @@ class MySqlManager(DataBaseInterface):
         finally:
             cursor.close()
             print("Se cerro la conexion atumaticamente")
+
+    def commit_conexion(self):
+       self.conexion.commit()
