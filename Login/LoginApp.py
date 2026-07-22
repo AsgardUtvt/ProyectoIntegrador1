@@ -14,6 +14,7 @@ class Login_App(QWidget):
         self.db = db
         uic.loadUi("Documentacion/QtDesigner/login.ui", self)
         self.pb_ingresar.clicked.connect(lambda: self.bt_ingresar_logica(self.le_usuario.text(),self.le_contrasena.text()))
+        self.clb_crear_conultorio.clicked.connect(lambda: self.clb_crear_cuenta_usuario())
 
 
     def bt_ingresar_logica(self, le_usuario, le_password):
@@ -26,4 +27,6 @@ class Login_App(QWidget):
         else:
             QMessageBox.information(self, "Erorr", "Usuario no encontrado")
 
-#    def lbt_crear_cuenta_usuario(self)
+    def clb_crear_cuenta_usuario(self):
+        self.navegar.ir_a_ventana("crear_consultorio")
+

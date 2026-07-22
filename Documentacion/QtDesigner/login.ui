@@ -139,7 +139,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QCommandLinkButton" name="clb_crear_conultori">
+  <widget class="QCommandLinkButton" name="clb_crear_conultorio">
    <property name="geometry">
     <rect>
      <x>500</x>

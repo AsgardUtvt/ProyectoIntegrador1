@@ -39,6 +39,9 @@ def main():
 
     except Exception as e:
         print(f"Error critico: {e}")
+    finally:
+        db.close_db()
+        print("Se cerro la conexión a la base de datos")
 
 
 if __name__ == '__main__':
