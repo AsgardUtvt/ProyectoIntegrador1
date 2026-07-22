@@ -1,3 +1,4 @@
+import traceback
 from dotenv import load_dotenv
 from BaseDatos.MySqlManager import MySqlManager
 import pymysql
@@ -39,6 +40,7 @@ def main():
 
     except Exception as e:
         print(f"Error critico: {e}")
+        traceback.print_exc()
     finally:
         db.close_db()
         print("Se cerro la conexión a la base de datos")
