@@ -1,7 +1,6 @@
 ''' Se importan clases a utilizar '''
-from sys import exception
-
-from ...BaseDatos.MySqlManager import MySqlManager
+from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
+from BaseDatos.MySqlManager import MySqlManager
 
 class Usuario_Model:
     ''' Se genera una clase model para entidad Usuario de la base '''
@@ -35,5 +34,8 @@ class Usuario_Model:
             with db.obtener_cursor()  as cursor:
                 sql_instert = "INSERT INTO Usuario(usuario_name, usuario_paterno, usuario_materno, usuario_password, usuario_cedula_profesional, usuario_cedula_especialidad, id_tipo_usuario, id_consultorio, id_escuela) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(sql_instert, )
+                user = cursor.lastrowid
+                AIUCSG.agregar_id("use", user)
+                print(AIUCSG.obtener_id())
         except Exception as e:
             print(f"Error critio: {e}")

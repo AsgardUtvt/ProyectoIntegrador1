@@ -1,6 +1,6 @@
 from BaseDatos.MySqlManager import MySqlManager
 
-class Estado_Servicio:
+class General_Consultorio_Service:
 
     @staticmethod
     def obtener_estado(db: MySqlManager) -> tuple:
