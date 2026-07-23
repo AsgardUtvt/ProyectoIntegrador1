@@ -6,8 +6,10 @@ import sys
 import os.path
 import os
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
+import almacendar_id_us_con
 from ventana_indice import Ventana_Indice
 from Login.Functions.Encrypt import Encrypt
+from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG
 
 if __package__ is None and not getattr(sys, 'frozen', False):
     # Obtiene la ruta absoluta de este main.py
@@ -41,9 +43,11 @@ def main():
     except Exception as e:
         print(f"Error critico: {e}")
         traceback.print_exc()
-    finally:
-        db.close_db()
-        print("Se cerro la conexión a la base de datos")
+        if db.open_db():
+            print("La conexion se perdio por completo debido a un error")
+            db.close_db()
+        else:
+            print("El error no afecto a la base de datos")
 
 
 if __name__ == '__main__':

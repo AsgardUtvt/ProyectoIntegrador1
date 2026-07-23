@@ -1,7 +1,7 @@
 ''' se importan las librerias necesarias '''
 from BaseDatos.MySqlManager import MySqlManager
 from Login.LoginApp import Login_App
-from Usuario.vetana_crear_usuario import Ventana_Crear_Usuario
+from Usuario.ventana_crear_usuario import Ventana_Crear_Usuario
 from Consultorio.ventana_crear_consultorio import Vetana_Crear_Consultorio
 from Menu.ventana_menu import Ventana_Menu_Principal
 

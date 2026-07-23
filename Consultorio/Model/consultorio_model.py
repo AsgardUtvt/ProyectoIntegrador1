@@ -1,5 +1,5 @@
 from BaseDatos.MySqlManager import MySqlManager
-
+from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
 
 class Consultorio_Model:
 
@@ -38,15 +38,15 @@ class Consultorio_Model:
                        self.consultorio_telefono_dos,
                        self.consultorio_municipio,
                        self.consultorio_cp)
-    def obtener_estados(self, db: MySqlManager):
-        pass
 
     def insertar_datos(self, db: MySqlManager) -> bool:
         try:
             with db.obtener_cursor() as cursor:
-                sql_insert = "INSERT INTO Consultorio(consultorio_name, consultorio_calle, consultorio_colonia, consultorio_num_exterior, consultorio_num_interior, consultorio_localidad, id_estado, consultorio_telefono, consultorio_telefono_dos, consultorio_municipio, consultorio_cp) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                sql_insert = "INSERT INTO Consultorio(consultorio_name, consultorio_calle, consultorio_colonia, consultorio_num_exterior, consultorio_num_interior, consultorio_localidad, id_estado, consultorio_telefono, consultorio_telefono_dos, consultorio_municipio, consultorio_cp) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING "
                 cursor.execute(sql_insert, self.tupla_datos)
             db.commit_conexion()
+            consul = cursor.lastrowid
+            AIUCSG.agregar_id("con",consul)
             return True
         except Exception as e:
             print(f"Erorr critico: {e}")

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SIHMED - Crear usuario</string>
+   <string>SIHMED - Crear propietario</string>
   </property>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>270</y>
+     <y>230</y>
      <width>351</width>
      <height>26</height>
     </rect>
@@ -76,26 +76,13 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>270</y>
+     <y>230</y>
      <width>181</width>
      <height>18</height>
     </rect>
    </property>
    <property name="text">
     <string>Esuela de procedencia:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>240</y>
-     <width>111</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Tipo usuario:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="le_apellido_materno">
@@ -121,12 +108,12 @@
     <string>Cedula de especialidad:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pb_craer_usuario">
    <property name="geometry">
     <rect>
      <x>820</x>
      <y>340</y>
-     <width>131</width>
+     <width>161</width>
      <height>21</height>
     </rect>
    </property>
@@ -134,20 +121,10 @@
     <string>Crear usuario</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cb_tipo_usuario">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>230</y>
-     <width>161</width>
-     <height>26</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="le_nombre_usuario">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>100</x>
      <y>150</y>
      <width>181</width>
      <height>25</height>
@@ -204,6 +181,29 @@
    </property>
    <property name="text">
     <string>Cedula profesional:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>270</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Contraesña:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_contrasena">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>270</y>
+     <width>431</width>
+     <height>25</height>
+    </rect>
    </property>
   </widget>
  </widget>

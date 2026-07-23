@@ -19,12 +19,12 @@ class Login_App(QWidget):
         usuario = le_usuario.strip()
         password =  le_password.strip()
         if not usuario or not password:
-            self.mb.message_box("error", "Error", "Datos faltantes")
+            self.mb.message_box(self,"error", "Error", "Datos faltantes")
 
         elif usuario == "Asgard" and password == "1234":
             self.navegar.ir_a_ventana("menu_principal")
         else:
-            self.mb.message_box("info", "Error", "Usuario no encontrado")
+            self.mb.message_box(self,"info", "Error", "Usuario no encontrado")
 
     def clb_crear_cuenta_usuario(self):
         self.navegar.ir_a_ventana("crear_consultorio")
