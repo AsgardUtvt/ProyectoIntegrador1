@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>f_crear_consultorio</class>
+ <widget class="QWidget" name="f_crear_consultorio">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1065</width>
+    <height>383</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SIHMED - Crear consultorio</string>
+  </property>
+  <widget class="QLineEdit" name="le_municipio">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>250</y>
+     <width>211</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>220</y>
+     <width>131</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Número interior:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_num_interior">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>210</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Sn</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>250</y>
+     <width>151</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Localidad:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>100</y>
+     <width>191</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string># Consultorio</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::MarkdownText</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>220</y>
+     <width>51</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Calle:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>280</y>
+     <width>61</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Estado:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>250</y>
+     <width>41</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>C.P.:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>250</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Municipio:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_calle">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>220</y>
+     <width>231</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_num_exterior">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>220</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Sn</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_cp">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>250</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_nombre_consultorio">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>190</y>
+     <width>431</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cb_estado">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>280</y>
+     <width>171</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="maxCount">
+    <number>34</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_crear_usuario">
+   <property name="geometry">
+    <rect>
+     <x>715</x>
+     <y>320</y>
+     <width>111</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Crear usuario</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>220</y>
+     <width>131</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Número exterior:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_localidad">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>250</y>
+     <width>131</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>190</y>
+     <width>61</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nombre:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>280</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Telefono 1:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_telefono">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>280</y>
+     <width>131</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>280</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Telefono 2:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_telefono_dos">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>280</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>250</y>
+     <width>71</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Colonia:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_colonia">
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>250</y>
+     <width>171</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

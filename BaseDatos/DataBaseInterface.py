@@ -21,3 +21,8 @@ class DataBaseInterface(ABC):
     @abstractmethod
     def obtener_cursor(self) -> Generator[Any, None, None]:
         yield
+
+    @abstractmethod
+    def commit_conexion(self):
+        ''' Metodo para confirmar que se guardaron los datos '''
+        pass

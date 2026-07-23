@@ -16,6 +16,7 @@ class MySqlManager(DataBaseInterface):
     def close_db(self):
         if self.conexion:
             self.conexion.close()
+            print("conexion apagoda exitosamente")
 
     @contextmanager
     def obtener_cursor(self) :
@@ -26,4 +27,8 @@ class MySqlManager(DataBaseInterface):
             yield cursor
         finally:
             cursor.close()
-            print("Se cerro la conexion atumaticamente")
+            print("Se cerro la conexion atumaticamente del cursor")
+
+    def commit_conexion(self):
+       self.conexion.commit()
+
