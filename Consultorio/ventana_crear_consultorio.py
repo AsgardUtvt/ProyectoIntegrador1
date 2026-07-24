@@ -7,6 +7,7 @@ from Consultorio.Model.consultorio_model import Consultorio_Model
 from Consultorio.Servicio.general_consultorio_service import General_Consultorio_Service as GCS
 from message_box import Message_Box
 from limitar_intput import Limitar_Intput
+from general_sistem_service import General_Sistem_Service as GSS
 
 class Vetana_Crear_Consultorio(QWidget):
     _TUPLA_DATOS = ()
@@ -26,8 +27,8 @@ class Vetana_Crear_Consultorio(QWidget):
         self.le_num_exterior.setValidator(Limitar_Intput.limitar_caracteres("numero_calle"))
         self.le_num_interior.setValidator(Limitar_Intput.limitar_caracteres("numero_calle"))
         self.le_calle.setValidator(Limitar_Intput.limitar_caracteres("calle"))
-        self.le_telefono.setValidator(Limitar_Intput.limitar_caracteres("numero_telefono"))
-        self.le_telefono_dos.setValidator(Limitar_Intput.limitar_caracteres("numero_telefono"))
+        self.le_telefono.setValidator(Limitar_Intput.limitar_caracteres("numero_telefonico"))
+        self.le_telefono_dos.setValidator(Limitar_Intput.limitar_caracteres("numero_telefonico"))
         self.pb_crear_usuario.clicked.connect(lambda: self.btn_crear_consultorio())
 
 
@@ -41,7 +42,7 @@ class Vetana_Crear_Consultorio(QWidget):
         except Exception as e:
             print(f"Erorr critico: {e}")
             self.mb.message_box(self,"info", "Error", "No se logro cargar los estados")
-            self.navegar.ir_a_ventan("login")
+            self.navegar.ir_a_ventana("login")
             return []
 
     def btn_crear_consultorio(self):
@@ -87,15 +88,7 @@ class Vetana_Crear_Consultorio(QWidget):
             if not localidad:
                 datos_faltantes.append("Localidad")
             estado = str(self.cb_estado.currentText())
-            for letras in estado:
-                 if letras.isdigit():
-                    digitos_id_estado.append(letras)
-                 if digitos_id_estado:
-                     digitos = int("".join(digitos_id_estado))
-                 else:
-                     raise ValueError(f"No hay ningun valor en la lista digitos_id_estado: {digitos_id_estado}, valor de estado es: {estado}")
-
-            digitos = int("".join(digitos_id_estado))
+            digitos = GSS.obtener_solo_numeros(estado)
             if not digitos:
                 datos_faltantes.append("Estado")
             telefono = self.le_telefono.text()
@@ -132,10 +125,12 @@ class Vetana_Crear_Consultorio(QWidget):
                         c_municipio=municipio,
                         c_cp=cp
                     )
-                    mdc.insertar_datos(self.db)
-                    tipo, titulo, mensaje = "info", "Generado con exito", "Se genero con exito el consultorio"
-                    self.mb.message_box(self, tipo=tipo, titulo=titulo, mensaje=mensaje)
-                    self.navegar.ir_a_ventana("crear_usuario")
+                    if mdc.insertar_datos(self.db):
+                        tipo, titulo, mensaje = "info", "Generado con exito", "Se genero con exito el consultorio"
+                        self.mb.message_box(self, tipo=tipo, titulo=titulo, mensaje=mensaje)
+                        self.navegar.ir_a_ventana("crear_usuario")
+                    else:
+                        self.mb.message_box(self,"error","Error", "Hubo un error al generar el consultorio")
                 except Exception as e:
                     print(f"Erorr cirtico {e}")
                     tipo, titulo, mensaje = "error", "Consultorio", "No se pudo genrear el consultorio"

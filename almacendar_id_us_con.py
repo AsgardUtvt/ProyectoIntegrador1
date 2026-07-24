@@ -9,16 +9,25 @@ class Almacenar_Id_Usuario_Consultorio_SG:
         return cls._instansia
 
     @classmethod
-    def agregar_id(cls, tipo: str, ids: int):
-        """ se alamcenan los id """
-        cls.ids[tipo]=ids
+    def agregar_id_usuario(cls, id_usuario: int):
+        """ se alamcenan los id del usuario"""
+        cls.ids["usu"]=id_usuario
 
     @classmethod
-    def obtener_id(cls) -> tuple:
-        """ Se obitenen los id
-            se retorna en una tupla para inmutabilidad
+    def agregar_id_consultorio(cls, id_consultorio: int):
+
+        cls.ids["con"]=id_consultorio
+
+    @classmethod
+    def obtener_id_usuario(cls) -> int:
         """
-        id_lista = []
-        for Id in cls.ids.values():
-            id_lista.append(Id)
-        return tuple(id_lista)
+        Se obitenen los id
+        se retorna en una tupla para inmutabilidad
+        """
+        return cls.ids.get("usu", 0)
+
+    @classmethod
+    def obetner_id_consultorio(cls) -> int:
+
+        return cls.ids.get("con", 0)
+

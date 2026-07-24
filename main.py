@@ -1,12 +1,11 @@
-import traceback
 from dotenv import load_dotenv
 from BaseDatos.MySqlManager import MySqlManager
 import pymysql
 import sys
 import os.path
 import os
+import traceback
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
-import almacendar_id_us_con
 from ventana_indice import Ventana_Indice
 from Login.Functions.Encrypt import Encrypt
 from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG

@@ -4,7 +4,7 @@ from Login.LoginApp import Login_App
 from Usuario.ventana_crear_usuario import Ventana_Crear_Usuario
 from Consultorio.ventana_crear_consultorio import Vetana_Crear_Consultorio
 from Menu.ventana_menu import Ventana_Menu_Principal
-
+from Usuario.ventana_modificar_usuario import Ventana_Moficar_Usuario
 
 from PyQt6.QtWidgets import QMainWindow, QStackedWidget
 
@@ -22,18 +22,21 @@ class Ventana_Indice(QMainWindow):
             "login": 0,
             "menu_principal": 1,
             "crear_consultorio": 2,
-            "crear_usuario": 3
+            "crear_usuario": 3,
+            "modificar_usuario": 4
         }
         # Se generan las ventanas a ocupar
         self.main_window = Login_App( db, self)
         self.main_ventana_base = Ventana_Menu_Principal( db, self)
         self.main_ventana_crear_consultorio = Vetana_Crear_Consultorio(db, self)
         self.main_ventana_crear_usuario = Ventana_Crear_Usuario(db, self)
+        self.main_modificar_usuario = Ventana_Moficar_Usuario(db, self)
         # Al momento de agregar una vista nueva tambien se tiene que agregar en el mismo orden que el diccionario
         self.stacked.addWidget(self.main_window)
         self.stacked.addWidget(self.main_ventana_base)
         self.stacked.addWidget(self.main_ventana_crear_consultorio)
         self.stacked.addWidget(self.main_ventana_crear_usuario)
+        self.stacked.addWidget(self.main_modificar_usuario)
         self.ir_a_ventana("login")
 
     def ir_a_ventana(self, nombre_ventana):

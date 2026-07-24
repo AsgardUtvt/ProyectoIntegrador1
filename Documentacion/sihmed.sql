@@ -834,11 +834,10 @@ CREATE TABLE `Usuario` (
   `id_consultorio` int(11) NOT NULL,
   `id_escuela` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `usuario_cedula_profesional` (`usuario_cedula_profesional`),
-  UNIQUE KEY `usuario_cedula_especialidad` (`usuario_cedula_especialidad`),
   KEY `FK_TIPOUSUARIO_USUARIO` (`id_tipo_usuario`),
   KEY `FK_CONSULTORIO_USUARIO` (`id_consultorio`),
   KEY `FK_ESCUELA_USUARIO` (`id_escuela`),
+  KEY `INDEX_USUARIO_CONTRASEÑA` (`usuario_password`,`usuario_name`),
   CONSTRAINT `FK_CONSULTORIO_USUARIO` FOREIGN KEY (`id_consultorio`) REFERENCES `Consultorio` (`id_consultorio`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_ESCUELA_USUARIO` FOREIGN KEY (`id_escuela`) REFERENCES `Escuela` (`id_escuela`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_TIPOUSUARIO_USUARIO` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `Tipo_Usuario` (`id_tipo_usuario`) ON DELETE NO ACTION ON UPDATE CASCADE
@@ -895,7 +894,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-07-20 20:55:50
-INSERT INTO Usuario(usuario_name, usuario_paterno, usuario_materno, usuario_password, usuario_cedula_profesional, usuario_cedula_especialidad, id_tipo_usuario, id_consultorio, id_escuela)
-VALUES('Asgard'	,'Juarez', 'Campos', '$argon2id$v=19$m=65536,t=3,p=4$HVLNnRQ6uBxjVlHeyFwmiw$aoEV1RaW+gYeTCZQKW5BjJo1iKizK/C+rOVH1yq6/2I', '0000', '0000I', 3, 1, 1);
-select * from Usuario;
+-- Dump completed on 2026-07-23 16:11:03

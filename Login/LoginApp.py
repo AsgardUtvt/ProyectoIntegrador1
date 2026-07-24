@@ -1,7 +1,7 @@
 from PyQt6.uic.uiparser import QtWidgets
 from message_box import Message_Box
 from BaseDatos.MySqlManager import MySqlManager
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget, QLineEdit
 from PyQt6 import uic
 
 class Login_App(QWidget):
@@ -11,6 +11,7 @@ class Login_App(QWidget):
         self.navegar = navegar
         self.db = db
         uic.loadUi("Documentacion/QtDesigner/login.ui", self)
+        self.le_contrasena.setEchoMode(QLineEdit.EchoMode.Password)
         self.pb_ingresar.clicked.connect(lambda: self.bt_ingresar_logica(self.le_usuario.text(),self.le_contrasena.text()))
         self.clb_crear_conultorio.clicked.connect(lambda: self.clb_crear_cuenta_usuario())
 
