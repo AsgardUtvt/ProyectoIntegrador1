@@ -22,7 +22,14 @@ class Ventana_Indice(QMainWindow):
             "login": 0,
             "menu_principal": 1,
             "crear_consultorio": 2,
-            "crear_usuario": 3
+            "crear_usuario": 3,
+            
+            
+            "Citas":15,
+            "generar_cita":16,
+            "modificar_citas":17,
+            "eliminar_citas":18,
+            
         }
         # Se generan las ventanas a ocupar
         self.main_window = Login_App( db, self)
@@ -48,4 +55,6 @@ class Ventana_Indice(QMainWindow):
                 self.setWindowTitle("SIHMED")
         else:
             print(f"La ventana {nombre_ventana}, no existe en el diccionario")
+            
+
 

@@ -69,13 +69,13 @@ class MedicamentosWindow(QMainWindow):
         self.btn_generar.clicked.connect(self.generar_medicamento)
         right_layout.addWidget(self.btn_generar)
 
-        # Botón Modificar Medicamento
+        # Botón Modificar Medicamento #
         self.btn_modificar = QPushButton("Modificar Medicamento")
         self.btn_modificar.setStyleSheet("background-color: #f39c12; color: white; padding: 10px; font-weight: bold;")
         self.btn_modificar.clicked.connect(self.modificar_medicamento)
         right_layout.addWidget(self.btn_modificar)
 
-        # Botón Eliminar Medicamento
+        # Botón Eliminar Medicamento#
         self.btn_eliminar = QPushButton("Eliminar Medicamento")
         self.btn_eliminar.setStyleSheet("background-color: #e74c3c; color: white; padding: 10px; font-weight: bold;")
         self.btn_eliminar.clicked.connect(self.eliminar_medicamento)

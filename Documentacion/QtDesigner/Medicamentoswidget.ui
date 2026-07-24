@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MedicamentosWidget</class>
+ <widget class="QWidget" name="MedicamentosWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>648</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>840</x>
+     <y>10</y>
+     <width>150</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="rightLayout">
+    <item>
+     <spacer name="sp1">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnRegistrar">
+      <property name="text">
+       <string>Registrar Medicamento</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnModificar">
+      <property name="text">
+       <string>Modificar Medicamento</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnEliminar">
+      <property name="text">
+       <string>Eliminar Medicamento</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnActualizar">
+      <property name="text">
+       <string>Actualizar Lista</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="sp2">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnVolver">
+      <property name="text">
+       <string>Volver al Menú</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>821</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="leftLayout">
+    <item>
+     <widget class="QLabel" name="lblTitulo">
+      <property name="text">
+       <string>Gestión de Inventario de Medicamentos</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="txtBuscar">
+      <property name="placeholderText">
+       <string>Buscar medicamento...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="tableMedicamentos">
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="grpDetalle">
+      <property name="title">
+       <string>Detalles</string>
+      </property>
+      <layout class="QVBoxLayout" name="detalleLayout">
+       <item>
+        <widget class="QLabel" name="lblDetalle">
+         <property name="text">
+          <string>Seleccione un medicamento para ver sus detalles.</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

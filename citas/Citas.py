@@ -8,15 +8,15 @@ from PyQt6.QtCore import QDate
 
 class CitasWindow(QMainWindow):
     def __init__(self, menu_principal_callback=None):
+        
         super().__init__()
         self.menu_principal_callback = menu_principal_callback
-        
         
         self.db_config = {
             'host': 'localhost',
             'database': 'sihmed',
             'user': 'root',
-            'password': '' ##contraseña si la requiere
+            'password': '' ## contraseña si la requiere
         }
         
         self.init_ui()
@@ -108,10 +108,8 @@ class CitasWindow(QMainWindow):
         citas = []
         try:
             cursor = conexion.cursor(dictionary=True)
-            # Extraemos la fecha en formato YYYY-MM-DD para comparar con cita_date (datetime)
             fecha_str = fecha_qdate.toString("yyyy-MM-dd")
             
-            # Consulta uniendo tablas según tu esquema relacional
             query = """
                 SELECT c.id_cita, c.cita_date, c.cita_nota, 
                        p.paciente_name, p.paciente_paterno, 
@@ -154,7 +152,6 @@ class CitasWindow(QMainWindow):
         """Lógica para insertar una nueva cita en la tabla `Cita`."""
         fecha_seleccionada = self.calendar.selectedDate()
         
-        # Ejemplo rápido de captura de IDs requeridos por tus Foreign Keys
         id_paciente, ok_p = QInputDialog.getInt(self, "Generar Cita", "Ingrese el ID del Paciente:")
         if not ok_p: return
         
@@ -173,7 +170,6 @@ class CitasWindow(QMainWindow):
         hora_str, ok_h = QInputDialog.getText(self, "Generar Cita", "Hora de la cita (HH:MM:SS):", text="10:00:00")
         if not ok_h: return
 
-        # Construir el datetime completo
         fecha_hora_str = f"{fecha_seleccionada.toString('yyyy-MM-dd')} {hora_str}"
 
         conexion = self.conectar_db()
@@ -202,12 +198,10 @@ class CitasWindow(QMainWindow):
             QMessageBox.warning(self, "Atención", "No hay citas en este día para modificar.")
             return
 
-        # Crear opciones legibles para el usuario
         opciones = [f"ID: {c['id_cita']} - {c['paciente_name']} ({c['cita_date'].strftime('%H:%M')})" for c in citas_del_dia]
         seleccion, ok = QInputDialog.getItem(self, "Modificar Cita", "Seleccione la cita a modificar:", opciones, 0, False)
         
         if ok and seleccion:
-            # Extraer el ID de la cita seleccionada
             id_cita = int(seleccion.split(" - ")[0].replace("ID: ", ""))
             
             nueva_nota, ok_nota = QInputDialog.getText(self, "Modificar Cita", "Actualizar nota de la cita:")
