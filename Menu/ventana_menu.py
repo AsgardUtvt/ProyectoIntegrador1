@@ -1,8 +1,6 @@
 from PyQt6.uic.uiparser import QtWidgets
 
 from BaseDatos.MySqlManager import MySqlManager
-from Documentacion.QtDesigner.menu_principal_ui import Ui_d_menu_principal
-from Documentacion.QtDesigner.menu_principal_ui import  Ui_d_menu_principal
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget
 from PyQt6 import uic
 

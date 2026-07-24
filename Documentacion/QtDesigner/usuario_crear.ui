@@ -108,7 +108,7 @@
     <string>Cedula de especialidad:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pb_craer_usuario">
+  <widget class="QPushButton" name="pb_crear_usuario">
    <property name="geometry">
     <rect>
      <x>820</x>

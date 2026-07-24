@@ -42,11 +42,12 @@ class Consultorio_Model:
     def insertar_datos(self, db: MySqlManager) -> bool:
         try:
             with db.obtener_cursor() as cursor:
-                sql_insert = "INSERT INTO Consultorio(consultorio_name, consultorio_calle, consultorio_colonia, consultorio_num_exterior, consultorio_num_interior, consultorio_localidad, id_estado, consultorio_telefono, consultorio_telefono_dos, consultorio_municipio, consultorio_cp) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING "
+                sql_insert = "INSERT INTO Consultorio(consultorio_name, consultorio_calle, consultorio_colonia, consultorio_num_exterior, consultorio_num_interior, consultorio_localidad, id_estado, consultorio_telefono, consultorio_telefono_dos, consultorio_municipio, consultorio_cp) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
                 cursor.execute(sql_insert, self.tupla_datos)
             db.commit_conexion()
             consul = cursor.lastrowid
-            AIUCSG.agregar_id("con",consul)
+            AIUCSG.agregar_id_consultorio(consul)
+            print(AIUCSG.obetner_id_consultorio())
             return True
         except Exception as e:
             print(f"Erorr critico: {e}")

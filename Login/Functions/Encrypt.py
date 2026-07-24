@@ -27,5 +27,8 @@ class Encrypt:
         Generar un hash de la contraseña he insertarlo en la base de datos,
         al momento de generar un usuario.
         '''
+        password.strip()
+        if not password:
+            return ""
         hash_psw = ph.hash(password)
         return hash_psw

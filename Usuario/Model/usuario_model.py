@@ -35,7 +35,7 @@ class Usuario_Model:
                 sql_instert = "INSERT INTO Usuario(usuario_name, usuario_paterno, usuario_materno, usuario_password, usuario_cedula_profesional, usuario_cedula_especialidad, id_tipo_usuario, id_consultorio, id_escuela) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(sql_instert, )
                 user = cursor.lastrowid
-                AIUCSG.agregar_id("use", user)
-                print(AIUCSG.obtener_id())
+                AIUCSG.agregar_id_usuario(user)
+                print(AIUCSG.obtener_id_usuario())
         except Exception as e:
             print(f"Error critio: {e}")
