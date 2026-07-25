@@ -23,7 +23,6 @@ class Ventana_Indice(QMainWindow):
             "menu_principal": 1,
             "crear_consultorio": 2,
             "crear_usuario": 3,
-            "modificar_usuario": 4
         }
         # Se generan las ventanas a ocupar
         self.main_window = Login_App( db, self)

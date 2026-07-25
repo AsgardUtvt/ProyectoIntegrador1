@@ -6,4 +6,6 @@ CasosDeUso/
 *.bak[0-9]
 *.bak
 *.lck
+logs.txt
+
 

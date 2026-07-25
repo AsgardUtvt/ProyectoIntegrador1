@@ -1,0 +1,5 @@
+USE sihmed;
+ALTER TABLE Consultorio DROP INDEX INDEX_CONSULTORIO_NAME;
+CREATE INDEX INDEX_CONSULTORIO_NAME ON Consultorio(consultorio_name);
+
+

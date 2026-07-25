@@ -67,6 +67,9 @@ class Ventana_Crear_Usuario(QWidget):
             if not digito_escuela:
                 lista_faltan.append("Escuela")
             if len(lista_faltan) > 0:
+                mensaje = "".join(lista_faltan)
+                self.mb.message_box(self, "info", "Faltan datos", mensaje=mensaje)
+            else:
                 try:
                     um = UM(
                         name=nombre,
@@ -75,11 +78,21 @@ class Ventana_Crear_Usuario(QWidget):
                         password=has_password,
                         cedula_especialidad=ced_especialidad,
                         cedula_profesional=ced_profesional,
-                        id_tipo_usuario=AIUCSG.obtener_id_usuario(),
+                        id_tipo_usuario=tipo_usuario,
                         id_consultorio=AIUCSG.obetner_id_consultorio(),
                         id_esucela=digito_escuela
                     )
-                    um.crear_usuario(self.db)
+                    nombre_lista = [nombre]
+                    cantidad = self.cantidad_usuario_duplicado(nombre_lista)
+                    if cantidad > 0:
+                        self.mb.message_box(self, "info", "Usuario duplicado", "Se encontro un usario duplicado, cambie el nombre de usuario")
+                    else:
+                        if um.crear_usuario(self.db):
+                            self.mb.message_box(self, "info", "Usario generado", "Usuario generado con exito")
+                            self.navegar.ir_a_ventana("menu_principal")
+                        else:
+                            self.mb.message_box(self, "error", "Usuario no generado", "El usario no se pudo generar")
+                            self.navegar.ir_a_ventana("login")
                 except Exception as e:
                     print(f"Error critico: {e}")
                     self.navegar.ir_a_ventana("login")
@@ -105,10 +118,18 @@ class Ventana_Crear_Usuario(QWidget):
         # Cambia un la lógica cuando se usa fetch one
         usuario_id = GUS.obtener_usuario_primeravez(self.db)
         if not usuario_id:
-            raise ValueError(f"No se encontro el usuario de la base de datos")
+            raise ValueError(f"No se encontro el tipo de usuario propietario de la base de datos")
         else:
             return usuario_id
 
     def obenter_consultorio(self):
        id_consultorio = AIUCSG.obetner_id_consultorio()
        return id_consultorio
+
+    def cantidad_usuario_duplicado(self, lista_nombre):
+       cantidad_duplicado = GUS.encontrar_duplicados_usuarios(self.db, lista_nombre)
+       if cantidad_duplicado:
+           return cantidad_duplicado
+       else:
+           return 0
+

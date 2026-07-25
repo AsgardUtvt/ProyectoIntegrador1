@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1065</width>
-    <height>383</height>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -186,17 +186,17 @@
     <number>34</number>
    </property>
   </widget>
-  <widget class="QPushButton" name="pb_crear_usuario">
+  <widget class="QPushButton" name="pb_crear_consultorio">
    <property name="geometry">
     <rect>
      <x>715</x>
      <y>320</y>
-     <width>111</width>
+     <width>141</width>
      <height>26</height>
     </rect>
    </property>
    <property name="text">
-    <string>Crear usuario</string>
+    <string>Crear consultorio</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">

@@ -31,12 +31,26 @@ class General_Usuario_Service:
 
     @staticmethod
     def obtener_usuario_primeravez(db: MySqlManager):
+        """
+        Obtiene el id de tipo de usuario Propietario
+        """
         try:
             with db.obtener_cursor() as cursor:
-                slq_select_propietario = "SELECT id_tipo_usuario AS 'Propietario' FROM Tipo_Usuario WHERE tipo_usuario LIKE 'P%ropietario';"
+                slq_select_propietario = "SELECT id_tipo_usuario AS 'Propietario' FROM Tipo_Usuario WHERE tipo_usuario LIKE 'Propietario';"
                 cursor.execute(slq_select_propietario)
                 resultado = cursor.fetchone()
                 return resultado.get("Propietario") if resultado else None
         except Exception as e:
             print(f"Erorr critico: {e}")
-            return  {}
+            return None 
+
+    @staticmethod
+    def encontrar_duplicados_usuarios(db: MySqlManager, nombre: list):
+        try:
+            with db.obtener_cursor() as cursor:
+                sql_select_duplicados_usuario = "SELECT COUNT(usuario_name) AS 'cantidad_usuario' FROM Usuario WHERE usuario_name LIKE %s;"
+                cursor.execute(sql_select_duplicados_usuario, nombre)
+                resultado_cantidad_usuario = cursor.fetchone()
+                return resultado_cantidad_usuario.get("cantidad_usuario") if resultado_cantidad_usuario else None
+        except Exception as e:
+            print(f"Error critico {e}")
