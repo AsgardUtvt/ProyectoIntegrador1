@@ -31,17 +31,24 @@ class General_Usuario_Service:
 
     @staticmethod
     def obtener_usuario_primeravez(db: MySqlManager):
+<<<<<<< HEAD
         """
         Obtiene el id de tipo de usuario Propietario
         """
         try:
             with db.obtener_cursor() as cursor:
                 slq_select_propietario = "SELECT id_tipo_usuario AS 'Propietario' FROM Tipo_Usuario WHERE tipo_usuario LIKE 'Propietario';"
+=======
+        try:
+            with db.obtener_cursor() as cursor:
+                slq_select_propietario = "SELECT id_tipo_usuario AS 'Propietario' FROM Tipo_Usuario WHERE tipo_usuario LIKE 'P%ropietario';"
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
                 cursor.execute(slq_select_propietario)
                 resultado = cursor.fetchone()
                 return resultado.get("Propietario") if resultado else None
         except Exception as e:
             print(f"Erorr critico: {e}")
+<<<<<<< HEAD
             return None 
 
     @staticmethod
@@ -54,3 +61,6 @@ class General_Usuario_Service:
                 return resultado_cantidad_usuario.get("cantidad_usuario") if resultado_cantidad_usuario else None
         except Exception as e:
             print(f"Error critico {e}")
+=======
+            return  {}
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540

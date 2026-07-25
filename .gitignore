@@ -6,6 +6,9 @@ CasosDeUso/
 *.bak[0-9]
 *.bak
 *.lck
+<<<<<<< HEAD
 logs.txt
 
+=======
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
 

@@ -1,8 +1,15 @@
 from PyQt6.uic.uiparser import QtWidgets
+<<<<<<< HEAD
 from BaseDatos.MySqlManager import MySqlManager
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget
 from PyQt6 import uic
 import os
+=======
+
+from BaseDatos.MySqlManager import MySqlManager
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget
+from PyQt6 import uic
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
 
 class Ventana_Menu_Principal(QWidget):
 
@@ -10,6 +17,7 @@ class Ventana_Menu_Principal(QWidget):
         super().__init__()
         self.navegar = navegar
         self.db = db
+<<<<<<< HEAD
         uic.loadUi("Documentacion/QtDesigner/menu_con_lista.ui", self)
 
         self.rutas_interfaces = {
@@ -61,3 +69,6 @@ class Ventana_Menu_Principal(QWidget):
             titulo = widget_actual.windowTitle() if widget_actual.windowTitle() else "SIHMED"
             self.window().setWindowTitle(titulo)
 
+=======
+        uic.loadUi("Documentacion/QtDesigner/menu_principal.ui", self)
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540

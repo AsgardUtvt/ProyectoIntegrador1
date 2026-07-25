@@ -7,7 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>1065</width>
+<<<<<<< HEAD
     <height>384</height>
+=======
+    <height>383</height>
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
    </rect>
   </property>
   <property name="windowTitle">
@@ -186,17 +190,29 @@
     <number>34</number>
    </property>
   </widget>
+<<<<<<< HEAD
   <widget class="QPushButton" name="pb_crear_consultorio">
+=======
+  <widget class="QPushButton" name="pb_crear_usuario">
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
    <property name="geometry">
     <rect>
      <x>715</x>
      <y>320</y>
+<<<<<<< HEAD
      <width>141</width>
+=======
+     <width>111</width>
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
      <height>26</height>
     </rect>
    </property>
    <property name="text">
+<<<<<<< HEAD
     <string>Crear consultorio</string>
+=======
+    <string>Crear usuario</string>
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
    </property>
   </widget>
   <widget class="QLabel" name="label_6">

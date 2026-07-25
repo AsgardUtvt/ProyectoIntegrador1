@@ -67,9 +67,12 @@ class Ventana_Crear_Usuario(QWidget):
             if not digito_escuela:
                 lista_faltan.append("Escuela")
             if len(lista_faltan) > 0:
+<<<<<<< HEAD
                 mensaje = "".join(lista_faltan)
                 self.mb.message_box(self, "info", "Faltan datos", mensaje=mensaje)
             else:
+=======
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
                 try:
                     um = UM(
                         name=nombre,
@@ -78,6 +81,7 @@ class Ventana_Crear_Usuario(QWidget):
                         password=has_password,
                         cedula_especialidad=ced_especialidad,
                         cedula_profesional=ced_profesional,
+<<<<<<< HEAD
                         id_tipo_usuario=tipo_usuario,
                         id_consultorio=AIUCSG.obetner_id_consultorio(),
                         id_esucela=digito_escuela
@@ -93,6 +97,13 @@ class Ventana_Crear_Usuario(QWidget):
                         else:
                             self.mb.message_box(self, "error", "Usuario no generado", "El usario no se pudo generar")
                             self.navegar.ir_a_ventana("login")
+=======
+                        id_tipo_usuario=AIUCSG.obtener_id_usuario(),
+                        id_consultorio=AIUCSG.obetner_id_consultorio(),
+                        id_esucela=digito_escuela
+                    )
+                    um.crear_usuario(self.db)
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
                 except Exception as e:
                     print(f"Error critico: {e}")
                     self.navegar.ir_a_ventana("login")
@@ -118,13 +129,18 @@ class Ventana_Crear_Usuario(QWidget):
         # Cambia un la lógica cuando se usa fetch one
         usuario_id = GUS.obtener_usuario_primeravez(self.db)
         if not usuario_id:
+<<<<<<< HEAD
             raise ValueError(f"No se encontro el tipo de usuario propietario de la base de datos")
+=======
+            raise ValueError(f"No se encontro el usuario de la base de datos")
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
         else:
             return usuario_id
 
     def obenter_consultorio(self):
        id_consultorio = AIUCSG.obetner_id_consultorio()
        return id_consultorio
+<<<<<<< HEAD
 
     def cantidad_usuario_duplicado(self, lista_nombre):
        cantidad_duplicado = GUS.encontrar_duplicados_usuarios(self.db, lista_nombre)
@@ -133,3 +149,5 @@ class Ventana_Crear_Usuario(QWidget):
        else:
            return 0
 
+=======
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540

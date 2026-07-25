@@ -2,12 +2,16 @@ from PyQt6.uic.uiparser import QtWidgets
 from message_box import Message_Box
 from BaseDatos.MySqlManager import MySqlManager
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget, QLineEdit
+<<<<<<< HEAD
 from PyQt6.QtCore import QTimer
 from PyQt6 import uic
 from Login.Functions.Encrypt import Encrypt
 from Login.Servicio.general_login_service import General_Login_Service as GLS
 import threading
 
+=======
+from PyQt6 import uic
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
 
 class Login_App(QWidget):
     def __init__(self, db: MySqlManager, navegar):
@@ -15,6 +19,7 @@ class Login_App(QWidget):
         self.mb = Message_Box()
         self.navegar = navegar
         self.db = db
+<<<<<<< HEAD
         self.en = Encrypt()
         self.intento = 0
         uic.loadUi("Documentacion/QtDesigner/login.ui", self)
@@ -58,11 +63,32 @@ class Login_App(QWidget):
                             self.navegar.ir_a_ventana("menu_principal")
                 except Exception as e:
                     print(f"Error critico: {e}")
+=======
+        uic.loadUi("Documentacion/QtDesigner/login.ui", self)
+        self.le_contrasena.setEchoMode(QLineEdit.EchoMode.Password)
+        self.pb_ingresar.clicked.connect(lambda: self.bt_ingresar_logica(self.le_usuario.text(),self.le_contrasena.text()))
+        self.clb_crear_conultorio.clicked.connect(lambda: self.clb_crear_cuenta_usuario())
+
+
+    def bt_ingresar_logica(self, le_usuario, le_password):
+        usuario = le_usuario.strip()
+        password =  le_password.strip()
+        if not usuario or not password:
+            self.mb.message_box(self,"error", "Error", "Datos faltantes")
+
+        elif usuario == "Asgard" and password == "1234":
+            self.navegar.ir_a_ventana("menu_principal")
+        else:
+            self.mb.message_box(self,"info", "Error", "Usuario no encontrado")
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
 
     def clb_crear_cuenta_usuario(self):
         self.navegar.ir_a_ventana("crear_consultorio")
 
+<<<<<<< HEAD
     def desbloquear_login(self):
         self.intento = 0
         self.mb.message_box(self,"info","Inicio de sesion desbloqueado", "Se desbloque el inicio de sesion")
 
+=======
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540

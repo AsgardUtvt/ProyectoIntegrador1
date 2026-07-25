@@ -20,16 +20,27 @@ class Vetana_Crear_Consultorio(QWidget):
         self.es = GCS()
         self.cb_estado.addItems(self.llenar_cbx_estado())
         self.le_nombre_consultorio.setValidator(Limitar_Intput.limitar_caracteres("consultorio"))
+<<<<<<< HEAD
         self.le_colonia.setValidator(Limitar_Intput.limitar_caracteres("calle_numero"))
         self.le_cp.setValidator(Limitar_Intput.limitar_caracteres("codigo_postal"))
         self.le_localidad.setValidator(Limitar_Intput.limitar_caracteres("calle_numero"))
         self.le_municipio.setValidator(Limitar_Intput.limitar_caracteres("calle_numero"))
+=======
+        self.le_colonia.setValidator(Limitar_Intput.limitar_caracteres("calle"))
+        self.le_cp.setValidator(Limitar_Intput.limitar_caracteres("codigo_postal"))
+        self.le_localidad.setValidator(Limitar_Intput.limitar_caracteres("calle"))
+        self.le_municipio.setValidator(Limitar_Intput.limitar_caracteres("calle"))
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
         self.le_num_exterior.setValidator(Limitar_Intput.limitar_caracteres("numero_calle"))
         self.le_num_interior.setValidator(Limitar_Intput.limitar_caracteres("numero_calle"))
         self.le_calle.setValidator(Limitar_Intput.limitar_caracteres("calle"))
         self.le_telefono.setValidator(Limitar_Intput.limitar_caracteres("numero_telefonico"))
         self.le_telefono_dos.setValidator(Limitar_Intput.limitar_caracteres("numero_telefonico"))
+<<<<<<< HEAD
         self.pb_crear_consultorio.clicked.connect(lambda: self.btn_crear_consultorio())
+=======
+        self.pb_crear_usuario.clicked.connect(lambda: self.btn_crear_consultorio())
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
 
 
 
@@ -62,6 +73,10 @@ class Vetana_Crear_Consultorio(QWidget):
         """
         try:
             datos_faltantes = []
+<<<<<<< HEAD
+=======
+            digitos_id_estado = []
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
             nombre_consultorio = self.le_nombre_consultorio.text()
             nombre_consultorio.strip()
             if not nombre_consultorio:
@@ -124,6 +139,7 @@ class Vetana_Crear_Consultorio(QWidget):
                         c_municipio=municipio,
                         c_cp=cp
                     )
+<<<<<<< HEAD
                     nombre_consultorio_list = [nombre_consultorio]
                     if self.cantidad_consultorio_duplicado(nombre_consultorio_list) > 0:
                         self.mb.message_box(self,"info", "Duplicado", "Ya hay un consultorio con ese nombre, cambien el nombre del consultorio")
@@ -137,6 +153,16 @@ class Vetana_Crear_Consultorio(QWidget):
                             self.navegar.ir_a_ventana("login")
                 except Exception as e:
                     print(f"Error cirtico {e}")
+=======
+                    if mdc.insertar_datos(self.db):
+                        tipo, titulo, mensaje = "info", "Generado con exito", "Se genero con exito el consultorio"
+                        self.mb.message_box(self, tipo=tipo, titulo=titulo, mensaje=mensaje)
+                        self.navegar.ir_a_ventana("crear_usuario")
+                    else:
+                        self.mb.message_box(self,"error","Error", "Hubo un error al generar el consultorio")
+                except Exception as e:
+                    print(f"Erorr cirtico {e}")
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
                     tipo, titulo, mensaje = "error", "Consultorio", "No se pudo genrear el consultorio"
                     self.mb.message_box(self,tipo=tipo,titulo=titulo,mensaje=mensaje)
                     self.navegar.ir_a_ventana("login")
@@ -147,6 +173,7 @@ class Vetana_Crear_Consultorio(QWidget):
     def message_box_datos_faltantes(self, mensaje):
         self.mb.message_box(self, "info", "Faltan datos", mensaje)
 
+<<<<<<< HEAD
     def cantidad_consultorio_duplicado(self, lista_dato):
         cantidad_consultorio = GCS.encontrar_duplicados_consultorio(self.db, lista_dato)
         if cantidad_consultorio:
@@ -154,3 +181,5 @@ class Vetana_Crear_Consultorio(QWidget):
         else:
             return 0
 
+=======
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540

@@ -1,8 +1,11 @@
 
 
+<<<<<<< HEAD
 from BaseDatos.MySqlManager import MySqlManager
 
 
+=======
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
 class General_Sistem_Service:
 
     @staticmethod
@@ -12,6 +15,7 @@ class General_Sistem_Service:
             if letras.isdigit():
                 digitos_en.append(letras)
         if digitos_en is None:
+<<<<<<< HEAD
             raise ValueError(f"No hay elementos en la lista {digitos_en}")
         else:
             digitos = int("".join(digitos_en))
@@ -28,3 +32,9 @@ class General_Sistem_Service:
         except Exception as e:
             print(f"Error critico: {e}")
 
+=======
+            raise ValueError("No hay elementos en la lista {digitos_en}")
+        else:
+            digitos = int("".join(digitos_en))
+            return digitos
+>>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
