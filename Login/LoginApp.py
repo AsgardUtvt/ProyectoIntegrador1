@@ -6,7 +6,6 @@ from PyQt6.QtCore import QTimer
 from PyQt6 import uic
 from Login.Functions.Encrypt import Encrypt
 from Login.Servicio.general_login_service import General_Login_Service as GLS
-
 from PyQt6 import uic
 
 class Login_App(QWidget):
@@ -56,6 +55,8 @@ class Login_App(QWidget):
                         else:
                             self.mb.message_box(self, "info","Bienvenido", f"Bienvenido {usuario}, redireccionando a el menu" )
                             self.navegar.ir_a_ventana("menu_principal")
+                            usuario_list = [usuario]
+                            GLS.obtener_id_tipo_usuario_consultrio(self.db, usuario=usuario_list)
                 except Exception as e:
                     print(f"Error critico: {e}")
 

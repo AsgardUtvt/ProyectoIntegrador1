@@ -12,6 +12,7 @@ class Ventana_Menu_Principal(QWidget):
         self.db = db
         uic.loadUi("Documentacion/QtDesigner/menu_con_lista.ui", self)
 
+        print(f"lw_enlace_menu: {self.lw_enlace_menu}")
         self.rutas_interfaces = {
             "menu_principal": "../Documentacion/QtDesigner/menu_principal.ui",
             "menu_pacientes": "../Pacientes/pacientes.ui",
@@ -25,6 +26,11 @@ class Ventana_Menu_Principal(QWidget):
         opciones_menu = ["Inicio", "Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Reportes", "Configuración"]
         self.lw_enlace_menu.clear()
         self.lw_enlace_menu.addItems(opciones_menu)
+        self.lw_enlace_menu.setMinimumWidth(200)
+        self.lw_enlace_menu.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        print(f"Items en listaWidget {self.lw_enlace_menu.count()}")
+        for i in range(self.lw_enlace_menu.count()):
+            print(f"Item {i}: {self.lw_enlace_menu.item(i).text()}")
         self.mapeo_menu = {
             0: "menu_principal",
             1: "menu_pacientes",
@@ -39,7 +45,7 @@ class Ventana_Menu_Principal(QWidget):
         self.layout_vistas = QVBoxLayout(self.w_ventana)
         self.layout_vistas.setContentsMargins(0,0,0,0)
 
-        self.lw_enlace_menu.currentRowChanged.connect(lambda: self.cargar_ventanas)
+        self.lw_enlace_menu.currentRowChanged.connect(self.cargar_ventanas)
 
         self.sub_ventana_actual = None
 
@@ -47,12 +53,13 @@ class Ventana_Menu_Principal(QWidget):
 
     def cargar_ventanas(self, fila):
 
-        if fila in self.mapeo_menu[fila]:
+        if fila in self.mapeo_menu:
             nombre_ventana = self.mapeo_menu[fila]
             ruta_relativa = self.rutas_interfaces[nombre_ventana]
 
             dir_actual = os.path.dirname(os.path.abspath(__file__))
             ruta_absoluta = os.path.normpath(os.path.join(dir_actual, ruta_relativa))
+            print(f"Cargando: {ruta_absoluta}")
 
             if os.path.exists(ruta_absoluta):
                 self.mostrar_nueva_interfaz(ruta_absoluta)
@@ -64,13 +71,16 @@ class Ventana_Menu_Principal(QWidget):
         if self.sub_ventana_actual is not None:
             self.layout_vistas.removeWidget(self.sub_ventana_actual)
             self.sub_ventana_actual.deleteLater()
-
-        self.sub_ventana_actual = QWidget(self)
+            self.sub_ventana_actual = None
+        self.sub_ventana_actual = QWidget()
         uic.loadUi(ruta_ui, self.sub_ventana_actual)
-        self.sub_ventana_actual.selSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.sub_ventana_actual.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.layout_vistas.addWidget(self.sub_ventana_actual)
         self.sub_ventana_actual.show()
 
         titulo = self.sub_ventana_actual.windowTitle()
         self.window().setWindowTitle(titulo if titulo else "SIHMED")
+
+
+
 
