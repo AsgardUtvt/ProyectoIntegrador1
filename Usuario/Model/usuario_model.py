@@ -16,10 +16,7 @@ class Usuario_Model:
         id_consultorio: int,
         id_esucela: int ) -> None:
 
-<<<<<<< HEAD
 
-=======
->>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
         self.name = name
         self.paterno = paterno
         self.materno = materno
@@ -30,7 +27,6 @@ class Usuario_Model:
         self.id_consultorio = id_consultorio
         self.id_esucela = id_esucela
 
-<<<<<<< HEAD
         self._TUPLA_USUARIO = (
             self.name,
             self.paterno,
@@ -43,8 +39,6 @@ class Usuario_Model:
             self.id_esucela
         )
 
-=======
->>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
     def crear_usuario(self, db: MySqlManager):
         '''
         Para usar esta funcion se necesita cerar el consturcto de la clase
@@ -52,7 +46,6 @@ class Usuario_Model:
         try:
             with db.obtener_cursor()  as cursor:
                 sql_instert = "INSERT INTO Usuario(usuario_name, usuario_paterno, usuario_materno, usuario_password, usuario_cedula_profesional, usuario_cedula_especialidad, id_tipo_usuario, id_consultorio, id_escuela) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-<<<<<<< HEAD
                 cursor.execute(sql_instert,self._TUPLA_USUARIO)
                 db.commit_conexion()
                 user = cursor.lastrowid
@@ -62,11 +55,3 @@ class Usuario_Model:
         except Exception as e:
             print(f"Error critio: {e}")
             return False
-=======
-                cursor.execute(sql_instert, )
-                user = cursor.lastrowid
-                AIUCSG.agregar_id_usuario(user)
-                print(AIUCSG.obtener_id_usuario())
-        except Exception as e:
-            print(f"Error critio: {e}")
->>>>>>> c2983caab5b8c6a3f8beff40b13f4603256eb540
