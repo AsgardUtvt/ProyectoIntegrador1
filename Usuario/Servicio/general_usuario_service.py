@@ -1,4 +1,6 @@
 # Se importar librerias a usar
+from os import stat
+
 from BaseDatos.MySqlManager import MySqlManager
 
 class General_Usuario_Service:
@@ -42,7 +44,7 @@ class General_Usuario_Service:
                 return resultado.get("Propietario") if resultado else None
         except Exception as e:
             print(f"Erorr critico: {e}")
-            return None 
+            return None
 
     @staticmethod
     def encontrar_duplicados_usuarios(db: MySqlManager, nombre: list):
@@ -54,3 +56,27 @@ class General_Usuario_Service:
                 return resultado_cantidad_usuario.get("cantidad_usuario") if resultado_cantidad_usuario else None
         except Exception as e:
             print(f"Error critico {e}")
+
+    @staticmethod
+    def obtener_datos_usuario_modificar(db: MySqlManager, id_usuario_consultorio: list):
+        try:
+            with db.obtener_cursor() as cursor:
+                sql_select_datos_usuario = "SELECT usuario_name AS 'Nombre', usuario_paterno AS 'Paterno', usuario_materno AS 'Materno', usuario_cedula_profesional 'Cedula_Profesional', usuario_cedula_especialidad AS 'Cedula_Especialidad', id_tipo_usuario AS 'Tipo_Usuario', id_escuela AS 'Escuela' FROM Usuario WHERE id_usuario = %s AND id_consultorio = %s;"
+                cursor.execute(sql_select_datos_usuario, id_usuario_consultorio)
+                resultado_datos_usuario = cursor.fetchone()
+                return resultado_datos_usuario if resultado_datos_usuario else None
+        except Exception as e:
+            print(f"Error critico: {e}")
+
+    @staticmethod
+    def obtener_todos_usuarios_consultorio(db: MySqlManager, id_consultorio_todos: int):
+        try:
+            with db.obtener_cursor() as cursor:
+                sql_select_todos_usuarios_consultorio = "SELECT id_usuario AS 'id_val', CONCAT_WS(' ', usuario_name, usuario_paterno, usuario_materno) AS 'nombre' FROM Usuario WHERE id_consultorio = %s;"
+                cursor.execute(sql_select_todos_usuarios_consultorio, (id_consultorio_todos,))
+                resultado_todos_usuario_consultorio = cursor.fetchall()
+                return resultado_todos_usuario_consultorio if resultado_todos_usuario_consultorio else {}
+        except Exception as e:
+            print(f"Erro critico: {e}")
+            return {}
+

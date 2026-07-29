@@ -1,35 +1,36 @@
-from PyQt6.uic.uiparser import QtWidgets
+from typing import _ProtocolMeta
+
 from Login.Functions.Encrypt import Encrypt
 from BaseDatos.MySqlManager import MySqlManager
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget, QLineEdit
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget, QTableView, QHeaderView, QTableWidget, QTableWidgetItem, QHBoxLayout, QHeaderView, QVBoxLayout, QDialog, QLineEdit
 from PyQt6 import uic
+from PyQt6.QtCore import Qt, QAbstractTableModel
 from limitar_intput import Limitar_Intput as LI
 from Usuario.Servicio.general_usuario_service  import General_Usuario_Service as GUS
-from message_box import Message_Box
+from message_box import Message_Box as MB
 from general_sistem_service import General_Sistem_Service as GSS
 from Usuario.Model.usuario_model import Usuario_Model as UM
 from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
 
-class Ventana_Crear_Usuario(QWidget):
+class Vetana_Modificar_Usuario_Dialog(QDialog):
 
-    def __init__(self, db: MySqlManager, navegar):
+    def __init__(self, db: MySqlManager, id_usuario: int):
         super().__init__()
-        self.navegar = navegar
         self.db = db
         self.gus = GUS
-        self.mb = Message_Box()
+        self.mb = MB()
         self.e = Encrypt()
-        uic.loadUi("Documentacion/QtDesigner/usuario_crear.ui", self)
+        self.id_usuario = id_usuario
+        uic.loadUi("Documentacion/QtDesigner/usuario_modificar_dialog.ui", self) # important
+
         self.le_apellido_paterno.setValidator(LI.limitar_caracteres("datos_generales"))
         self.le_apellido_materno.setValidator(LI.limitar_caracteres("datos_generales"))
         self.le_cedula_profesional.setValidator(LI.limitar_caracteres("cedula"))
         self.le_cedula_especialidad.setValidator(LI.limitar_caracteres("cedula"))
-        self.le_contrasena.setValidator(LI.limitar_caracteres("regular"))
         self.le_nombre_usuario.setValidator(LI.limitar_caracteres("datos_generales"))
         self.cb_escuela.addItems(self.cbx_llenar_escuela())
+        self.cb_tipo_usuario.addItems(self.llenar_cmb_tipo_usuario())
         self.pb_crear_usuario.clicked.connect(lambda: self.psb_crear_usuario())
-        self.le_contrasena.setEchoMode(QLineEdit.EchoMode.Password)
-        self.id_tipo_usuario = self.obtener_id_usuario()
 
     def psb_crear_usuario(self):
         try:
@@ -46,11 +47,6 @@ class Ventana_Crear_Usuario(QWidget):
             materno.strip()
             if not materno:
                 lista_faltan.append("Apellido materno")
-            password = self.le_contrasena.text()
-            password.strip()
-            has_password = self.e.generate_password_hash(password=password)
-            if not has_password:
-                lista_faltan.append("Contraseña")
             ced_profesional = self.le_cedula_profesional.text()
             ced_profesional.strip()
             if not ced_profesional:
@@ -66,40 +62,28 @@ class Ventana_Crear_Usuario(QWidget):
             digito_escuela = GSS.obtener_solo_numeros(escuela)
             if not digito_escuela:
                 lista_faltan.append("Escuela")
+            tipo_usuario_cbx = self.cb_tipo_usuario.currentText()
+            digito_tipo_usuario = GSS.obtener_solo_numeros(tipo_usuario_cbx)
+            if not tipo_usuario_cbx:
+                lista_faltan.append("Tipo usuario")
             if len(lista_faltan) > 0:
                 mensaje = "".join(lista_faltan)
                 self.mb.message_box(self, "info", "Faltan datos", mensaje=mensaje)
             else:
                 try:
-                    um = UM(
-                        name=nombre,
-                        paterno=paterno,
-                        materno=materno,
-                        password=has_password,
-                        cedula_especialidad=ced_especialidad,
-                        cedula_profesional=ced_profesional,
-                        id_tipo_usuario=tipo_usuario,
-                        id_consultorio=AIUCSG.obetner_id_consultorio(),
-                        id_esucela=digito_escuela
-                    )
-                    nombre_lista = [nombre]
-                    cantidad = self.cantidad_usuario_duplicado(nombre_lista)
-                    if cantidad > 0:
-                        self.mb.message_box(self, "info", "Usuario duplicado", "Se encontro un usario duplicado, cambie el nombre de usuario")
-                    else:
-                        if um.crear_usuario(self.db):
+                        if UM.actualizar_datos(self.db,nombre,paterno,materno,ced_profesional,ced_especialidad,digito_tipo_usuario,digito_escuela,self.id_usuario):
                             self.mb.message_box(self, "info", "Usario generado", "Usuario generado con exito")
-                            self.navegar.ir_a_ventana("menu_principal")
+                            self.accept()
                         else:
                             self.mb.message_box(self, "error", "Usuario no generado", "El usario no se pudo generar")
-                            self.navegar.ir_a_ventana("login")
+                            self.accept()
                 except Exception as e:
                     print(f"Error critico: {e}")
-                    self.navegar.ir_a_ventana("login")
+                    self.accept()
         except Exception as e:
             print(f"Error critico {e}")
             self.mb.message_box(self,"error","Error", "Ocurrrio un error al crear el usuario")
-            self.navegar.ir_a_ventana("login")
+            self.accept()
 
     def cbx_llenar_escuela(self):
         try:
@@ -111,16 +95,21 @@ class Ventana_Crear_Usuario(QWidget):
         except Exception as e:
             print(f"Erorr critico: {e}")
             self.mb.message_box(self,"info", "Error", "No se logro cargar las ecuelas")
-            self.navegar.ir_a_ventana("login")
+            self.accept()
             return []
 
-    def obtener_id_usuario(self):
-        # Cambia un la lógica cuando se usa fetch one
-        usuario_id = GUS.obtener_usuario_primeravez(self.db)
-        if not usuario_id:
-            raise ValueError(f"No se encontro el tipo de usuario propietario de la base de datos")
-        else:
-            return usuario_id
+    def llenar_cmb_tipo_usuario(self):
+        # Cambia un la lógica cuando se usa fietch one
+        try:
+            tupla_tipo_usuario = GUS.obtener_tipo_usuario(self.db)
+            if tupla_tipo_usuario is None:
+                raise ValueError("No se logro cargar la tupla")
+            lista_texto_tipo_usuario = [fila["tipo_usuario"] for fila in tupla_tipo_usuario]
+            return  lista_texto_tipo_usuario
+        except Exception as e:
+            print(f"Error critico: {e}")
+            self.mb.message_box(self,"info","Error","No se logro cargar los tipos de usuario")
+            self.accept()
 
     def obenter_consultorio(self):
        id_consultorio = AIUCSG.obetner_id_consultorio()
@@ -132,4 +121,42 @@ class Ventana_Crear_Usuario(QWidget):
            return cantidad_duplicado
        else:
            return 0
+
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        lista_id_usuario_consultorio = [self.id_usuario, AIUCSG.obetner_id_consultorio()]
+        obtener_datos_rellenar = GUS.obtener_datos_usuario_modificar(self.db,lista_id_usuario_consultorio)
+        if obtener_datos_rellenar:
+            print("datos obtenidos: ", obtener_datos_rellenar)
+            self.le_nombre_usuario.setText(obtener_datos_rellenar.get("Nombre", "No encontrado"))
+            self.le_apellido_paterno.setText(obtener_datos_rellenar.get("Paterno", "No encontrado"))
+            self.le_apellido_materno.setText(obtener_datos_rellenar.get("Materno", "No encontrado"))
+            self.le_cedula_profesional.setText(obtener_datos_rellenar.get("Cedula_Profesional", "No encontrado"))
+            self.le_cedula_especialidad.setText(obtener_datos_rellenar.get("Cedula_Especialidad", "No encontrado"))
+            escuela_txt = obtener_datos_rellenar.get("Escuela", "1 Sin Definir")
+            tipo_usuario_txt = obtener_datos_rellenar.get("Tipo_Usuario", "1 Enfermero")
+
+            indice_escuela_encontrado = 0
+            for i in range(self.cb_escuela.count()):
+                texto_item = self.cb_escuela.itemText(i)
+                id_item = GSS.obtener_solo_numeros(texto_item)
+                if str(id_item) == str(escuela_txt):
+                    indice_escuela_encontrado = i
+                    break
+            self.cb_escuela.setCurrentIndex(indice_escuela_encontrado)
+
+            indice_tipo_usuario_encontrado = 0
+            for i in range(self.cb_tipo_usuario.count()):
+                texto_item = self.cb_tipo_usuario.itemText(i)
+                id_item = GSS.obtener_solo_numeros(texto_item)
+                if str(id_item) == str(tipo_usuario_txt):
+                    indice_tipo_usuario_encontrado = i
+                    break
+            self.cb_tipo_usuario.setCurrentIndex(indice_tipo_usuario_encontrado)
+
+
+        else:
+            print("No se cargaron los datos")
+
 

@@ -22,12 +22,11 @@ class Almacenar_Id_Usuario_Consultorio_SG:
     def obtener_id_usuario(cls) -> int:
         """
         Se obitenen los id
-        se retorna en una tupla para inmutabilidad
         """
-        return cls.ids.get("usu", 0)
+        return cls.ids.copy().get("usu", 0)
 
     @classmethod
     def obetner_id_consultorio(cls) -> int:
 
-        return cls.ids.get("con", 0)
+        return cls.ids.copy().get("con", 0)
 

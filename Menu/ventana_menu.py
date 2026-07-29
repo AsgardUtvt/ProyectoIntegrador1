@@ -3,7 +3,8 @@ from BaseDatos.MySqlManager import MySqlManager
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget, QVBoxLayout, QSizePolicy
 from PyQt6 import uic
 import os
-
+from Usuario.ventana_modificar_usuario import Ventana_Moficar_Usuario
+from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
 class Ventana_Menu_Principal(QWidget):
 
     def __init__(self, db: MySqlManager, navegar):
@@ -31,6 +32,8 @@ class Ventana_Menu_Principal(QWidget):
         print(f"Items en listaWidget {self.lw_enlace_menu.count()}")
         for i in range(self.lw_enlace_menu.count()):
             print(f"Item {i}: {self.lw_enlace_menu.item(i).text()}")
+
+        # Mapeo para rutas .ui (vistas simples)
         self.mapeo_menu = {
             0: "menu_principal",
             1: "menu_pacientes",
@@ -40,6 +43,18 @@ class Ventana_Menu_Principal(QWidget):
             5: "usuario",
             6: "reportes",
             7: "configuracion"
+        }
+
+        # Mapeo para clases personalizadas (vistas con lógica)
+        self.mapeo_menu_clases = {
+            0: None,  # menu_principal
+            1: None,  # menu_pacientes
+            2: Ventana_Crear_Recetas,  # recetas
+            3: None,  # inventario
+            4: None,  # ventas
+            5: Ventana_Moficar_Usuario,  # usuario - CLASE PERSONALIZADA
+            6: None,  # reportes
+            7: None   # configuracion
         }
 
         self.layout_vistas = QVBoxLayout(self.w_ventana)
@@ -52,22 +67,27 @@ class Ventana_Menu_Principal(QWidget):
         self.lw_enlace_menu.setCurrentRow(0)
 
     def cargar_ventanas(self, fila):
+        if fila in self.mapeo_menu_clases:
+            clase_ventana = self.mapeo_menu_clases[fila]
 
-        if fila in self.mapeo_menu:
-            nombre_ventana = self.mapeo_menu[fila]
-            ruta_relativa = self.rutas_interfaces[nombre_ventana]
+            if clase_ventana is None:
+                # Cargar .ui normalmente para las otras opciones
+                nombre_ventana = self.mapeo_menu[fila]
+                ruta_relativa = self.rutas_interfaces[nombre_ventana]
 
-            dir_actual = os.path.dirname(os.path.abspath(__file__))
-            ruta_absoluta = os.path.normpath(os.path.join(dir_actual, ruta_relativa))
-            print(f"Cargando: {ruta_absoluta}")
+                dir_actual = os.path.dirname(os.path.abspath(__file__))
+                ruta_absoluta = os.path.normpath(os.path.join(dir_actual, ruta_relativa))
+                print(f"Cargando: {ruta_absoluta}")
 
-            if os.path.exists(ruta_absoluta):
-                self.mostrar_nueva_interfaz(ruta_absoluta)
+                if os.path.exists(ruta_absoluta):
+                    self.mostrar_nueva_interfaz(ruta_absoluta)
+                else:
+                    print(f"Error: no se encontro el archivo .ui en {ruta_absoluta}")
             else:
-                print(f"Error: no se encontro el archivo .ui en {ruta_absoluta}")
+                # Instanciar clase personalizada
+                self.mostrar_clase_personalizada(clase_ventana)
 
     def mostrar_nueva_interfaz(self, ruta_ui):
-
         if self.sub_ventana_actual is not None:
             self.layout_vistas.removeWidget(self.sub_ventana_actual)
             self.sub_ventana_actual.deleteLater()
@@ -81,6 +101,17 @@ class Ventana_Menu_Principal(QWidget):
         titulo = self.sub_ventana_actual.windowTitle()
         self.window().setWindowTitle(titulo if titulo else "SIHMED")
 
+    def mostrar_clase_personalizada(self, clase):
+        if self.sub_ventana_actual is not None:
+            self.layout_vistas.removeWidget(self.sub_ventana_actual)
+            self.sub_ventana_actual.deleteLater()
+            self.sub_ventana_actual = None
 
+        # Instanciar la clase con sus parámetros
+        self.sub_ventana_actual = clase(self.db, self)
+        self.sub_ventana_actual.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.layout_vistas.addWidget(self.sub_ventana_actual)
+        self.sub_ventana_actual.show()
 
-
+        titulo = self.sub_ventana_actual.windowTitle()
+        self.window().setWindowTitle(titulo if titulo else "SIHMED")

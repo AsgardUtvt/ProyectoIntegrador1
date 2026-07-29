@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>d_ventana_crear_usuario</class>
- <widget class="QDialog" name="d_ventana_crear_usuario">
+ <class>d_ventana_modificar_dialog</class>
+ <widget class="QDialog" name="d_ventana_modificar_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -38,16 +38,6 @@
      <x>180</x>
      <y>160</y>
      <width>221</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="le_contrasena">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>280</y>
-     <width>431</width>
      <height>25</height>
     </rect>
    </property>
@@ -111,19 +101,6 @@
     <string>Cedula de especialidad:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>280</y>
-     <width>91</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Contraesña:</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
@@ -163,14 +140,14 @@
   <widget class="QPushButton" name="pb_crear_usuario">
    <property name="geometry">
     <rect>
-     <x>810</x>
+     <x>790</x>
      <y>310</y>
-     <width>131</width>
+     <width>151</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Crear usuario</string>
+    <string>Modificar usuario</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">

@@ -55,3 +55,47 @@ class Usuario_Model:
         except Exception as e:
             print(f"Error critio: {e}")
             return False
+
+
+    def eliminar_usuario(self, db: MySqlManager, id_usuario: list):
+        try:
+            with db.obtener_cursor() as cursor:
+                sql_delete_usuario = "DELETE FROM Usuario WHERE id_usuario = %s;"
+                cursor.execute(sql_delete_usuario, id_usuario)
+                db.commit_conexion()
+                return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+
+    @staticmethod
+    def actualizar_datos(db: MySqlManager, name_par: str, paterno_par: str, materno_par: str, cedula_profesional_par: str, cedula_especialidad_par: str, id_tipo_usuario_par: int, id_escuela_par: int, id_usuario_par: int):
+        try:
+            _TUPLA_USUARIO_ACTUALIZAR = (
+                name_par,
+                paterno_par,
+                materno_par,
+                cedula_profesional_par,
+                cedula_especialidad_par,
+                id_tipo_usuario_par,
+                id_escuela_par,
+                id_usuario_par
+            )
+            with db.obtener_cursor() as cursor:
+                slq_update_usuario = """
+                    UPDATE Usuario
+                    SET usuario_name = %s,
+                        usuario_paterno = %s,
+                        usuario_materno = %s,
+                        usuario_cedula_profesional = %s,
+                        usuario_cedula_especialidad = %s,
+                        id_tipo_usuario = %s,
+                        id_escuela = %s
+                    WHERE id_usuario = %s
+                                     """
+                cursor.execute(slq_update_usuario, _TUPLA_USUARIO_ACTUALIZAR)
+                db.commit_conexion()
+                return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return  False
