@@ -11,6 +11,7 @@ class Limitar_Intput:
         "consultorio": QRegularExpression("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{6,50}$"),
         "numero_calle": QRegularExpression("^[snSN0-9]{3}$"),
         "calle_numero": QRegularExpression("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,50}$"),
+        "fecha":QRegularExpression("^[0-9]{10,13}$"),
         # Usuario
         "datos_generales": QRegularExpression("^[a-zA-ZñÑáéíóúÁÉÍÓÚñÑ ]{6,50}$"),
         "cedula": QRegularExpression("^[0-9]{13}$")
