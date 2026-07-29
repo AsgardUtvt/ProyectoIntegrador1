@@ -50,4 +50,6 @@ class Ventana_Indice(QMainWindow):
                 self.setWindowTitle("SIHMED")
         else:
             print(f"La ventana {nombre_ventana}, no existe en el diccionario")
+            
+
 
