@@ -24,9 +24,9 @@ class Ventana_Menu_Principal(QWidget):
             "usuario": "../Documentacion/QtDesigner/usuario_modificar.ui",
             "reportes_caja": "../Reportes/Caja/reportes_caja.ui",
             "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
-            "configuracion": "../Documentacion/QtDesigner/menu_principal.ui"
+            "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui"
         }
-        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Reportes caja", "Reportes medicamento", "Configuración"]
+        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Reportes caja", "Reportes medicamento", "Contraseña"]
         self.lw_enlace_menu.clear()
         self.lw_enlace_menu.addItems(opciones_menu)
         self.lw_enlace_menu.setMinimumWidth(200)
@@ -46,7 +46,7 @@ class Ventana_Menu_Principal(QWidget):
             6: "usuario",
             7: "reportes_caja",
             8: "reportes_medicamento",
-            9: "configuracion"
+            9: "contrasena"
         }
 
         # Mapeo para clases personalizadas (vistas con lógica)
@@ -60,7 +60,7 @@ class Ventana_Menu_Principal(QWidget):
             6: Ventana_Moficar_Usuario,  # usuario - CLASE PERSONALIZADA
             7: None,  # reportes_caja
             9: None, # reportes_medicamentoo
-            8: None   # configuracion
+            8: None   # contrasena
         }
 
         self.layout_vistas = QVBoxLayout(self.w_ventana)
