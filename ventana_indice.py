@@ -25,10 +25,7 @@ class Ventana_Indice(QMainWindow):
             "crear_usuario": 3,
             
             
-            "Citas":15,
-            "generar_cita":16,
-            "modificar_citas":17,
-            "eliminar_citas":18,
+            "
             
         }
         # Se generan las ventanas a ocupar

@@ -5,17 +5,18 @@ from PyQt6.QtWidgets import (
     QPushButton, QLabel, QMessageBox, QInputDialog, QListWidget
 )
 
+from limitar_intput import Limitar_Intput 
+
 class MedicamentosWindow(QMainWindow):
     def __init__(self, menu_principal_callback=None):
         super().__init__()
         self.menu_principal_callback = menu_principal_callback
         
-        
         self.db_config = {
             'host': 'localhost',
             'database': 'sihmed',
             'user': 'root',
-            'password': ''                #  contraseña si la requiere
+            'password': ''                # Contraseña si la requiere
         }
         
         self.init_ui()
@@ -31,7 +32,6 @@ class MedicamentosWindow(QMainWindow):
     def init_ui(self):
         self.setWindowTitle("SIHMED - Menú de Medicamentos")
         self.resize(800, 500)
-
         
         central_widget = QWidget()
         main_layout = QHBoxLayout(central_widget)
@@ -69,13 +69,13 @@ class MedicamentosWindow(QMainWindow):
         self.btn_generar.clicked.connect(self.generar_medicamento)
         right_layout.addWidget(self.btn_generar)
 
-        # Botón Modificar Medicamento #
+        # Botón Modificar Medicamento
         self.btn_modificar = QPushButton("Modificar Medicamento")
         self.btn_modificar.setStyleSheet("background-color: #f39c12; color: white; padding: 10px; font-weight: bold;")
         self.btn_modificar.clicked.connect(self.modificar_medicamento)
         right_layout.addWidget(self.btn_modificar)
 
-        # Botón Eliminar Medicamento#
+        # Botón Eliminar Medicamento
         self.btn_eliminar = QPushButton("Eliminar Medicamento")
         self.btn_eliminar.setStyleSheet("background-color: #e74c3c; color: white; padding: 10px; font-weight: bold;")
         self.btn_eliminar.clicked.connect(self.eliminar_medicamento)
@@ -99,7 +99,7 @@ class MedicamentosWindow(QMainWindow):
     # --- LÓGICA DE LAS ACCIONES CONECTADA A LA BD ---
 
     def cargar_medicamentos(self):
-        """Consulta la base de datos y llena la lista visual con los medicamentos existentes[cite: 1]."""
+        """Consulta la base de datos y llena la lista visual con los medicamentos existentes."""
         self.list_medicamentos.clear()
         conexion = self.conectar_db()
         if not conexion:
@@ -144,7 +144,7 @@ class MedicamentosWindow(QMainWindow):
             self.label_detalle.setText(detalle)
 
     def generar_medicamento(self):
-        """Registra un nuevo medicamento en la base de datos[cite: 1]."""
+        """Registra un nuevo medicamento en la base de datos."""
         nombre, ok = QInputDialog.getText(self, "Nuevo Medicamento", "Nombre del medicamento:")
         if not ok or not nombre.strip(): return
         
@@ -189,7 +189,7 @@ class MedicamentosWindow(QMainWindow):
                 conexion.close()
 
     def modificar_medicamento(self):
-        """Modifica el stock y costo del medicamento seleccionado[cite: 1]."""
+        """Modifica el stock y costo del medicamento seleccionado."""
         item_actual = self.list_medicamentos.currentItem()
         if not item_actual:
             QMessageBox.warning(self, "Atención", "Seleccione un medicamento de la lista para modificar.")
@@ -219,7 +219,7 @@ class MedicamentosWindow(QMainWindow):
                 conexion.close()
 
     def eliminar_medicamento(self):
-        """Elimina un medicamento de la base de datos[cite: 1]."""
+        """Elimina un medicamento de la base de datos."""
         item_actual = self.list_medicamentos.currentItem()
         if not item_actual:
             QMessageBox.warning(self, "Atención", "Seleccione un medicamento de la lista para eliminar.")
