@@ -39,7 +39,7 @@ class ReportesWindow(QMainWindow):
         self.resize(750, 500)
 
         # Carga el archivo .ui directamente en la ventana actual
-        uic.loadUi(ruta_ui, self)
+        uic.loadUi("../Documentacion/QtDesigner/Reportes_widget.ui", self)
         self.show()
 
         # -------------------------

@@ -16,15 +16,17 @@ class Ventana_Menu_Principal(QWidget):
         print(f"lw_enlace_menu: {self.lw_enlace_menu}")
         self.rutas_interfaces = {
             "menu_principal": "../Documentacion/QtDesigner/menu_principal.ui",
+            "citas": "../Documentacion/QtDesigner/citasWidget.ui",
             "menu_pacientes": "../Pacientes/pacientes.ui",
             "recetas": "../Recetas/Recetas.ui",
-            "inventario": "../Documentacion/QtDesigner/menu_principal.ui",
+            "inventario": "../Documentacion/QtDesigner/Medicamentoswidget.ui",
             "ventas": "../Reportes/Ticket/ticket_pago.ui",
             "usuario": "../Documentacion/QtDesigner/usuario_modificar.ui",
-            "reportes": "../Reportes/Caja/reportes_caja.ui",
+            "reportes_caja": "../Reportes/Caja/reportes_caja.ui",
+            "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
             "configuracion": "../Documentacion/QtDesigner/menu_principal.ui"
         }
-        opciones_menu = ["Inicio", "Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Reportes", "Configuración"]
+        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Reportes caja", "Reportes medicamento", "Configuración"]
         self.lw_enlace_menu.clear()
         self.lw_enlace_menu.addItems(opciones_menu)
         self.lw_enlace_menu.setMinimumWidth(200)
@@ -36,25 +38,29 @@ class Ventana_Menu_Principal(QWidget):
         # Mapeo para rutas .ui (vistas simples)
         self.mapeo_menu = {
             0: "menu_principal",
-            1: "menu_pacientes",
-            2: "recetas",
-            3: "inventario",
-            4: "ventas",
-            5: "usuario",
-            6: "reportes",
-            7: "configuracion"
+            1: "citas",
+            2: "menu_pacientes",
+            3: "recetas",
+            4: "inventario",
+            5: "ventas",
+            6: "usuario",
+            7: "reportes_caja",
+            8: "reportes_medicamento",
+            9: "configuracion"
         }
 
         # Mapeo para clases personalizadas (vistas con lógica)
         self.mapeo_menu_clases = {
             0: None,  # menu_principal
             1: None,  # menu_pacientes
-            2: Ventana_Crear_Recetas,  # recetas
-            3: None,  # inventario
-            4: None,  # ventas
-            5: Ventana_Moficar_Usuario,  # usuario - CLASE PERSONALIZADA
-            6: None,  # reportes
-            7: None   # configuracion
+            2: None, # citas
+            3: Ventana_Crear_Recetas,  # recetas
+            4: None,  # inventario
+            5: None,  # ventas
+            6: Ventana_Moficar_Usuario,  # usuario - CLASE PERSONALIZADA
+            7: None,  # reportes_caja
+            9: None, # reportes_medicamentoo
+            8: None   # configuracion
         }
 
         self.layout_vistas = QVBoxLayout(self.w_ventana)

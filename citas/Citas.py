@@ -1,29 +1,20 @@
 import sys
 import os
-import mysql.connector
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
     QPushButton, QLabel, QMessageBox, QTableWidget, QTableWidgetItem, QFileDialog
 )
 from PyQt6 import uic
 from PyQt6.QtGui import QColor
-
+from BaseDatos.MySqlManager import MySqlManager
 from openpyxl import Workbook
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib import colors
 
 class ReportesWindow(QMainWindow):
-    def __init__(self, menu_principal_callback=None):
+    def __init__(self, menu_principal_callback=None, ):
         super().__init__()
         self.menu_principal_callback = menu_principal_callback
-        
-        self.db_config = {
-            'host': 'localhost',
-            'database': 'sihmed',
-            'user': 'root',
-            'password': ''  # Contraseña si la requiere
-        }
-        
         self.init_ui()
 
     def conectar_db(self):
@@ -228,7 +219,3 @@ class ReportesWindow(QMainWindow):
         else:
             self.close()
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ventana = ReportesWindow()
-    sys.exit(app.exec())
