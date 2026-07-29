@@ -11,6 +11,7 @@ from message_box import Message_Box as MB
 from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
 from Usuario.ventana_nuevo_usuario_crear import Ventana_Nuevo_Usuario_Crear as VNUC
 from Usuario.ventana_modificar_usuario_dialog import Vetana_Modificar_Usuario_Dialog as VMUD
+from Usuario.Model.usuario_model import Usuario_Model as UM
 class Ventana_Moficar_Usuario(QWidget):
 
     def __init__(self, db: MySqlManager, navegar):
@@ -75,6 +76,13 @@ class Ventana_Moficar_Usuario(QWidget):
 
     def eliminar(self,val):
         print(f"Eliminar {val}")
+        list_id = [val]
+        if self.mb.message_box(self,"question","Eliminar","Estas seguro de eliminar a este usuario") == QMessageBox.StandardButton.Yes:
+            if UM.eliminar_usuario(self.db,list_id):
+                self.mb.message_box(self, "info","Eliminado", "Se elimino el usuario con exito")
+            else:
+                self.mb.message_box(self, "error", "Error", "Ocurrio un error en al eliminar el usuario")
+                
 
     def btn_nuevo_usuario(self):
         dialog_nuevo = VNUC(self.db)

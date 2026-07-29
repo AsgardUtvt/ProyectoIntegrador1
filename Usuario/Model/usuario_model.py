@@ -56,8 +56,8 @@ class Usuario_Model:
             print(f"Error critio: {e}")
             return False
 
-
-    def eliminar_usuario(self, db: MySqlManager, id_usuario: list):
+    @staticmethod
+    def eliminar_usuario( db: MySqlManager, id_usuario: list):
         try:
             with db.obtener_cursor() as cursor:
                 sql_delete_usuario = "DELETE FROM Usuario WHERE id_usuario = %s;"
