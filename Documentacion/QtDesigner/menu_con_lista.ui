@@ -47,13 +47,13 @@
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
-     <widget class="QWidget" name="w_ventana" native="true">
+     <widget class="QWidget" name="w_ventana">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>650</width>
-        <height>655</height>
+        <width>642</width>
+        <height>653</height>
        </rect>
       </property>
       <property name="sizePolicy">

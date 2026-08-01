@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>867</width>
-    <height>1111</height>
+    <height>1174</height>
    </rect>
   </property>
   <property name="cursor">
@@ -79,8 +79,8 @@
         <rect>
          <x>120</x>
          <y>80</y>
-         <width>271</width>
-         <height>256</height>
+         <width>290</width>
+         <height>296</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout">
@@ -282,7 +282,6 @@
         <font>
          <family>Montserrat</family>
          <pointsize>10</pointsize>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -388,8 +387,8 @@
         <rect>
          <x>110</x>
          <y>510</y>
-         <width>271</width>
-         <height>261</height>
+         <width>290</width>
+         <height>296</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout_6">
@@ -591,7 +590,6 @@
         <font>
          <family>Montserrat</family>
          <pointsize>10</pointsize>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -771,7 +769,6 @@
         <font>
          <family>Montserrat</family>
          <pointsize>10</pointsize>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
