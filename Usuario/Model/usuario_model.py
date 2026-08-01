@@ -49,7 +49,7 @@ class Usuario_Model:
                 cursor.execute(sql_instert,self._TUPLA_USUARIO)
                 db.commit_conexion()
                 user = cursor.lastrowid
-                AIUCSG.agregar_id_usuario(user)
+                AIUCSG.agergar_id_usuario(user)
                 print(AIUCSG.obtener_id_usuario())
                 return True
         except Exception as e:

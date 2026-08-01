@@ -19,13 +19,16 @@ class General_Login_Service:
     @staticmethod
     def obtener_id_tipo_usuario_consultrio(db: MySqlManager, usuario: list):
         with db.obtener_cursor() as cursor:
-            sql_select_tipo_usuario_consultrio = "SELECT id_tipo_usuario AS 'Tipo_Usuario', id_consultorio AS 'Consultorio' FROM Usuario WHERE BINARY usuario_name LIKE %s;"
+            sql_select_tipo_usuario_consultrio = "SELECT id_usuario AS 'Usuario', id_tipo_usuario AS 'Tipo_Usuario', id_consultorio AS 'Consultorio' FROM Usuario WHERE BINARY usuario_name LIKE %s;"
             cursor.execute(sql_select_tipo_usuario_consultrio, usuario)
             resultado_usuario_consultrio = cursor.fetchone()
             if resultado_usuario_consultrio:
-                AIUCSG.agregar_id_usuario(resultado_usuario_consultrio.get("Tipo_Usuario", 0))
+                print(resultado_usuario_consultrio)
+                print()
+                AIUCSG.agergar_id_usuario(resultado_usuario_consultrio.get("Usuario", 0))
+                AIUCSG.agregar_id_tipo_usuario(resultado_usuario_consultrio.get("Tipo_Usuario", 0))
                 AIUCSG.agregar_id_consultorio(resultado_usuario_consultrio.get("Consultorio", 0))
-                print(AIUCSG.obetner_id_consultorio(), AIUCSG.obtener_id_usuario())
+                print(f"Usuario = {AIUCSG.obtener_id_usuario()}; Tipo_Usuario = {AIUCSG.obtener_id_tipo_usuario()}; Consultorio = {AIUCSG.obetner_id_consultorio()}")
             else:
                 print(f"No tiene nada el {resultado_usuario_consultrio}")
 

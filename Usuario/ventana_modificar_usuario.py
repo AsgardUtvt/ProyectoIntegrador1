@@ -78,6 +78,7 @@ class Ventana_Moficar_Usuario(QWidget):
         print(f"Eliminar {val}")
         list_id = [val]
         if self.mb.message_box(self,"question","Eliminar","Estas seguro de eliminar a este usuario") == QMessageBox.StandardButton.Yes:
+
             if UM.eliminar_usuario(self.db,list_id):
                 self.mb.message_box(self, "info","Eliminado", "Se elimino el usuario con exito")
             else:

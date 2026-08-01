@@ -5,6 +5,7 @@ from PyQt6 import uic
 import os
 from Usuario.ventana_modificar_usuario import Ventana_Moficar_Usuario
 from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
+from Configuracion.ventana_cambiar_contrasena import Ventana_Cambiar_Contrasena
 class Ventana_Menu_Principal(QWidget):
 
     def __init__(self, db: MySqlManager, navegar):
@@ -59,8 +60,8 @@ class Ventana_Menu_Principal(QWidget):
             5: None,  # ventas
             6: Ventana_Moficar_Usuario,  # usuario - CLASE PERSONALIZADA
             7: None,  # reportes_caja
-            9: None, # reportes_medicamentoo
-            8: None   # contrasena
+            8: None, # reportes_medicamentoo
+            9: Ventana_Cambiar_Contrasena   # contrasena
         }
 
         self.layout_vistas = QVBoxLayout(self.w_ventana)
