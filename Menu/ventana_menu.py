@@ -6,6 +6,7 @@ import os
 from Usuario.ventana_modificar_usuario import Ventana_Moficar_Usuario
 from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
 from Configuracion.ventana_cambiar_contrasena import Ventana_Cambiar_Contrasena
+from Consultorio.ventana_modificar_consultorio import Ventana_Modificar_Consultorio
 class Ventana_Menu_Principal(QWidget):
 
     def __init__(self, db: MySqlManager, navegar):
@@ -23,11 +24,12 @@ class Ventana_Menu_Principal(QWidget):
             "inventario": "../Documentacion/QtDesigner/Medicamentoswidget.ui",
             "ventas": "../Reportes/Ticket/ticket_pago.ui",
             "usuario": "../Documentacion/QtDesigner/usuario_modificar.ui",
+            "consultorio": "../Documentacion/QtDesigner/consultorio_modificar.ui",
             "reportes_caja": "../Reportes/Caja/reportes_caja.ui",
             "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
             "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui"
         }
-        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Reportes caja", "Reportes medicamento", "Contraseña"]
+        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Consultorio", "Reportes caja", "Reportes medicamento", "Contraseña"]
         self.lw_enlace_menu.clear()
         self.lw_enlace_menu.addItems(opciones_menu)
         self.lw_enlace_menu.setMinimumWidth(200)
@@ -45,9 +47,10 @@ class Ventana_Menu_Principal(QWidget):
             4: "inventario",
             5: "ventas",
             6: "usuario",
-            7: "reportes_caja",
-            8: "reportes_medicamento",
-            9: "contrasena"
+            7: "consultorio",
+            8: "reportes_caja",
+            9: "reportes_medicamento",
+            10: "contrasena"
         }
 
         # Mapeo para clases personalizadas (vistas con lógica)
@@ -58,10 +61,11 @@ class Ventana_Menu_Principal(QWidget):
             3: Ventana_Crear_Recetas,  # recetas
             4: None,  # inventario
             5: None,  # ventas
-            6: Ventana_Moficar_Usuario,  # usuario - CLASE PERSONALIZADA
-            7: None,  # reportes_caja
-            8: None, # reportes_medicamentoo
-            9: Ventana_Cambiar_Contrasena   # contrasena
+            6: Ventana_Moficar_Usuario,  # usuario
+            7: Ventana_Modificar_Consultorio, # consulotorio
+            8: None,  # reportes_caja
+            9: None, # reportes_medicamentoo
+            10: Ventana_Cambiar_Contrasena   # contrasena
         }
 
         self.layout_vistas = QVBoxLayout(self.w_ventana)

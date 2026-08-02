@@ -26,3 +26,15 @@ class General_Consultorio_Service:
         except Exception as e:
             print(f"Error critico: {e}")
             return {}
+
+    @staticmethod
+    def obtener_datos_consultorio_modificar(db: MySqlManager, consul_lista: list):
+        try:
+            with db.obtener_cursor() as cursor:
+                sql_select_datos_consultorio = "SELECT consultorio_name AS 'Name', consultorio_calle AS 'Calle', consultorio_colonia AS 'Colonia', consultorio_num_exterior AS 'Num_Ext', consultorio_num_interior AS 'Num_Int', id_estado AS 'Estado', consultorio_telefono AS 'Tel_Uno', consultorio_telefono_dos AS 'Tel_Dos', consultorio_municipio AS 'Municipio', consultorio_cp AS 'CP', consultorio_localidad AS 'Localidad' FROM Consultorio WHERE id_consultorio = %s;"
+                cursor.execute(sql_select_datos_consultorio, consul_lista)
+                reusltado_datos_consultorio = cursor.fetchone()
+                return reusltado_datos_consultorio if reusltado_datos_consultorio else {}
+        except Exception as e:
+            print(f"Eror: {e}")
+            return {}

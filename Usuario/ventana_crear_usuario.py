@@ -78,7 +78,7 @@ class Ventana_Crear_Usuario(QWidget):
                         password=has_password,
                         cedula_especialidad=ced_especialidad,
                         cedula_profesional=ced_profesional,
-                        id_tipo_usuario=tipo_usuario,
+                        id_tipo_usuario=self.id_tipo_usuario,
                         id_consultorio=AIUCSG.obetner_id_consultorio(),
                         id_esucela=digito_escuela
                     )

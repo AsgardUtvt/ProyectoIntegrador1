@@ -9,8 +9,8 @@ class Limitar_Intput:
         "numero_telefonico": QRegularExpression("^[0-9]{10,13}$"),
         "calle": QRegularExpression("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{4,100}$"),
         "consultorio": QRegularExpression("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{6,50}$"),
-        "numero_calle": QRegularExpression("^[snSN0-9]{3}$"),
-        "calle_numero": QRegularExpression("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,50}$"),
+        "numero_calle": QRegularExpression("^[snSN0-9]{5}$"),
+        "calle_numero": QRegularExpression("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{6,50}$"),
         "fecha":QRegularExpression("^[0-9]{10,13}$"),
         # Usuario
         "datos_generales": QRegularExpression("^[a-zA-ZñÑáéíóúÁÉÍÓÚñÑ ]{6,50}$"),
