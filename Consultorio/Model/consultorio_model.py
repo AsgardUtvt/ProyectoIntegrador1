@@ -53,11 +53,41 @@ class Consultorio_Model:
             print(f"Erorr critico: {e}")
             return False
 
-    def actualizar_datos(self, db: MySqlManager) -> bool:
+    @staticmethod
+    def actualizar_datos( db: MySqlManager, name_update, calle_update, colonia_update, num_ext_update, num_int_update, localidad_update, id_estado_update, tel_update, tel_dos_update, municipio_update, cp_update) -> bool:
+        __TUPLA_ACTUALIZAR = (
+            name_update,
+            calle_update,
+            colonia_update,
+            num_ext_update,
+            num_int_update,
+            localidad_update,
+            id_estado_update,
+            tel_update,
+            tel_dos_update,
+            municipio_update,
+            cp_update,
+            AIUCSG.obetner_id_consultorio()
+        )
         try:
             with db.obtener_cursor() as cursor:
-                pass
-
+                slq_update_consultorio = """
+UPDATE Consultorio
+SET consultorio_name = %s ,
+SET consultorio_calle = %s,
+SET consultorio_colonia = %s,
+SET consultorio_num_exterior = %s,
+SET consultorio_num_interior = %s,
+SET consultorio_localidad = %s,
+SET id_estado = %s,
+SET consultorio_telefono = %s,
+SET consultorio_telefono_dos = %s,
+SET consultorio_municipio = %s,
+SET consultorio_cp = %s
+WHERE Id_consultiro = %s;
+                """
+                cursor.execute(slq_update_consultorio, __TUPLA_ACTUALIZAR)
+                db.commit_conexion()
             return True
         except Exception as e:
             print(f"Error critico: {e}")

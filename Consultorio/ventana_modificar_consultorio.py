@@ -7,6 +7,7 @@ from message_box import Message_Box
 from limitar_intput import Limitar_Intput
 from general_sistem_service import General_Sistem_Service as GSS
 from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
+from Model.consultorio_model import Consultorio_Model as CM
 
 class Ventana_Modificar_Consultorio(QWidget):
     _TUPLA_DATOS = ()
@@ -110,24 +111,10 @@ class Ventana_Modificar_Consultorio(QWidget):
                 self.message_box_datos_faltantes(mensaje=mensaje)
             else:
                 try:
-                    mdc = Consultorio_Model(
-                        c_name=nombre_consultorio,
-                        c_calle=calle,
-                        c_colonia=colonia,
-                        c_num_exterior=num_exeterior,
-                        c_num_interior=num_interior,
-                        c_localidad=localidad,
-                        c_id_estado=digitos,
-                        c_telefono=telefono,
-                        c_telefono_dos=telefono_dos,
-                        c_municipio=municipio,
-                        c_cp=cp
-                    )
-                    nombre_consultorio_list = [nombre_consultorio]
                     if self.cantidad_consultorio_duplicado(nombre_consultorio_list) > 0:
                         self.mb.message_box(self,"info", "Duplicado", "Ya hay un consultorio con ese nombre, cambien el nombre del consultorio")
                     else:
-                        if mdc.insertar_datos(self.db):
+                        if CM.actualizar_datos(self.db, name_update=nombre_consultorio, calle_update=calle, colonia_update=colonia, num_ext_update=num_exeterior, num_int_update=num_interior, localidad_update=localidad, id_estado_update=digitos, tel_update=telefono, tel_dos_update=telefono_dos, municipio_update=municipio, cp_update=cp):
                             tipo, titulo, mensaje = "info", "Generado con exito", "Se genero con exito el consultorio"
                             self.mb.message_box(self, tipo=tipo, titulo=titulo, mensaje=mensaje)
                             self.navegar.ir_a_ventana("crear_usuario")
