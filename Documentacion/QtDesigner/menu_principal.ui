@@ -1,34 +1,100 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>f_menu_principa</class>
- <widget class="QWidget" name="f_menu_principa">
+ <class>f_menu_principal</class>
+ <widget class="QWidget" name="f_menu_principal">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
+    <width>820</width>
     <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SIHMED - Menu</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>80</y>
-     <width>181</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string># Bienvenido</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::TextFormat::MarkdownText</enum>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="main_layout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string># Bienvenido</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::MarkdownText</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="fechas_layout">
+     <item>
+      <widget class="QLabel" name="label_de">
+       <property name="text">
+        <string>De:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="fecha_inicio">
+       <property name="displayFormat">
+        <string>dd/MM/yyyy</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_a">
+       <property name="text">
+        <string>A:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="fecha_fin">
+       <property name="displayFormat">
+        <string>dd/MM/yyyy</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer_fechas">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QWidget" name="layout_grafica_1" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="layout_grafica_2" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

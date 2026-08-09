@@ -1,6 +1,5 @@
 name: ProyectoIntegrador
 channels:
-  - conda-forge
   - defaults
 dependencies:
   - python=3.12
@@ -8,3 +7,8 @@ dependencies:
   - python-dotenv
   - pymysql
   - pyqt6
+  - openpyxl
+  - pandas
+  - plotly
+  - matplotlib
+prefix: /home/asgard/anaconda3/envs/ProyectoIntegrador

@@ -7,6 +7,8 @@ from Usuario.ventana_modificar_usuario import Ventana_Moficar_Usuario
 from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
 from Configuracion.ventana_cambiar_contrasena import Ventana_Cambiar_Contrasena
 from Consultorio.ventana_modificar_consultorio import Ventana_Modificar_Consultorio
+from Menu.ventana_bienvenida import Ventana_Bienvenida
+
 class Ventana_Menu_Principal(QWidget):
 
     def __init__(self, db: MySqlManager, navegar):
@@ -55,7 +57,7 @@ class Ventana_Menu_Principal(QWidget):
 
         # Mapeo para clases personalizadas (vistas con lógica)
         self.mapeo_menu_clases = {
-            0: None,  # menu_principal
+            0: Ventana_Bienvenida,  # menu_principal
             1: None,  # menu_pacientes
             2: None, # citas
             3: Ventana_Crear_Recetas,  # recetas
