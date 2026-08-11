@@ -76,6 +76,40 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="totales_layout">
+     <item>
+      <widget class="QLabel" name="label_total_citas">
+       <property name="text">
+        <string>Total citas: 0</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 14px; font-weight: bold; color: #2b5b84; background-color: #d9e2f0; padding: 6px; border-radius: 4px;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_total_med">
+       <property name="text">
+        <string>Total medicamentos: 0</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 14px; font-weight: bold; color: #e67e22; background-color: #fdebd9; padding: 6px; border-radius: 4px;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_total_general">
+       <property name="text">
+        <string>Total general: 0</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 14px; font-weight: bold; color: #1e8449; background-color: #d5f5e3; padding: 6px; border-radius: 4px;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QWidget" name="layout_grafica_1" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
