@@ -70,7 +70,7 @@ class Ventana_Menu_Principal(QWidget):
             10: Ventana_Cambiar_Contrasena   # contrasena
         }
 
-        self.layout_vistas = QVBoxLayout(self.w_ventana)
+        self.layout_vistas = self.w_ventana.layout()
         self.layout_vistas.setContentsMargins(0,0,0,0)
 
         self.lw_enlace_menu.currentRowChanged.connect(self.cargar_ventanas)

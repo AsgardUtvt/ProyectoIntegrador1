@@ -7,7 +7,7 @@ from message_box import Message_Box
 from limitar_intput import Limitar_Intput
 from general_sistem_service import General_Sistem_Service as GSS
 from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
-from Model.consultorio_model import Consultorio_Model as CM
+from Consultorio.Model.consultorio_model import Consultorio_Model as CM
 
 class Ventana_Modificar_Consultorio(QWidget):
     _TUPLA_DATOS = ()

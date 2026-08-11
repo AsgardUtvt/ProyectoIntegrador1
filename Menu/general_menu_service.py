@@ -10,15 +10,14 @@ class General_Menu_Service:
             with db.obtener_cursor() as cursor:
                 sql_obtener_medicamentos = """
 SELECT
-       m.`medicamento_name` AS EJEX,
+	   DATE(r.receta_date ) AS EJEX,
        COUNT(m.medicamento_name) AS EJEY
 FROM `Receta` r
 INNER JOIN `Receta_Medicamento` rm ON rm.`id_receta` = r.`id_receta`
 INNER JOIN `Medicamento` m ON m.`id_medicamento` = rm.`id_medicamento`
 WHERE m.id_consultorio = %s AND r.receta_date BETWEEN %s AND %s
 GROUP BY m.`id_medicamento`, m.`medicamento_name`
-ORDER BY EJEY ;
-                """
+ORDER BY EJEX ;"""
                 cursor.execute(sql_obtener_medicamentos, rango_fechas_med)
                 resultados_obtener_medicametos = cursor.fetchall()
                 print(f"def datos_grafica_medicamentos: {resultados_obtener_medicametos}")
