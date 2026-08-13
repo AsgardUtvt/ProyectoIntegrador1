@@ -116,6 +116,9 @@ class Ventana_Bienvenida(QWidget):
         self.fig2.autofmt_xdate()
         self.fig2.tight_layout()
         self.canvas2.draw_idle()
+        self.label_total_citas.setText(f"Total citas: {sum(y1)}")
+        self.label_total_med.setText(f"Total medicamentos: {sum(y2)}")
+        self.label_total_general.setText(f"Total general: {sum(y1) + sum(y2)}")
 
                 # --- Gráfica 3: proyección de citas ---
         x1_fut, y1_fut = self.proyectar(x1, y1)
@@ -190,3 +193,4 @@ class Ventana_Bienvenida(QWidget):
 
         fechas_fut = [x[0] + timedelta(days=int(d)) for d in xs_fut]
         return fechas_fut, ys_fut.tolist()
+
