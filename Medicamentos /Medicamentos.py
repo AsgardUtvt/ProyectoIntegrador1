@@ -1,34 +1,21 @@
 import sys
-import mysql.connector
+import os
+
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
     QPushButton, QLabel, QMessageBox, QInputDialog, QListWidget
 )
-
-from limitar_intput import Limitar_Intput 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".." )))
+from BaseDatos.MySqlManager import MySqlManager
 
 class MedicamentosWindow(QMainWindow):
-    def __init__(self, menu_principal_callback=None):
+    def __init__(self, db: MySqlManager, menu_principal_callback=None):
         super().__init__()
+        self.db = db
         self.menu_principal_callback = menu_principal_callback
         
-        self.db_config = {
-            'host': 'localhost',
-            'database': 'sihmed',
-            'user': 'root',
-            'password': ''                # Contraseña si la requiere
-        }
-        
         self.init_ui()
-
-    def conectar_db(self):
-        """Establece y retorna una nueva conexión a la base de datos."""
-        try:
-            return mysql.connector.connect(**self.db_config)
-        except mysql.connector.Error as err:
-            QMessageBox.critical(self, "Error de Conexión", f"No se pudo conectar a la base de datos:\n{err}")
-            return None
-
+        
     def init_ui(self):
         self.setWindowTitle("SIHMED - Menú de Medicamentos")
         self.resize(800, 500)
@@ -101,45 +88,37 @@ class MedicamentosWindow(QMainWindow):
     def cargar_medicamentos(self):
         """Consulta la base de datos y llena la lista visual con los medicamentos existentes."""
         self.list_medicamentos.clear()
-        conexion = self.conectar_db()
-        if not conexion:
-            return
-        
         try:
-            cursor = conexion.cursor(dictionary=True)
             query = """
                 SELECT m.id_medicamento, m.medicamento_name, m.medicamento_cantidad, 
                        m.medicamento_min, m.medicamento_caducidad, m.medicamento_costo,
-                       co.conultorio_name, v.via_administrar_medicamento
+                       co.consultorio_name, v.via_administrar_medicamento
                 FROM Medicamento m
                 JOIN Consultorio co ON m.id_consultorio = co.id_consultorio
                 JOIN Via_Administrar_Medicamento v ON m.id_via_administrar_medicamento = v.id_via_administrar_medicamento
             """
-            cursor.execute(query)
-            for med in cursor.fetchall():
-                item_text = f"[ID: {med['id_medicamento']}] {med['medicamento_name']} (Stock: {med['medicamento_cantidad']})"
-                self.list_medicamentos.addItem(item_text)
-                # Almacenamos el diccionario con los datos completos en el item
-                self.list_medicamentos.item(self.list_medicamentos.count() - 1).setData(0x0100, med)
+            datos = self.db.fetchall(query)
+            if datos:
+                for med in datos:
+                    item_text = f"[ID: {med.get('id_medicamento')}] {med.get('medicamento_name')} (Stock: {med.get('medicamento_cantidad')})"
+                    self.list_medicamentos.addItem(item_text)
+                    # Almacenamos el diccionario con los datos completos en el item
+                    self.list_medicamentos.item(self.list_medicamentos.count() - 1).setData(0x0100, med)
                 
-        except mysql.connector.Error as err:
+        except Exception as err:
             QMessageBox.warning(self, "Error", f"No se pudieron cargar los medicamentos:\n{err}")
-        finally:
-            if conexion.is_connected():
-                cursor.close()
-                conexion.close()
 
     def mostrar_detalle_medicamento(self, item):
         """Muestra la información detallada del medicamento seleccionado."""
         med = item.data(0x0100)
         if med:
             detalle = (
-                f"<b>Nombre:</b> {med['medicamento_name']}<br>"
-                f"<b>Cantidad en Stock:</b> {med['medicamento_cantidad']} (Mínimo: {med['medicamento_min']})<br>"
-                f"<b>Costo Unitario:</b> ${med['medicamento_costo']}<br>"
-                f"<b>Caducidad:</b> {med['medicamento_caducidad']}<br>"
-                f"<b>Vía de Administración:</b> {med['via_administrar_medicamento']}<br>"
-                f"<b>Consultorio:</b> {med['conultorio_name']}"
+                f"<b>Nombre:</b> {med.get('medicamento_name')}<br>"
+                f"<b>Cantidad en Stock:</b> {med.get('medicamento_cantidad')} (Mínimo: {med.get('medicamento_min')})<br>"
+                f"<b>Costo Unitario:</b> ${med.get('medicamento_costo')}<br>"
+                f"<b>Caducidad:</b> {med.get('medicamento_caducidad')}<br>"
+                f"<b>Vía de Administración:</b> {med.get('via_administrar_medicamento')}<br>"
+                f"<b>Consultorio:</b> {med.get('consultorio_name')}"
             )
             self.label_detalle.setText(detalle)
 
@@ -169,24 +148,21 @@ class MedicamentosWindow(QMainWindow):
         id_via, ok = QInputDialog.getInt(self, "Nuevo Medicamento", "ID de la Vía de Administración (ej. 1):", 1)
         if not ok: return
 
-        conexion = self.conectar_db()
-        if conexion:
-            try:
-                cursor = conexion.cursor()
-                query = """
-                    INSERT INTO Medicamento 
-                    (medicamento_name, medicamento_cantidad, medicamento_min, medicamento_caducidad, 
-                     medicamento_dosis, medicamento_costo, id_consultorio, id_via_administrar_medicamento)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                """
-                cursor.execute(query, (nombre, cantidad, min_stock, caducidad, dosis, costo, id_consultorio, id_via))
-                conexion.commit()
+        try:
+            query = """
+                INSERT INTO Medicamento 
+                (medicamento_name, medicamento_cantidad, medicamento_min, medicamento_caducidad, 
+                 medicamento_dosis, medicamento_costo, id_consultorio, id_via_administrar_medicamento)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            filas = self.db.execute(query, (nombre, cantidad, min_stock, caducidad, dosis, costo, id_consultorio, id_via))
+            if filas is not None and filas > 0:
                 QMessageBox.information(self, "Éxito", "Medicamento registrado correctamente.")
                 self.cargar_medicamentos()
-            except mysql.connector.Error as err:
-                QMessageBox.critical(self, "Error", f"No se pudo registrar:\n{err}")
-            finally:
-                conexion.close()
+            else:
+                QMessageBox.warning(self, "Atención", "No se pudo registrar el medicamento.")
+        except Exception as err:
+            QMessageBox.critical(self, "Error", f"No se pudo registrar:\n{err}")
 
     def modificar_medicamento(self):
         """Modifica el stock y costo del medicamento seleccionado."""
@@ -196,27 +172,24 @@ class MedicamentosWindow(QMainWindow):
             return
 
         med = item_actual.data(0x0100)
-        id_med = med['id_medicamento']
+        id_med = med.get('id_medicamento')
 
-        nueva_cantidad, ok = QInputDialog.getInt(self, "Modificar Medicamento", f"Actualizar stock para '{med['medicamento_name']}':", med['medicamento_cantidad'], 0, 10000)
+        nueva_cantidad, ok = QInputDialog.getInt(self, "Modificar Medicamento", f"Actualizar stock para '{med.get('medicamento_name')}':", med.get('medicamento_cantidad', 0), 0, 10000)
         if not ok: return
 
-        nuevo_costo, ok = QInputDialog.getDouble(self, "Modificar Medicamento", "Actualizar costo unitario ($):", float(med['medicamento_costo']), 0.0, 9999.99, 2)
+        nuevo_costo, ok = QInputDialog.getDouble(self, "Modificar Medicamento", "Actualizar costo unitario ($):", float(med.get('medicamento_costo', 0.0)), 0.0, 9999.99, 2)
         if not ok: return
 
-        conexion = self.conectar_db()
-        if conexion:
-            try:
-                cursor = conexion.cursor()
-                query = "UPDATE Medicamento SET medicamento_cantidad = %s, medicamento_costo = %s WHERE id_medicamento = %s"
-                cursor.execute(query, (nueva_cantidad, nuevo_costo, id_med))
-                conexion.commit()
+        try:
+            query = "UPDATE Medicamento SET medicamento_cantidad = %s, medicamento_costo = %s WHERE id_medicamento = %s"
+            filas = self.db.execute(query, (nueva_cantidad, nuevo_costo, id_med))
+            if filas is not None and filas > 0:
                 QMessageBox.information(self, "Éxito", "Medicamento actualizado correctamente.")
                 self.cargar_medicamentos()
-            except mysql.connector.Error as err:
-                QMessageBox.critical(self, "Error", f"No se pudo actualizar:\n{err}")
-            finally:
-                conexion.close()
+            else:
+                QMessageBox.warning(self, "Atención", "No se realizaron cambios en el medicamento.")
+        except Exception as err:
+            QMessageBox.critical(self, "Error", f"No se pudo actualizar:\n{err}")
 
     def eliminar_medicamento(self):
         """Elimina un medicamento de la base de datos."""
@@ -229,35 +202,20 @@ class MedicamentosWindow(QMainWindow):
         
         confirmacion = QMessageBox.question(
             self, "Confirmar Eliminación", 
-            f"¿Está seguro de eliminar el medicamento '{med['medicamento_name']}'?",
+            f"¿Está seguro de eliminar el medicamento '{med.get('medicamento_name')}'?",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
         
         if confirmacion == QMessageBox.StandardButton.Yes:
-            conexion = self.conectar_db()
-            if conexion:
-                try:
-                    cursor = conexion.cursor()
-                    query = "DELETE FROM Medicamento WHERE id_medicamento = %s"
-                    cursor.execute(query, (med['id_medicamento'],))
-                    conexion.commit()
+            try:
+                query = "DELETE FROM Medicamento WHERE id_medicamento = %s"
+                filas = self.db.execute(query, (med.get('id_medicamento'),))
+                if filas is not None and filas > 0:
                     QMessageBox.information(self, "Éxito", "Medicamento eliminado.")
                     self.cargar_medicamentos()
                     self.label_detalle.setText("Selecciona un medicamento de la lista para ver sus detalles.")
-                except mysql.connector.Error as err:
-                    QMessageBox.critical(self, "Error", f"No se pudo eliminar (podría estar vinculado a una receta):\n{err}")
-                finally:
-                    conexion.close()
+                else:
+                    QMessageBox.warning(self, "Atención", "No se pudo eliminar el medicamento.")
+            except Exception as err:
+                QMessageBox.critical(self, "Error", f"No se pudo eliminar (podría estar vinculado a una receta):\n{err}")
 
-    def volver_menu(self):
-        """Regresa al menú principal del sistema."""
-        if self.menu_principal_callback:
-            self.menu_principal_callback()
-        else:
-            self.close()
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ventana = MedicamentosWindow()
-    ventana.show()
-    sys.exit(app.exec())

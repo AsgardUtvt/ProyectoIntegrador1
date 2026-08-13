@@ -1,70 +1,61 @@
 import sys
 import os
-from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
-    QPushButton, QLabel, QMessageBox, QTableWidget, QTableWidgetItem, QFileDialog
-)
+from PyQt6.QtWidgets import QWidget, QMessageBox, QTableWidgetItem
 from PyQt6 import uic
-from PyQt6.QtGui import QColor
+from PyQt6.QtCore import QDate
 from BaseDatos.MySqlManager import MySqlManager
-from openpyxl import Workbook
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
-from reportlab.lib import colors
 
-class ReportesWindow(QMainWindow):
-    def __init__(self, menu_principal_callback=None, ):
+class CitasWindow(QWidget):
+    def __init__(self, db: MySqlManager, navegar=None):
         super().__init__()
-        self.menu_principal_callback = menu_principal_callback
+        self.db = db
+        self.navegar = navegar
         self.init_ui()
 
-    def conectar_db(self):
-        """Establece y retorna una nueva conexión a la base de datos."""
-        try:
-            return mysql.connector.connect(**self.db_config)
-        except mysql.connector.Error as err:
-            QMessageBox.critical(self, "Error de Conexión", f"No se pudo conectar a la base de datos:\n{err}")
-            return None
-
     def init_ui(self):
-            # -------------------------
-            # Definición explícita de la ruta hacia el archivo .ui en la estructura del equipo
-            # -------------------------
-            directorio_actual = os.path.dirname(os.path.abspath(__file__))
-            ruta_ui = os.path.join(directorio_actual, "..", "Documentacion", "Qtdesigner", "Reportes_widget.ui")
-            
-            if not os.path.exists(ruta_ui):
-                QMessageBox.critical(None, "Error crítico", f"No se encontró el archivo de interfaz en:\n{ruta_ui}")
-                sys.exit(1)
+        # -------------------------
+        # Carga del archivo .ui con ruta relativa segura
+        # -------------------------
+        directorio_actual = os.path.dirname(os.path.abspath(__file__))
+        ruta_ui = os.path.join(directorio_actual, "..", "Documentacion", "QtDesigner", "citasSIHMED.ui")
+        
+        if not os.path.exists(ruta_ui):
+            QMessageBox.critical(None, "Error crítico", f"No se encontró el archivo de interfaz en:\n{ruta_ui}")
+            sys.exit(1)
 
-            # Carga el archivo .ui correctamente definido
-            uic.loadUi(ruta_ui, self)
-            self.show()
+        uic.loadUi(ruta_ui, self)
 
-            # -------------------------
-            # Configuración inicial de la tabla
-            # -------------------------
-            self.configurar_tabla()
+        # -------------------------
+        # Configuración inicial de la tabla y calendario
+        # -------------------------
+        self.configurar_tabla()
+        self.calendar.setSelectedDate(QDate.currentDate())
 
-            # -------------------------
-            # Conexión de Botones y Eventos
-            # -------------------------
-            self.btnGenerar.clicked.connect(self.cargar_inventario)
-            self.btnLimpiar.clicked.connect(self.limpiar_tabla)
-            self.btnExcel.clicked.connect(self.exportar_excel)
-            self.btnPDF.clicked.connect(self.exportar_pdf)
+        # -------------------------
+        # Conexión de Botones y Eventos
+        # -------------------------
+        self.btnAct.clicked.connect(self.cargar_citas)
+        self.btnGen.clicked.connect(self.generar_cita)
+        self.btnMod.clicked.connect(self.modificar_cita)
+        self.btnEli.clicked.connect(self.eliminar_cita)
+        
+        if hasattr(self, "btnVolver") and self.navegar:
+            self.btnVolver.clicked.connect(self.navegar)
 
-            if hasattr(self, "txtBuscar"):
-                self.txtBuscar.textChanged.connect(self.buscar_medicamento)
+        self.calendar.selectionChanged.connect(self.cargar_citas)
+        self.tableCitas.itemSelectionChanged.connect(self.mostrar_detalle_cita)
 
-            # Cargar los datos automáticamente al iniciar
-            self.cargar_inventario()
+        # Cargar las citas del día actual al iniciar
+        self.cargar_citas()
 
     def configurar_tabla(self):
-        """Configura las columnas y propiedades de la tabla."""
-        tabla = self.tablaReporte
-        tabla.setColumnCount(7)
+        """Configura las columnas y propiedades de la tabla de citas basándose en el esquema SQL."""
+        if not hasattr(self, "tableCitas"):
+            return
+        tabla = self.tableCitas
+        tabla.setColumnCount(5)
         tabla.setHorizontalHeaderLabels([
-            "ID", "Medicamento", "Cantidad", "Stock Mínimo", "Caducidad", "Dosis", "Costo"
+            "ID Cita", "Fecha y Hora", "Paciente", "Consultorio", "Estado"
         ])
         tabla.verticalHeader().setVisible(False)
         tabla.setAlternatingRowColors(True)
@@ -72,150 +63,119 @@ class ReportesWindow(QMainWindow):
         tabla.setSelectionBehavior(tabla.SelectionBehavior.SelectRows)
         tabla.setEditTriggers(tabla.EditTrigger.NoEditTriggers)
 
-    # --- LÓGICA DE LAS ACCIONES CONECTADA A LA BD ---
+    # --- LÓGICA DE DATOS CON MySqlManager ---
 
-    def cargar_inventario(self):
-        """Consulta la base de datos y llena la tabla con el inventario."""
-        conexion = self.conectar_db()
-        if not conexion:
-            return
-        
+    def cargar_citas(self):
+        """Consulta las citas de la base de datos filtrando por la fecha seleccionada en el calendario."""
+        fecha_seleccionada = self.calendar.selectedDate().toString("yyyy-MM-dd")
         try:
-            cursor = conexion.cursor(dictionary=True)
             query = """
-                SELECT id_medicamento, medicamento_name, medicamento_cantidad, 
-                       medicamento_min, medicamento_caducidad, medicamento_dosis, medicamento_costo
-                FROM Medicamento
-                ORDER BY medicamento_name
+                SELECT c.id_cita, c.cita_date, 
+                       CONCAT(p.paciente_name, ' ', p.paciente_paterno) AS paciente_completo,
+                       co.consultorio_name, ec.estado_cita
+                FROM Cita c
+                JOIN Paciente p ON c.id_paciente = p.id_paciente
+                JOIN Consultorio co ON c.id_consultorio = co.id_consultorio
+                JOIN Estado_Cita ec ON c.id_estado_cita = ec.id_estado_cita
+                WHERE DATE(c.cita_date) = %s
+                ORDER BY c.cita_date
             """
-            cursor.execute(query)
-            datos = cursor.fetchall()
-            self.actualizar_tabla_visual(datos)
-                
-        except mysql.connector.Error as err:
-            QMessageBox.warning(self, "Error de Base de Datos", f"No se pudo cargar el inventario:\n{err}")
-        finally:
-            if conexion.is_connected():
-                cursor.close()
-                conexion.close()
-
-    def buscar_medicamento(self):
-        """Filtra los medicamentos en tiempo real desde el QLineEdit."""
-        texto = self.txtBuscar.text().strip()
-        conexion = self.conectar_db()
-        if not conexion:
-            return
-
-        try:
-            cursor = conexion.cursor(dictionary=True)
-            query = """
-                SELECT id_medicamento, medicamento_name, medicamento_cantidad, 
-                       medicamento_min, medicamento_caducidad, medicamento_dosis, medicamento_costo
-                FROM Medicamento
-                WHERE medicamento_name LIKE %s
-                ORDER BY medicamento_name
-            """
-            cursor.execute(query, ("%" + texto + "%",))
-            datos = cursor.fetchall()
-            self.actualizar_tabla_visual(datos)
-        except mysql.connector.Error as err:
-            QMessageBox.critical(self, "Error", f"Error en la búsqueda:\n{err}")
-        finally:
-            if conexion.is_connected():
-                cursor.close()
-                conexion.close()
+            datos = self.db.fetchall(query, (fecha_seleccionada,))
+            self.actualizar_tabla_visual(datos if datos is not None else [])
+        except Exception as err:
+            QMessageBox.warning(self, "Error de Base de Datos", f"No se pudieron cargar las citas:\n{err}")
 
     def actualizar_tabla_visual(self, datos):
-        """Inserta los registros en la tabla y marca en rojo los stocks bajos."""
-        tabla = self.tablaReporte
+        """Inserta los registros en la tabla de la interfaz."""
+        tabla = self.tableCitas
         tabla.setRowCount(len(datos))
 
-        for fila, med in enumerate(datos):
-            tabla.setItem(fila, 0, QTableWidgetItem(str(med["id_medicamento"])))
-            tabla.setItem(fila, 1, QTableWidgetItem(str(med["medicamento_name"])))
-            tabla.setItem(fila, 2, QTableWidgetItem(str(med["medicamento_cantidad"])))
-            tabla.setItem(fila, 3, QTableWidgetItem(str(med["medicamento_min"])))
-            tabla.setItem(fila, 4, QTableWidgetItem(str(med["medicamento_caducidad"])))
-            tabla.setItem(fila, 5, QTableWidgetItem(str(med["medicamento_dosis"])))
-            tabla.setItem(fila, 6, QTableWidgetItem(str(med["medicamento_costo"])))
+        for fila, cita in enumerate(datos):
+            tabla.setItem(fila, 0, QTableWidgetItem(str(cita.get("id_cita", ""))))
+            tabla.setItem(fila, 1, QTableWidgetItem(str(cita.get("cita_date", ""))))
+            tabla.setItem(fila, 2, QTableWidgetItem(str(cita.get("paciente_completo", ""))))
+            tabla.setItem(fila, 3, QTableWidgetItem(str(cita.get("consultorio_name", ""))))
+            tabla.setItem(fila, 4, QTableWidgetItem(str(cita.get("estado_cita", ""))))
 
-            # Alerta visual si la cantidad es menor o igual al mínimo
-            if med["medicamento_cantidad"] <= med["medicamento_min"]:
-                for columna in range(7):
-                    item = tabla.item(fila, columna)
-                    if item:
-                        item.setBackground(QColor(255, 210, 210))
-                        item.setForeground(QColor(170, 0, 0))
+        if hasattr(self, "lblDet"):
+            self.lblDet.setText("Seleccione una cita.")
 
-        self.lblTotal.setText(f"Total de medicamentos: {len(datos)}")
-
-    def limpiar_tabla(self):
-        """Limpia la barra de búsqueda y vacía la tabla."""
-        self.tablaReporte.setRowCount(0)
-        if hasattr(self, "txtBuscar"):
-            self.txtBuscar.clear()
-        self.lblTotal.setText("Total de medicamentos: 0")
-
-    def exportar_excel(self):
-        """Exporta los datos de la tabla a un archivo Excel."""
-        archivo, _ = QFileDialog.getSaveFileName(self, "Guardar reporte Excel", "", "Excel (*.xlsx)")
-        if not archivo:
+    def mostrar_detalle_cita(self):
+        """Muestra la información completa de la cita seleccionada en el recuadro de detalles."""
+        tabla = self.tableCitas
+        seleccion = tabla.selectedItems()
+        if not seleccion:
             return
 
-        libro = Workbook()
-        hoja = libro.active
-        hoja.title = "Inventario"
+        fila = seleccion[0].row()
+        id_cita = tabla.item(fila, 0).text()
 
-        for col in range(self.tablaReporte.columnCount()):
-            hoja.cell(row=1, column=col + 1).value = self.tablaReporte.horizontalHeaderItem(col).text()
+        try:
+            query = """
+                SELECT c.id_cita, c.cita_date, c.cita_duracion, c.cita_nota,
+                       CONCAT(p.paciente_name, ' ', p.paciente_paterno, ' ', p.paciente_materno) AS paciente,
+                       p.paciente_telefono, co.consultorio_name, ec.estado_cita, t.tratamiento_name
+                FROM Cita c
+                JOIN Paciente p ON c.id_paciente = p.id_paciente
+                JOIN Consultorio co ON c.id_consultorio = co.id_consultorio
+                JOIN Estado_Cita ec ON c.id_estado_cita = ec.id_estado_cita
+                JOIN Tratamiento t ON c.id_tratamiento = t.id_tratamiento
+                WHERE c.id_cita = %s
+            """
+            resultado = self.db.fetchone(query, (id_cita,))
+            if resultado:
+                texto_detalle = (
+                    f"ID Cita: {resultado.get('id_cita')}\n"
+                    f"Fecha y Hora: {resultado.get('cita_date')} (Duración: {resultado.get('cita_duracion')})\n"
+                    f"Paciente: {resultado.get('paciente')} (Tel: {resultado.get('paciente_telefono')})\n"
+                    f"Consultorio: {resultado.get('consultorio_name')}\n"
+                    f"Tratamiento: {resultado.get('tratamiento_name')}\n"
+                    f"Estado: {resultado.get('estado_cita')}\n"
+                    f"Nota: {resultado.get('cita_nota', 'Sin notas')}"
+                )
+                if hasattr(self, "lblDet"):
+                    self.lblDet.setText(texto_detalle)
+        except Exception as err:
+            QMessageBox.critical(self, "Error", f"No se pudo obtener el detalle de la cita:\n{err}")
 
-        for fila in range(self.tablaReporte.rowCount()):
-            for col in range(self.tablaReporte.columnCount()):
-                item = self.tablaReporte.item(fila, col)
-                if item:
-                    hoja.cell(row=fila + 2, column=col + 1).value = item.text()
+    def generar_cita(self):
+        """Lógica para registrar una nueva cita (pendiente de conectar con formulario de alta)."""
+        QMessageBox.information(self, "Generar Cita", "Aquí se abrirá el formulario para registrar una nueva cita.")
 
-        libro.save(archivo)
-        QMessageBox.information(self, "Éxito", "Reporte exportado a Excel correctamente.")
+    def modificar_cita(self):
+        """Lógica para modificar la cita seleccionada."""
+        tabla = self.tableCitas
+        if not tabla.selectedItems():
+            QMessageBox.warning(self, "Advertencia", "Seleccione una cita para modificar.")
+            return
+        fila = tabla.selectedItems()[0].row()
+        id_cita = tabla.item(fila, 0).text()
+        QMessageBox.information(self, "Modificar Cita", f"Modificar la cita con ID: {id_cita}")
 
-    def exportar_pdf(self):
-        """Exporta los datos de la tabla a un documento PDF."""
-        archivo, _ = QFileDialog.getSaveFileName(self, "Guardar PDF", "", "PDF (*.pdf)")
-        if not archivo:
+    def eliminar_cita(self):
+        """Elimina o da de baja la cita seleccionada tras confirmación."""
+        tabla = self.tableCitas
+        if not tabla.selectedItems():
+            QMessageBox.warning(self, "Advertencia", "Seleccione una cita para eliminar.")
             return
 
-        datos_tabla = []
-        encabezados = []
+        fila = tabla.selectedItems()[0].row()
+        id_cita = tabla.item(fila, 0).text()
 
-        for c in range(self.tablaReporte.columnCount()):
-            encabezados.append(self.tablaReporte.horizontalHeaderItem(c).text())
-        datos_tabla.append(encabezados)
+        respuesta = QMessageBox.question(
+            self, "Confirmar eliminación",
+            f"¿Está seguro de que desea eliminar la cita ID {id_cita}?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
 
-        for fila in range(self.tablaReporte.rowCount()):
-            registro = []
-            for col in range(self.tablaReporte.columnCount()):
-                item = self.tablaReporte.item(fila, col)
-                registro.append(item.text() if item else "")
-            datos_tabla.append(registro)
-
-        pdf = SimpleDocTemplate(archivo)
-        tabla = Table(datos_tabla)
-        tabla.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1565C0")),
-            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
-            ("GRID", (0, 0), (-1, -1), 1, colors.black),
-            ("BACKGROUND", (0, 1), (-1, -1), colors.beige),
-            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-            ("BOTTOMPADDING", (0, 0), (-1, 0), 10)
-        ]))
-
-        pdf.build([tabla])
-        QMessageBox.information(self, "Éxito", "PDF generado correctamente.")
-
-    def volver_menu(self):
-        """Regresa al menú principal del sistema."""
-        if self.menu_principal_callback:
-            self.menu_principal_callback()
-        else:
-            self.close()
-
+        if respuesta == QMessageBox.StandardButton.Yes:
+            try:
+                query = "DELETE FROM Cita WHERE id_cita = %s"
+                filas_afectadas = self.db.execute(query, (id_cita,))
+                if filas_afectadas is not None and filas_afectadas > 0:
+                    QMessageBox.information(self, "Éxito", "Cita eliminada correctamente.")
+                    self.cargar_citas()
+                else:
+                    QMessageBox.warning(self, "Atención", "No se pudo eliminar la cita.")
+            except Exception as err:
+                QMessageBox.critical(self, "Error de Base de Datos", f"No se pudo eliminar la cita:\n{err}")

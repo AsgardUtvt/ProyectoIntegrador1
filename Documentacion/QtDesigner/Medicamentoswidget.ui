@@ -39,21 +39,24 @@
     <item>
      <widget class="QPushButton" name="btnRegistrar">
       <property name="text">
-       <string>Registrar Medicamento</string>
+       <string>Alta de Mdicamento</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="btnModificar">
       <property name="text">
-       <string>Modificar Medicamento</string>
+       <string>Modificar datos 
+de Medicamentos </string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="btnEliminar">
       <property name="text">
-       <string>Eliminar Medicamento</string>
+       <string>Eliminar Medicamento
+del Stock
+</string>
       </property>
      </widget>
     </item>
@@ -76,13 +79,6 @@
        </size>
       </property>
      </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="btnVolver">
-      <property name="text">
-       <string>Volver al Menú</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>

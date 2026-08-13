@@ -1,46 +1,34 @@
 import sys
 import os
-import mysql.connector
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
-    QPushButton, QLabel, QMessageBox, QTableWidget, QTableWidgetItem, QFileDialog
+    QMainWindow, QWidget, QMessageBox, QTableWidget, QTableWidgetItem, QFileDialog
 )
-from PyQt6 import uic  # <-- Cargador nativo correcto para PyQt6
+from PyQt6 import uic
 from PyQt6.QtGui import QColor
-
+from BaseDatos.MySqlManager import MySqlManager
 from openpyxl import Workbook
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib import colors
 
-class ReportesWindow(QMainWindow):
-    def __init__(self, menu_principal_callback=None):
+class ReportesWindow(QWidget):
+    def __init__(self, db: MySqlManager, navegar=None):
         super().__init__()
-        self.menu_principal_callback = menu_principal_callback
-        
-        self.db_config = {
-            'host': 'localhost',
-            'database': 'sihmed',
-            'user': 'root',
-            'password': ''                # Contraseña si la requiere
-        }
-        
+        self.db = db
+        self.navegar = navegar
         self.init_ui()
 
-    def conectar_db(self):
-        """Establece y retorna una nueva conexión a la base de datos."""
-        try:
-            return mysql.connector.connect(**self.db_config)
-        except mysql.connector.Error as err:
-            QMessageBox.critical(self, "Error de Conexión", f"No se pudo conectar a la base de datos:\n{err}")
-            return None
-
     def init_ui(self):
-        self.setWindowTitle("SIHMED - Reportes")
-        self.resize(750, 500)
+        # -------------------------
+        # Carga del archivo .ui con ruta relativa segura
+        # -------------------------
+        directorio_actual = os.path.dirname(os.path.abspath(__file__))
+        ruta_ui = os.path.join(directorio_actual, "..", "Documentacion", "QtDesigner", "Reportes_widget.ui")
+        
+        if not os.path.exists(ruta_ui):
+            QMessageBox.critical(None, "Error crítico", f"No se encontró el archivo de interfaz en:\n{ruta_ui}")
+            sys.exit(1)
 
-        # Carga el archivo .ui directamente en la ventana actual
-        uic.loadUi("../Documentacion/QtDesigner/Reportes_widget.ui", self)
-        self.show()
+        uic.loadUi(ruta_ui, self)
 
         # -------------------------
         # Configuración inicial de la tabla
@@ -48,7 +36,7 @@ class ReportesWindow(QMainWindow):
         self.configurar_tabla()
 
         # -------------------------
-        # Conexión de Botones y Eventos del .ui
+        # Conexión de Botones y Eventos
         # -------------------------
         self.btnGenerar.clicked.connect(self.cargar_inventario)
         self.btnLimpiar.clicked.connect(self.limpiar_tabla)
@@ -60,8 +48,11 @@ class ReportesWindow(QMainWindow):
 
         # Cargar los datos automáticamente al iniciar
         self.cargar_inventario()
+
     def configurar_tabla(self):
-        """Configura las columnas y propiedades de la tabla de reportes."""
+        """Configura las columnas y propiedades de la tabla."""
+        if not hasattr(self, "tablaReporte"):
+            return
         tabla = self.tablaReporte
         tabla.setColumnCount(7)
         tabla.setHorizontalHeaderLabels([
@@ -73,42 +64,29 @@ class ReportesWindow(QMainWindow):
         tabla.setSelectionBehavior(tabla.SelectionBehavior.SelectRows)
         tabla.setEditTriggers(tabla.EditTrigger.NoEditTriggers)
 
-    # --- LÓGICA DE LAS ACCIONES CONECTADA A LA BD ---
+    # --- LÓGICA DE DATOS CON MySqlManager ---
 
     def cargar_inventario(self):
-        """Consulta la base de datos y llena la tabla con el inventario de medicamentos."""
-        conexion = self.conectar_db()
-        if not conexion:
-            return
-        
+        """Consulta la base de datos usando MySqlManager y llena la tabla."""
         try:
-            cursor = conexion.cursor(dictionary=True)
             query = """
                 SELECT id_medicamento, medicamento_name, medicamento_cantidad, 
                        medicamento_min, medicamento_caducidad, medicamento_dosis, medicamento_costo
                 FROM Medicamento
                 ORDER BY medicamento_name
             """
-            cursor.execute(query)
-            datos = cursor.fetchall()
-            self.actualizar_tabla_visual(datos)
-                
-        except mysql.connector.Error as err:
-            QMessageBox.warning(self, "Error", f"No se pudo cargar el inventario:\n{err}")
-        finally:
-            if conexion.is_connected():
-                cursor.close()
-                conexion.close()
+            datos = self.db.fetchall(query)
+            if datos is not None:
+                self.actualizar_tabla_visual(datos)
+            else:
+                self.actualizar_tabla_visual([])
+        except Exception as err:
+            QMessageBox.warning(self, "Error de Base de Datos", f"No se pudo cargar el inventario:\n{err}")
 
     def buscar_medicamento(self):
-        """Filtra los medicamentos en tiempo real según el texto ingresado."""
+        """Filtra los medicamentos en tiempo real desde el QLineEdit."""
         texto = self.txtBuscar.text().strip()
-        conexion = self.conectar_db()
-        if not conexion:
-            return
-
         try:
-            cursor = conexion.cursor(dictionary=True)
             query = """
                 SELECT id_medicamento, medicamento_name, medicamento_cantidad, 
                        medicamento_min, medicamento_caducidad, medicamento_dosis, medicamento_costo
@@ -116,49 +94,51 @@ class ReportesWindow(QMainWindow):
                 WHERE medicamento_name LIKE %s
                 ORDER BY medicamento_name
             """
-            cursor.execute(query, ("%" + texto + "%",))
-            datos = cursor.fetchall()
-            self.actualizar_tabla_visual(datos)
-        except mysql.connector.Error as err:
+            datos = self.db.fetchall(query, ("%" + texto + "%",))
+            if datos is not None:
+                self.actualizar_tabla_visual(datos)
+            else:
+                self.actualizar_tabla_visual([])
+        except Exception as err:
             QMessageBox.critical(self, "Error", f"Error en la búsqueda:\n{err}")
-        finally:
-            if conexion.is_connected():
-                cursor.close()
-                conexion.close()
 
     def actualizar_tabla_visual(self, datos):
-        """Inserta los registros en la QTableWidget y aplica alertas de stock bajo."""
+        """Inserta los registros en la tabla y marca en rojo los stocks bajos."""
         tabla = self.tablaReporte
         tabla.setRowCount(len(datos))
 
         for fila, med in enumerate(datos):
-            tabla.setItem(fila, 0, QTableWidgetItem(str(med["id_medicamento"])))
-            tabla.setItem(fila, 1, QTableWidgetItem(str(med["medicamento_name"])))
-            tabla.setItem(fila, 2, QTableWidgetItem(str(med["medicamento_cantidad"])))
-            tabla.setItem(fila, 3, QTableWidgetItem(str(med["medicamento_min"])))
-            tabla.setItem(fila, 4, QTableWidgetItem(str(med["medicamento_caducidad"])))
-            tabla.setItem(fila, 5, QTableWidgetItem(str(med["medicamento_dosis"])))
-            tabla.setItem(fila, 6, QTableWidgetItem(str(med["medicamento_costo"])))
+            tabla.setItem(fila, 0, QTableWidgetItem(str(med.get("id_medicamento", ""))))
+            tabla.setItem(fila, 1, QTableWidgetItem(str(med.get("medicamento_name", ""))))
+            tabla.setItem(fila, 2, QTableWidgetItem(str(med.get("medicamento_cantidad", ""))))
+            tabla.setItem(fila, 3, QTableWidgetItem(str(med.get("medicamento_min", ""))))
+            tabla.setItem(fila, 4, QTableWidgetItem(str(med.get("medicamento_caducidad", ""))))
+            tabla.setItem(fila, 5, QTableWidgetItem(str(med.get("medicamento_dosis", ""))))
+            tabla.setItem(fila, 6, QTableWidgetItem(str(med.get("medicamento_costo", ""))))
 
-            # Alerta visual de stock bajo (Rojo suave)
-            if med["medicamento_cantidad"] <= med["medicamento_min"]:
+            # Alerta visual si la cantidad es menor o igual al mínimo
+            cantidad = med.get("medicamento_cantidad", 0)
+            minimo = med.get("medicamento_min", 0)
+            if cantidad <= minimo:
                 for columna in range(7):
                     item = tabla.item(fila, columna)
                     if item:
                         item.setBackground(QColor(255, 210, 210))
                         item.setForeground(QColor(170, 0, 0))
 
-        self.lblTotal.setText(f"Total de medicamentos: {len(datos)}")
+        if hasattr(self, "lblTotal"):
+            self.lblTotal.setText(f"Total de medicamentos: {len(datos)}")
 
     def limpiar_tabla(self):
-        """Limpia los campos de búsqueda y vacía la tabla."""
+        """Limpia la barra de búsqueda y vacía la tabla."""
         self.tablaReporte.setRowCount(0)
         if hasattr(self, "txtBuscar"):
             self.txtBuscar.clear()
-        self.lblTotal.setText("Total de medicamentos: 0")
+        if hasattr(self, "lblTotal"):
+            self.lblTotal.setText("Total de medicamentos: 0")
 
     def exportar_excel(self):
-        """Exporta el contenido actual de la tabla a un archivo Excel (.xlsx)."""
+        """Exporta los datos de la tabla a un archivo Excel."""
         archivo, _ = QFileDialog.getSaveFileName(self, "Guardar reporte Excel", "", "Excel (*.xlsx)")
         if not archivo:
             return
@@ -180,7 +160,7 @@ class ReportesWindow(QMainWindow):
         QMessageBox.information(self, "Éxito", "Reporte exportado a Excel correctamente.")
 
     def exportar_pdf(self):
-        """Exporta el contenido actual de la tabla a un archivo PDF."""
+        """Exporta los datos de la tabla a un documento PDF."""
         archivo, _ = QFileDialog.getSaveFileName(self, "Guardar PDF", "", "PDF (*.pdf)")
         if not archivo:
             return
@@ -212,15 +192,3 @@ class ReportesWindow(QMainWindow):
 
         pdf.build([tabla])
         QMessageBox.information(self, "Éxito", "PDF generado correctamente.")
-
-    def volver_menu(self):
-        """Regresa al menú principal del sistema."""
-        if self.menu_principal_callback:
-            self.menu_principal_callback()
-        else:
-            self.close()
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ventana = ReportesWindow()
-    sys.exit(app.exec())

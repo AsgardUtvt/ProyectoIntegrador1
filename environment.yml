@@ -8,3 +8,4 @@ dependencies:
   - python-dotenv
   - pymysql
   - pyqt6
+
