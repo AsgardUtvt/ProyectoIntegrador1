@@ -156,6 +156,11 @@
     </item>
     <item row="12" column="1">
      <widget class="QPushButton" name="pb_modificar_consultorio">
+      <property name="styleSheet">
+       <string notr="true">QPushButton#pb_modificar_consultorio {
+background-color: rgb(170, 255, 0)
+}</string>
+      </property>
       <property name="text">
        <string>Modificar consultorio</string>
       </property>

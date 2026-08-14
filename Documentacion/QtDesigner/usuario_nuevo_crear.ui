@@ -131,6 +131,11 @@
     </item>
     <item row="9" column="1">
      <widget class="QPushButton" name="pb_crear_usuario">
+      <property name="styleSheet">
+       <string notr="true">QPushButton#pb_crear_usuario {
+background-color: rgb(170, 255, 0)
+}</string>
+      </property>
       <property name="text">
        <string>Crear usuario</string>
       </property>

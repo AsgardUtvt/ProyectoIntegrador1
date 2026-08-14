@@ -74,17 +74,17 @@ class Consultorio_Model:
                 slq_update_consultorio = """
 UPDATE Consultorio
 SET consultorio_name = %s ,
-SET consultorio_calle = %s,
-SET consultorio_colonia = %s,
-SET consultorio_num_exterior = %s,
-SET consultorio_num_interior = %s,
-SET consultorio_localidad = %s,
-SET id_estado = %s,
-SET consultorio_telefono = %s,
-SET consultorio_telefono_dos = %s,
-SET consultorio_municipio = %s,
-SET consultorio_cp = %s
-WHERE Id_consultiro = %s;
+ consultorio_calle = %s,
+ consultorio_colonia = %s,
+ consultorio_num_exterior = %s,
+ consultorio_num_interior = %s,
+ consultorio_localidad = %s,
+ id_estado = %s,
+ consultorio_telefono = %s,
+ consultorio_telefono_dos = %s,
+ consultorio_municipio = %s,
+ consultorio_cp = %s
+WHERE id_consultorio = %s;
                 """
                 cursor.execute(slq_update_consultorio, __TUPLA_ACTUALIZAR)
                 db.commit_conexion()
