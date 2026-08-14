@@ -2,7 +2,6 @@ import os
 from PyQt6.QtWidgets import QWidget, QTableWidgetItem
 from PyQt6 import uic
 from BaseDatos.MySqlManager import MySqlManager
-#from BaseDatos.MySqlManager import MySqlManager
 from message_box import Message_Box
 
 class Ventana_Crear_Recetas(QWidget):
@@ -11,12 +10,8 @@ class Ventana_Crear_Recetas(QWidget):
         self.db = db
         self.navegar = navegar
         self.mb = Message_Box()
-
         #cargar ui
-        dir_actual = os.path.dirname(__file__)
-        ruta_ui = os.path.join(dir_actual, "Recetas.ui")
-        uic.loadUi(ruta_ui, self)
-
+        uic.loadUi("Documentacion/QtDesigner/Recetas.ui", self)
         #botones con funciones
         self.pb_agregar_medicamento.clicked.connect(self.btn_agregar_medicamento)
         self.pb_imprimir_receta.clicked.connect(self.btn_guardar_receta)
