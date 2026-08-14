@@ -11,6 +11,7 @@ from Menu.ventana_bienvenida import Ventana_Bienvenida
 from Medicamentos.Medicamentos import Ventana_Medicamentos
 from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
 from Medicamentos.Medicamentos import Ventana_Medicamentos
+from citas.Citas import Ventana_Citas
 
 class Ventana_Menu_Principal(QWidget):
 
@@ -61,7 +62,7 @@ class Ventana_Menu_Principal(QWidget):
         # Mapeo para clases personalizadas (vistas con lógica)
         self.mapeo_menu_clases = {
             0: Ventana_Bienvenida,  # menu_principal
-            1: None, # citas
+            1: Ventana_Citas, # citas
             2: Ventana_Modificar_Paciente,  # menu_pacientes
             3: Ventana_Crear_Recetas,  # recetas
             4: Ventana_Medicamentos,  # inventario
