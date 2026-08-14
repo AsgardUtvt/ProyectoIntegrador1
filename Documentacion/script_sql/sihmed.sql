@@ -960,10 +960,14 @@ CREATE TABLE `Sub_Consultorio` (
   CONSTRAINT `FK_SUB_CONSULTORIO_CONSULTORIO` FOREIGN KEY (`id_consultorio`) REFERENCES `Consultorio` (`id_consultorio`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_SUB_CONSULTORIO_ID_ESTADO` FOREIGN KEY (`id_estado`) REFERENCES `Estado` (`id_estado`)
 <<<<<<< HEAD
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 =======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 >>>>>>> eda639e (Consultorio con delete y generar nuevo)
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+>>>>>>> d2ac486 (Se suben modulo de medicamentos y base de datos)
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -974,11 +978,17 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Sub_Consultorio` WRITE;
 /*!40000 ALTER TABLE `Sub_Consultorio` DISABLE KEYS */;
 <<<<<<< HEAD
+<<<<<<< HEAD
 INSERT INTO `Sub_Consultorio` VALUES
 (1,'SubClinicaUno','arstarstarst','sraastarst','s','s','No encontrado','1235123532152','1235123512351',1,1,'12345','holamundo'),
 (2,'SubConsultoiroDos','arstarstrst','arstarstars','ss','ss','arstqw341234','1235123124351','1235123412341',1,1,'12312','arstarstarst');
 =======
 >>>>>>> eda639e (Consultorio con delete y generar nuevo)
+=======
+INSERT INTO `Sub_Consultorio` VALUES
+(1,'SubClinicaUno','arstarstarst','sraastarst','s','s','No encontrado','1235123532152','1235123512351',1,1,'12345','holamundo'),
+(2,'SubConsultoiroDos','arstarstrst','arstarstars','ss','ss','arstqw341234','1235123124351','1235123412341',1,1,'12312','arstarstarst');
+>>>>>>> d2ac486 (Se suben modulo de medicamentos y base de datos)
 /*!40000 ALTER TABLE `Sub_Consultorio` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1327,7 +1337,11 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 -- Dump completed on 2026-08-14  4:55:56
 =======
 -- Dump completed on 2026-08-13 22:40:13
 >>>>>>> eda639e (Consultorio con delete y generar nuevo)
+=======
+-- Dump completed on 2026-08-14  4:55:56
+>>>>>>> d2ac486 (Se suben modulo de medicamentos y base de datos)
