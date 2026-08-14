@@ -22,13 +22,13 @@ class Ventana_Menu_Principal(QWidget):
         self.rutas_interfaces = {
             "menu_principal": "../Documentacion/QtDesigner/menu_principal.ui",
             "citas": "../Documentacion/QtDesigner/citasWidget.ui",
-            "menu_pacientes": "../Pacientes/pacientes.ui",
-            "recetas": "../Recetas/Recetas.ui",
+            "menu_pacientes": "../Documentacion/QtDesigner/pacientes_lista_modificar.ui",
+            "recetas": "../Documentacion/QtDesigner/Recetas.ui",
             "inventario": "../Documentacion/QtDesigner/Medicamentoswidget.ui",
-            "ventas": "../Reportes/Ticket/ticket_pago.ui",
+            "ventas": "../Documentacion/QtDesigner/ticket_pago.ui",
             "usuario": "../Documentacion/QtDesigner/usuario_modificar.ui",
             "consultorio": "../Documentacion/QtDesigner/consultorio_modificar.ui",
-            "reportes_caja": "../Reportes/Caja/reportes_caja.ui",
+            "reportes_caja": "../Documentacion/QtDesigner/reportes_caja.ui",
             "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
             "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui" 
         }
