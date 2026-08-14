@@ -12,18 +12,7 @@ class MedicamentosWindow(QWidget):
         self.db = db
         self.navegar = navegar
         self.mb = Message_Box()
-        self.init_ui()
-
-    def init_ui(self):                          ### imaginemos que si jalo chido esto, pues si jalo muestra chidito la interfaz
-    
-        directorio_actual = os.path.dirname(os.path.abspath(__file__))
-        ruta_ui = os.path.join(directorio_actual, "..", "Documentacion", "QtDesigner", "medicamentosWidget.ui")
-        
-        if not os.path.exists(ruta_ui):
-            self.mb.message_box(self, "error", "Error crítico", f"No se encontró el archivo de interfaz en:\n{ruta_ui}")
-            sys.exit(1)
-
-        uic.loadUi(ruta_ui, self)
+        uic.loadUi("../Documentacion/QtDesigner/Medicamentoswidget.ui", self)
 
         # Configuración inicial de la tabla
         self.configurar_tabla()

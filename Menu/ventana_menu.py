@@ -5,6 +5,8 @@ from PyQt6 import uic
 import os
 from Usuario.ventana_modificar_usuario import Ventana_Moficar_Usuario
 from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
+from Medicamentos.Medicamentos import MedicamentosWindow
+from Citas.Citas import CitasWindow
 class Ventana_Menu_Principal(QWidget):
 
     def __init__(self, db: MySqlManager, navegar):
@@ -53,9 +55,9 @@ class Ventana_Menu_Principal(QWidget):
         self.mapeo_menu_clases = {
             0: None,  # menu_principal
             1: None,  # menu_pacientes
-            2: None, # citas
+            2: CitasWindow,# citas
             3: Ventana_Crear_Recetas,  # recetas
-            4: None,  # inventario
+            4: MedicamentosWindow,  # inventario
             5: None,  # ventas
             6: Ventana_Moficar_Usuario,  # usuario - CLASE PERSONALIZADA
             7: None,  # reportes_caja
@@ -121,3 +123,4 @@ class Ventana_Menu_Principal(QWidget):
 
         titulo = self.sub_ventana_actual.windowTitle()
         self.window().setWindowTitle(titulo if titulo else "SIHMED")
+        

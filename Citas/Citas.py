@@ -12,18 +12,7 @@ class CitasWindow(QWidget):
         self.db = db
         self.navegar = navegar
         self.mb = Message_Box() # Servicio de mensajes juntaditos pa que , ni yo se pero en los tutos asi le hacian
-        self.init_ui()
-
-    def init_ui(self):
-        directorio_actual = os.path.dirname(os.path.abspath(__file__))
-        ruta_ui = os.path.join(directorio_actual, "..", "Documentacion", "QtDesigner", "citasSIHMED.ui")
-        
-        if not os.path.exists(ruta_ui):
-            self.mb.message_box(self, "error", "Error crítico", "No se encontró el archivo de interfaz")
-            sys.exit(1)
-
-        uic.loadUi(ruta_ui, self)
-
+        uic.loadUi("../Documentacion/QtDesigner/citasWidget.ui",self)
         self.configurar_tabla()
         self.calendar.setSelectedDate(QDate.currentDate())
 
@@ -38,6 +27,7 @@ class CitasWindow(QWidget):
         self.tableCitas.itemSelectionChanged.connect(self.mostrar_detalle_cita)
 
         self.cargar_citas()
+
 
     def configurar_tabla(self):
         tabla = self.tableCitas
