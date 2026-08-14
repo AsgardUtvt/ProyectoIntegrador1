@@ -32,7 +32,7 @@
     <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string># Usuario</string>
+       <string># Encargado clínica</string>
       </property>
       <property name="textFormat">
        <enum>Qt::TextFormat::MarkdownText</enum>
@@ -124,7 +124,7 @@ background-color: rgb(0, 255, 0)
 }</string>
       </property>
       <property name="text">
-       <string>Crear usuario</string>
+       <string>Generar encargado</string>
       </property>
      </widget>
     </item>

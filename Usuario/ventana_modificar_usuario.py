@@ -12,6 +12,7 @@ from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
 from Usuario.ventana_nuevo_usuario_crear import Ventana_Nuevo_Usuario_Crear as VNUC
 from Usuario.ventana_modificar_usuario_dialog import Vetana_Modificar_Usuario_Dialog as VMUD
 from Usuario.Model.usuario_model import Usuario_Model as UM
+
 class Ventana_Moficar_Usuario(QWidget):
 
     def __init__(self, db: MySqlManager, navegar):
@@ -72,6 +73,7 @@ class Ventana_Moficar_Usuario(QWidget):
         dialog_modificar = VMUD(self.db, val)
         if dialog_modificar.exec():
             print("Modificar")
+            self.refrescar_datos()
 
 
     def eliminar(self,val):
@@ -81,6 +83,7 @@ class Ventana_Moficar_Usuario(QWidget):
 
             if UM.eliminar_usuario(self.db,list_id):
                 self.mb.message_box(self, "info","Eliminado", "Se elimino el usuario con exito")
+                self.refrescar_datos()
             else:
                 self.mb.message_box(self, "error", "Error", "Ocurrio un error en al eliminar el usuario")
                 
@@ -89,3 +92,7 @@ class Ventana_Moficar_Usuario(QWidget):
         dialog_nuevo = VNUC(self.db)
         if dialog_nuevo.exec():
             print("Guardado")
+            self.refrescar_datos()
+
+    def refrescar_datos(self):
+        self.cargar_datos()

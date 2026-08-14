@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SIHMED - Nuevo usuario</string>
+   <string>SIHMED - Nuevo empleado</string>
   </property>
   <property name="toolTip">
    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -114,14 +114,14 @@ background-color: rgb(0, 255, 0)
 }</string>
       </property>
       <property name="text">
-       <string>Modificar usuario</string>
+       <string>Modificar empleado</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string># Usuario</string>
+       <string># Empleado</string>
       </property>
       <property name="textFormat">
        <enum>Qt::TextFormat::MarkdownText</enum>

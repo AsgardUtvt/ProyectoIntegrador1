@@ -112,6 +112,22 @@ consultorio_telefono_dos VARCHAR(13)
 id_estado INT NOT NULL
 );
 
+
+CREATE TABLE Sub_Consultorio
+(
+id_sub_consultorio INT AUTO_INCREMENT PRIMARY KEY,
+conultorio_name VARCHAR(50) NOT NULL UNIQUE,
+consultorio_calle VARCHAR(100),
+consultorio_colonia VARCHAR(100),
+consultorio_num_exterior VARCHAR(3),
+consultorio_num_interior VARCHAR(3),
+consultorio_localidad VARCHAR(100),
+consultorio_telefono VARCHAR(13),
+consultorio_telefono_dos VARCHAR(13)
+id_estado INT NOT NULL,
+id_consultorio INT NOT NULL
+);
+
 CREATE TABLE Estado
 (
 id_estado INT AUTO_INCREMENT PRIMARY KEY,

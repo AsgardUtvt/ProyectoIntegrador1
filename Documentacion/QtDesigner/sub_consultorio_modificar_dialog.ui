@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>f_crear_consultorio</class>
- <widget class="QWidget" name="f_crear_consultorio">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>653</width>
-    <height>601</height>
+    <width>480</width>
+    <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SIHMED - Crear clínica</string>
+   <string>Modficiar clínica</string>
   </property>
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>60</y>
-     <width>371</width>
+     <x>10</x>
+     <y>20</y>
+     <width>451</width>
      <height>444</height>
     </rect>
    </property>
@@ -155,14 +155,14 @@
      <widget class="QLineEdit" name="le_telefono_dos"/>
     </item>
     <item row="12" column="1">
-     <widget class="QPushButton" name="pb_crear_consultorio">
+     <widget class="QPushButton" name="pb_modificar_consultorio">
       <property name="styleSheet">
-       <string notr="true">QPushButton#pb_crear_consultorio {
+       <string notr="true">QPushButton#pb_modificar_consultorio {
 background-color: rgb(170, 255, 0)
 }</string>
       </property>
       <property name="text">
-       <string>Crear clínica</string>
+       <string>Modificar clínica</string>
       </property>
      </widget>
     </item>

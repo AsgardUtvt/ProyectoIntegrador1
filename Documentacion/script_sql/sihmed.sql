@@ -808,7 +808,7 @@ CREATE TABLE `Receta_Medicamento` (
   KEY `FK_RECETAMEDICAMENTO_MEDICAMENTO` (`id_medicamento`),
   CONSTRAINT `FK_RECETAMEDICAMENTO_MEDICAMENTO` FOREIGN KEY (`id_medicamento`) REFERENCES `Medicamento` (`id_medicamento`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_RECETAMEDICAMENTO_RECETA` FOREIGN KEY (`id_receta`) REFERENCES `Receta` (`id_receta`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -922,6 +922,48 @@ INSERT INTO `Receta_Medicamento` VALUES
 (155,51,15,NULL,NULL,NULL,NULL),
 (156,51,1,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `Receta_Medicamento` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
+
+--
+-- Table structure for table `Sub_Consultorio`
+--
+
+DROP TABLE IF EXISTS `Sub_Consultorio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Sub_Consultorio` (
+  `id_sub_consultorio` int(11) NOT NULL AUTO_INCREMENT,
+  `sub_consultorio_name` varchar(50) NOT NULL,
+  `sub_consultorio_calle` varchar(100) DEFAULT NULL,
+  `sub_consultorio_colonia` varchar(100) DEFAULT NULL,
+  `sub_consultorio_num_exterior` varchar(3) DEFAULT NULL,
+  `sub_consultorio_num_interior` varchar(3) DEFAULT NULL,
+  `sub_consultorio_localidad` varchar(100) DEFAULT NULL,
+  `sub_consultorio_telefono` varchar(13) DEFAULT NULL,
+  `sub_consultorio_telefono_dos` varchar(13) DEFAULT NULL,
+  `id_estado` int(11) NOT NULL,
+  `id_consultorio` int(11) NOT NULL,
+  `sub_consultorio_cp` varchar(10) DEFAULT NULL,
+  `sub_consultorio_municipio` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_sub_consultorio`),
+  UNIQUE KEY `sub_conultorio_name` (`sub_consultorio_name`),
+  KEY `FK_SUB_CONSULTORIO_CONSULTORIO` (`id_consultorio`),
+  KEY `FK_SUB_CONSULTORIO_ID_ESTADO` (`id_estado`),
+  CONSTRAINT `FK_SUB_CONSULTORIO_CONSULTORIO` FOREIGN KEY (`id_consultorio`) REFERENCES `Consultorio` (`id_consultorio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_SUB_CONSULTORIO_ID_ESTADO` FOREIGN KEY (`id_estado`) REFERENCES `Estado` (`id_estado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Sub_Consultorio`
+--
+
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
+LOCK TABLES `Sub_Consultorio` WRITE;
+/*!40000 ALTER TABLE `Sub_Consultorio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Sub_Consultorio` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
@@ -1268,4 +1310,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-08-09  2:08:48
+-- Dump completed on 2026-08-13 22:40:13

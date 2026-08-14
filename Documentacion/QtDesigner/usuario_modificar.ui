@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SIHMED - Modificar usuario</string>
+   <string>SIHMED - Personal</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -22,7 +22,7 @@ background-color: rgb(226, 239, 83)
 }</string>
      </property>
      <property name="text">
-      <string>Nuevo usuario</string>
+      <string>Nuevo empleado</string>
      </property>
     </widget>
    </item>

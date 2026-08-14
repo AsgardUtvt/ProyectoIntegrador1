@@ -29,9 +29,9 @@ class Ventana_Menu_Principal(QWidget):
             "consultorio": "../Documentacion/QtDesigner/consultorio_modificar.ui",
             "reportes_caja": "../Reportes/Caja/reportes_caja.ui",
             "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
-            "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui"
+            "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui" 
         }
-        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Usuario", "Consultorio", "Reportes caja", "Reportes medicamento", "Contraseña"]
+        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Personal", "Clínica", "Reportes caja", "Reportes medicamento", "Contraseña"]
         self.lw_enlace_menu.clear()
         self.lw_enlace_menu.addItems(opciones_menu)
         self.lw_enlace_menu.setMinimumWidth(200)
@@ -63,11 +63,11 @@ class Ventana_Menu_Principal(QWidget):
             3: Ventana_Crear_Recetas,  # recetas
             4: None,  # inventario
             5: None,  # ventas
-            6: Ventana_Moficar_Usuario,  # usuario
+            6: Ventana_Moficar_Usuario,  # personal
             7: Ventana_Modificar_Consultorio, # consulotorio
             8: None,  # reportes_caja
             9: None, # reportes_medicamentoo
-            10: Ventana_Cambiar_Contrasena   # contrasena
+            10: Ventana_Cambiar_Contrasena  # contrasena
         }
 
         self.layout_vistas = self.w_ventana.layout()

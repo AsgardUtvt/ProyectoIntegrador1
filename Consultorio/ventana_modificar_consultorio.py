@@ -1,13 +1,16 @@
 from BaseDatos.MySqlManager import MySqlManager
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget, QTableView, QHeaderView, QTableWidget, QTableWidgetItem, QHBoxLayout, QHeaderView, QVBoxLayout, QDialog
 from PyQt6 import uic
-from Consultorio.Model.consultorio_model import Consultorio_Model
-from Consultorio.Servicio.general_consultorio_service import General_Consultorio_Service as GCS
+from limitar_intput import Limitar_Intput as LI
+from Usuario.Servicio.general_usuario_service  import General_Usuario_Service as GUS
 from message_box import Message_Box
-from limitar_intput import Limitar_Intput
-from general_sistem_service import General_Sistem_Service as GSS
 from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUCSG
-from Consultorio.Model.consultorio_model import Consultorio_Model as CM
+from Consultorio.ventana_nuevo_consultorio_dialog import Ventana_Nuevo_Consultorio_Dialog as VNCD
+from Consultorio.ventana_modificar_consultorio_dialog import Ventana_Modificar_Consultorio_Dialog as VMCD
+from Consultorio.Model.consultorio_model import  Consultorio_Model as CM
+from Consultorio.Model.sub_consultorio_model import Sub_Consultorio_Model as SCM
+from Consultorio.Servicio.general_consultorio_service import General_Consultorio_Service as GCS
+from Consultorio.ventana_modificar_sub_consultorio_dialog import Ventana_Modificar_Sub_Consultorio_Dialog as VMSCD
 
 class Ventana_Modificar_Consultorio(QWidget):
     _TUPLA_DATOS = ()
@@ -15,151 +18,119 @@ class Ventana_Modificar_Consultorio(QWidget):
         super().__init__()
         self.navegar = navegar
         self.db = db
-        uic.loadUi("Documentacion/QtDesigner/consultorio_modificar.ui", self)
         self.mb = Message_Box()
-        self.es = GCS()
-        self.cb_estado.addItems(self.llenar_cbx_estado())
-        self.le_nombre_consultorio.setValidator(Limitar_Intput.limitar_caracteres("consultorio"))
-        self.le_colonia.setValidator(Limitar_Intput.limitar_caracteres("calle_numero"))
-        self.le_cp.setValidator(Limitar_Intput.limitar_caracteres("codigo_postal"))
-        self.le_localidad.setValidator(Limitar_Intput.limitar_caracteres("calle_numero"))
-        self.le_municipio.setValidator(Limitar_Intput.limitar_caracteres("calle_numero"))
-        self.le_num_exterior.setValidator(Limitar_Intput.limitar_caracteres("numero_calle"))
-        self.le_num_interior.setValidator(Limitar_Intput.limitar_caracteres("numero_calle"))
-        self.le_calle.setValidator(Limitar_Intput.limitar_caracteres("calle"))
-        self.le_telefono.setValidator(Limitar_Intput.limitar_caracteres("numero_telefonico"))
-        self.le_telefono_dos.setValidator(Limitar_Intput.limitar_caracteres("numero_telefonico"))
-        self.pb_modificar_consultorio.clicked.connect(lambda: self.btn_crear_consultorio())
+        uic.loadUi("Documentacion/QtDesigner/consultorio_modificar.ui", self)
+        self.pb_nueva_clinica.clicked.connect(lambda: self.btn_nuevo_usuario())
+        # --- BLOQUE DE DEPURACIÓN ---
+        print("Tipo de widget:", type(self.tw_clinica))
+        print("Tamaño de la tabla:", self.tw_clinica.size())
+        print("Es visible?:", self.tw_clinica.isVisible())
+        print("Filas antes de cargar:", self.tw_clinica.rowCount())
+        # ----------------------------
+        self.tw_clinica.setColumnCount(3)
+        self.columnas_table_view = ["Id", "Clínica", "Opciones"]
+        self.tw_clinica.setHorizontalHeaderLabels(self.columnas_table_view)
+
+        self.tw_clinica.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.tw_clinica.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.tw_clinica.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
 
 
+        self.tw_sub_clinica.setColumnCount(3)
+        self.columnas_table_view2 = ["Id", "Sub clínica", "Opciones"]
+        self.tw_sub_clinica.setHorizontalHeaderLabels(self.columnas_table_view2)
 
-    def llenar_cbx_estado(self) -> list:
-        try:
-            tupla_estado = self.es.obtener_estado(self.db)
-            lista_texto = [fila["concat"] for fila in tupla_estado]
+        self.tw_sub_clinica.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.tw_sub_clinica.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.tw_sub_clinica.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
 
-            return  lista_texto
-        except Exception as e:
-            print(f"Erorr critico: {e}")
-            self.mb.message_box(self,"info", "Error", "No se logro cargar los estados")
-            self.navegar.ir_a_ventana("login")
-            return []
 
-    def btn_crear_consultorio(self):
-        """
-        btn_crear_usuario()
-        No se entiende ni venrga al código alv
-        No resive ningun parametro
-        Esta función lo que hace es comparar cada label edit
-        de la interfas, en caso de no estar llevanada lo alamcena
-        en una lista llamada datos faltantes y lo genra un join de datos faltantes
-        para ser retornadnos en el mesnaje \"mb\", también
-        para obtener los digitos del estado se manda usa casi la misma
-        lógica pero compara si hay un numero y lo almacena en digitos_id_estado
-        al final esta lista se une con un join a digitos
-        esta madre se tiene que encapsuar para obtener todo este pedo con una funcion
-        paragenerar el usuario.
-        """
-        try:
-            datos_faltantes = []
-            nombre_consultorio = self.le_nombre_consultorio.text()
-            nombre_consultorio.strip()
-            if not nombre_consultorio:
-                datos_faltantes.append("Nombre")
-            calle = self.le_calle.text()
-            calle.strip()
-            if not calle:
-                datos_faltantes.append("Calle")
-            colonia = self.le_colonia.text()
-            colonia.strip()
-            if not colonia:
-                datos_faltantes.append("Colonia")
-            num_exeterior = self.le_num_exterior.text()
-            num_exeterior.strip()
-            if not num_exeterior:
-                datos_faltantes.append("Número exterior")
-            num_interior = self.le_num_interior.text()
-            num_interior.strip()
-            if not num_interior:
-                datos_faltantes.append("Número interior")
-            localidad = self.le_localidad.text()
-            localidad.strip()
-            if not localidad:
-                datos_faltantes.append("Localidad")
-            estado = str(self.cb_estado.currentText())
-            digitos = GSS.obtener_solo_numeros(estado)
-            if not digitos:
-                datos_faltantes.append("Estado")
-            telefono = self.le_telefono.text()
-            telefono.strip()
-            if not telefono:
-                datos_faltantes.append("Telefono 1")
-            telefono_dos = self.le_telefono_dos.text()
-            telefono_dos.strip()
-            if not telefono_dos:
-                datos_faltantes.append("Telefono 2")
-            municipio = self.le_municipio.text()
-            municipio.strip()
-            if not municipio:
-                datos_faltantes.append("Municipio")
-            cp = self.le_cp.text()
-            cp.strip()
-            if not cp:
-                datos_faltantes.append("Codigo Postal o C.P.")
-            if len(datos_faltantes) > 0:
-                mensaje = str(", ".join(datos_faltantes))
-                self.message_box_datos_faltantes(mensaje=mensaje)
+        self.cargar_datos()
+        self.cargar_datos_sub_clinica()
+
+    def cargar_datos(self):
+        datos = GCS.obtener_consultorio(self.db, [AIUCSG.obetner_id_consultorio()])
+        if datos:
+            self.tw_clinica.insertRow(0)
+
+            id_val:str = datos["ID"]
+            nombre:str = datos["CON"]
+
+            self.tw_clinica.setItem(0, 0, QTableWidgetItem(str(id_val)))
+            self.tw_clinica.setItem(0, 1, QTableWidgetItem(nombre))
+            contenedor = QWidget()
+            layout_btn = QHBoxLayout(contenedor)
+            layout_btn.setContentsMargins(2,2,2,2)
+            btn_mod = QPushButton("Modificar")
+
+            btn_mod.clicked.connect(lambda checked, r=id_val: self.modificar(r))
+
+            layout_btn.addWidget(btn_mod)
+
+            self.tw_clinica.setCellWidget(0, 2, contenedor)
+        else:
+            self.tw_clinica.insertRow(0)
+            print("No hay datos que cargar")
+
+
+    def cargar_datos_sub_clinica(self):
+        datos = GCS.obtener_sub_consultorio(self.db, [AIUCSG.obetner_id_consultorio()])
+        if datos:
+            for fila, sub_consultorio in enumerate(datos):
+                self.tw_sub_clinica.insertRow(fila)
+
+                id_val = sub_consultorio["ID"]
+                nombre = sub_consultorio["CON"]
+
+                self.tw_sub_clinica.setItem(fila, 0, QTableWidgetItem(str(id_val)))
+                self.tw_sub_clinica.setItem(fila, 1, QTableWidgetItem(nombre))
+                contenedor = QWidget()
+                layout_btn = QHBoxLayout(contenedor)
+                layout_btn.setContentsMargins(2,2,2,2)
+                btn_mod_sub = QPushButton("Modificar")
+                btn_del_sub = QPushButton("Eliminar")
+
+                btn_mod_sub.clicked.connect(lambda checked, r=id_val: self.modificar_sub(r))
+                btn_del_sub.clicked.connect(lambda checked, r=id_val: self.eliminar_sub(r))
+
+                layout_btn.addWidget(btn_mod_sub)
+                layout_btn.addWidget(btn_del_sub)
+
+                self.tw_sub_clinica.setCellWidget(fila, 2, contenedor)
+        else:
+            self.tw_sub_clinica.insertRow(0)
+            print("No hay datos que cargar")
+
+
+    def modificar(self, val):
+        val_int = int(val)
+        dialog_modificar = VMCD(self.db, val_int)
+        if dialog_modificar.exec():
+            self.refrescar_datos()
+
+    def modificar_sub(self, val):
+        dialog_modificar = VMSCD(self.db, val)
+        if dialog_modificar.exec():
+            print("Modificar")
+            self.refrescar_datos()
+
+
+    def eliminar_sub(self,val):
+        print(f"Eliminar {val}")
+        list_id = [AIUCSG.obetner_id_consultorio(),val]
+        if self.mb.message_box(self,"question","Eliminar","Estas seguro de eliminar a este usuario") == QMessageBox.StandardButton.Yes:
+
+            if SCM.eliminar_sub_consultorio(self.db,list_id):
+                self.mb.message_box(self, "info","Eliminado", "Se elimino el usuario con exito")
+                self.refrescar_datos()
             else:
-                try:
-                    if CM.actualizar_datos(self.db, name_update=nombre_consultorio, calle_update=calle, colonia_update=colonia, num_ext_update=num_exeterior, num_int_update=num_interior, localidad_update=localidad, id_estado_update=digitos, tel_update=telefono, tel_dos_update=telefono_dos, municipio_update=municipio, cp_update=cp):
-                        tipo, titulo, mensaje = "info", "Generado con exito", "Se genero con exito el consultorio"
-                        self.mb.message_box(self, tipo=tipo, titulo=titulo, mensaje=mensaje)
-                    else:
-                        self.mb.message_box(self,"error","Error", "Hubo un error al generar el consultorio")
-                except Exception as e:
-                    print(f"Error cirtico {e}")
-                    tipo, titulo, mensaje = "error", "Consultorio", "No se pudo genrear el consultorio"
-                    self.mb.message_box(self,tipo=tipo,titulo=titulo,mensaje=mensaje)
-        except Exception as e:
-            print(f"Error critico: {e}")
+                self.mb.message_box(self, "error", "Error", "Ocurrio un error en al eliminar el usuario")
 
-    def message_box_datos_faltantes(self, mensaje):
-        self.mb.message_box(self, "info", "Faltan datos", mensaje)
+    def btn_nuevo_usuario(self):
+        dialog_nuevo = VNCD(self.db)
+        if dialog_nuevo.exec():
+            print("Guardado")
+            self.refrescar_datos()
 
-    def cantidad_consultorio_duplicado(self, lista_dato):
-        cantidad_consultorio = GCS.encontrar_duplicados_consultorio(self.db, lista_dato)
-        if cantidad_consultorio:
-            return cantidad_consultorio
-        else:
-            return 0
-
-
-    def showEvent(self, event):
-        super().showEvent(event)
-        lista_consultorio= [AIUCSG.obetner_id_consultorio()]
-        obtener_datos_rellenar = GCS.obtener_datos_consultorio_modificar(self.db, lista_consultorio)
-        if obtener_datos_rellenar:
-            label, combo, num = "No encontrado", "1 No Asignado", "000"
-            print("datos obtenidos: ", obtener_datos_rellenar)
-            self.le_nombre_consultorio.setText(obtener_datos_rellenar.get("Name", label))
-            self.le_calle.setText(obtener_datos_rellenar.get("Calle",label ))
-            self.le_num_exterior.setText(obtener_datos_rellenar.get("Num_Ext", num))
-            self.le_num_interior.setText(obtener_datos_rellenar.get("Num_Int", num))
-            self.le_localidad.setText(obtener_datos_rellenar.get("Localidad", label))
-            self.le_cp.setText(obtener_datos_rellenar.get("CP", num))
-            self.le_municipio.setText(obtener_datos_rellenar.get("Municipio", label))
-            self.le_colonia.setText(obtener_datos_rellenar.get("Colonia", label))
-            self.le_telefono.setText(obtener_datos_rellenar.get("Tel_Uno", num))
-            self.le_telefono_dos.setText(obtener_datos_rellenar.get("Tel_Dos", num))
-            estado_txt = obtener_datos_rellenar.get("Estado", combo)
-
-            indice_estado_encontrado = 0
-            for i in range(self.cb_estado.count()):
-                texto_item = self.cb_estado.itemText(i)
-                id_item = GSS.obtener_solo_numeros(texto_item)
-                if str(id_item) == str(estado_txt):
-                    indice_estado_encontrado = i
-                    break
-            self.cb_estado.setCurrentIndex(indice_estado_encontrado)
-        else:
-            print("No se cargaron los datos")
+    def refrescar_datos(self):
+        self.cargar_datos_sub_clinica()
