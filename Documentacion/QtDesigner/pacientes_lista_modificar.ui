@@ -16,6 +16,12 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QPushButton" name="pb_nuevo_paciente">
+     <property name="styleSheet">
+      <string notr="true">QPushButton#pb_nuevo_paciente{
+background-color: rgb(0, 198, 145);
+
+}</string>
+     </property>
      <property name="text">
       <string>Nuevo Paciente</string>
      </property>
