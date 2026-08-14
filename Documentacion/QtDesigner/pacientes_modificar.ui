@@ -19,7 +19,7 @@
      <x>140</x>
      <y>80</y>
      <width>361</width>
-     <height>161</height>
+     <height>175</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
@@ -48,7 +48,7 @@
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="txt_apellido_paterno"/>
+     <widget class="QLineEdit" name="txt_paterno"/>
     </item>
     <item row="3" column="0">
      <widget class="QLabel" name="label_3">
@@ -104,7 +104,7 @@
      <x>140</x>
      <y>380</y>
      <width>361</width>
-     <height>111</height>
+     <height>112</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout_2">
