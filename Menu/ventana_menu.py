@@ -10,6 +10,7 @@ from Consultorio.ventana_modificar_consultorio import Ventana_Modificar_Consulto
 from Menu.ventana_bienvenida import Ventana_Bienvenida
 from Medicamentos.Medicamentos import Ventana_Medicamentos
 from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
+from Medicamentos.Medicamentos import Ventana_Medicamentos
 
 class Ventana_Menu_Principal(QWidget):
 
