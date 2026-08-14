@@ -66,7 +66,6 @@ class Ventana_Modificar_Paciente(QWidget):
             print("Modificar")
             self.cargar_datos
 
-
     def eliminar(self,val):
         print(f"Eliminar {val}")
         if self.mb.message_box(self,"question","Eliminar","¿Estas seguro de eliminar a este paciente?") == QMessageBox.StandardButton.Yes:

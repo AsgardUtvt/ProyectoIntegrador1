@@ -2,10 +2,13 @@ import os
 from PyQt6.QtWidgets import QWidget, QTableWidgetItem
 from PyQt6 import uic
 from BaseDatos.MySqlManager import MySqlManager
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 #from BaseDatos.MySqlManager import MySqlManager
 >>>>>>> Stashed changes
+=======
+>>>>>>> 030e1d9 (Lógica & DB ventana_pacientes_modif)
 from message_box import Message_Box
 
 class Ventana_Crear_Recetas(QWidget):
@@ -14,6 +17,7 @@ class Ventana_Crear_Recetas(QWidget):
         self.db = db
         self.navegar = navegar
         self.mb = Message_Box()
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         #cargar ui
         uic.loadUi("Documentacion/QtDesigner/Recetas.ui", self)
@@ -25,6 +29,10 @@ class Ventana_Crear_Recetas(QWidget):
         uic.loadUi(ruta_ui, self)
 
 >>>>>>> Stashed changes
+=======
+        #cargar ui
+        uic.loadUi("Documentacion/QtDesigner/Recetas.ui", self)
+>>>>>>> 030e1d9 (Lógica & DB ventana_pacientes_modif)
         #botones con funciones
         self.pb_agregar_medicamento.clicked.connect(self.btn_agregar_medicamento)
         self.pb_imprimir_receta.clicked.connect(self.btn_guardar_receta)

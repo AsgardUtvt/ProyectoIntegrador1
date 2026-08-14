@@ -116,3 +116,4 @@ class Ventana_Crear_Paciente(QDialog):
                 "Error al registrar",
                 f"Ocurrió un error al registrar el paciente:\n{e}",
             )
+
