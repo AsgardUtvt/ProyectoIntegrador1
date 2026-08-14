@@ -38,11 +38,7 @@ class Ventana_Menu_Principal(QWidget):
             "consultorio": "../Documentacion/QtDesigner/consultorio_modificar.ui",
             "reportes_caja": "../Documentacion/QtDesigner/reportes_caja.ui",
             "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
-<<<<<<< HEAD
             "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui" 
-=======
-            "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui"
->>>>>>> f6e0138 (Suben Cosas)
         }
         opciones_menu = ["Inicio", "Citas", "Pacientes", "Recetas", "Inventario", "Ventas", "Personal", "Clínica", "Reportes caja", "Reportes medicamento", "Contraseña"]
         self.lw_enlace_menu.clear()
@@ -67,13 +63,8 @@ class Ventana_Menu_Principal(QWidget):
 
         # Mapeo para clases personalizadas (vistas con lógica)
         self.mapeo_menu_clases = {
-<<<<<<< HEAD
             0: Ventana_Bienvenida,  # menu_principal
             1: Ventana_Citas,
-=======
-            0: Ventana_Bienvenida,          # menu_principal
-            1: Ventana_Citas,               # citas
->>>>>>> f6e0138 (Suben Cosas)
             2: Ventana_Modificar_Paciente,  # menu_pacientes
             3: Ventana_Crear_Recetas,       # recetas
             4: Ventana_Medicamentos,        # inventario

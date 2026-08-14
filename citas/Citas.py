@@ -29,6 +29,7 @@ class Ventana_Citas(QWidget):
         self.tableCitas.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
         self.tableCitas.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
         self.cargar_datos()
+
     def obtener_pacientes(self) -> list:
         try:
             with self.db.obtener_cursor() as cursor:
@@ -67,9 +68,11 @@ class Ventana_Citas(QWidget):
                 cursor.execute("""
                     SELECT c.id_cita, c.cita_date, c.cita_duracion, c.cita_nota,
                            c.id_paciente, c.id_consultorio, c.id_estado_cita, c.id_tratamiento,
-                           CONCAT(p.paciente_name, ' ', p.paciente_paterno) AS paciente
+                           CONCAT(p.paciente_name, ' ', p.paciente_paterno) AS paciente,
+                           e.estado_cita
                     FROM Cita c
                     JOIN Paciente p ON c.id_paciente = p.id_paciente
+                    LEFT JOIN Estado_Cita e ON c.id_estado_cita = e.id_estado_cita
                     WHERE DATE(c.cita_date) = %s
                     ORDER BY c.cita_date
                 """, (fecha,))
@@ -100,7 +103,7 @@ class Ventana_Citas(QWidget):
                 f"<b>Fecha:</b> {cita['cita_date']}<br>"
                 f"<b>Duración:</b> {cita['cita_duracion']}<br>"
                 f"<b>Nota:</b> {cita['cita_nota']}<br>"
-                f"<b>Estado (id):</b> {cita['id_estado_cita']}"
+                f"<b>Estado:</b> {cita['estado_cita']}"
             )
 
     def cita_seleccionada(self):
