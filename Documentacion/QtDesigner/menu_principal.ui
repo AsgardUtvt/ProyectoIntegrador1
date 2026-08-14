@@ -76,7 +76,6 @@
     </layout>
    </item>
    <item>
-<<<<<<< Updated upstream
     <layout class="QHBoxLayout" name="totales_layout">
      <item>
       <widget class="QLabel" name="label_total_citas">
@@ -111,8 +110,6 @@
     </layout>
    </item>
    <item>
-=======
->>>>>>> Stashed changes
     <widget class="QWidget" name="layout_grafica_1" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">

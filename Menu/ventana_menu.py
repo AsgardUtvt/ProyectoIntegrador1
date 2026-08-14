@@ -1,15 +1,12 @@
-from PyQt6.uic.uiparser import QtWidgets
-from BaseDatos.MySqlManager import MySqlManager
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget, QVBoxLayout, QSizePolicy
-from PyQt6 import uic
 import os
+from PyQt6.QtWidgets import QWidget, QSizePolicy
+from PyQt6 import uic
+from BaseDatos.MySqlManager import MySqlManager
 from Usuario.ventana_modificar_usuario import Ventana_Moficar_Usuario
 from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
 from Configuracion.ventana_cambiar_contrasena import Ventana_Cambiar_Contrasena
 from Consultorio.ventana_modificar_consultorio import Ventana_Modificar_Consultorio
 from Menu.ventana_bienvenida import Ventana_Bienvenida
-from Medicamentos.Medicamentos import Ventana_Medicamentos
-from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
 from Medicamentos.Medicamentos import Ventana_Medicamentos
 from citas.Citas import Ventana_Citas
 from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
@@ -17,6 +14,12 @@ from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
 from Medicamentos.Medicamentos import Ventana_Medicamentos
 from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
 from Medicamentos.Medicamentos import Ventana_Medicamentos
+
+try:
+    from Reportes.ventana_reportes import Ventana_Reportes
+except ImportError:
+    Ventana_Reportes = None
+
 
 class Ventana_Menu_Principal(QWidget):
 
@@ -26,7 +29,6 @@ class Ventana_Menu_Principal(QWidget):
         self.db = db
         uic.loadUi("Documentacion/QtDesigner/menu_con_lista.ui", self)
 
-        print(f"lw_enlace_menu: {self.lw_enlace_menu}")
         self.rutas_interfaces = {
             "menu_pacientes": "../Documentacion/QtDesigner/pacientes_lista_modificar.ui",
             "recetas": "../Documentacion/QtDesigner/Recetas.ui",
@@ -36,16 +38,17 @@ class Ventana_Menu_Principal(QWidget):
             "consultorio": "../Documentacion/QtDesigner/consultorio_modificar.ui",
             "reportes_caja": "../Documentacion/QtDesigner/reportes_caja.ui",
             "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
+<<<<<<< HEAD
             "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui" 
+=======
+            "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui"
+>>>>>>> f6e0138 (Suben Cosas)
         }
-        opciones_menu = ["Inicio", "Citas","Pacientes", "Recetas", "Inventario", "Ventas", "Personal", "Clínica", "Reportes caja", "Reportes medicamento", "Contraseña"]
+        opciones_menu = ["Inicio", "Citas", "Pacientes", "Recetas", "Inventario", "Ventas", "Personal", "Clínica", "Reportes caja", "Reportes medicamento", "Contraseña"]
         self.lw_enlace_menu.clear()
         self.lw_enlace_menu.addItems(opciones_menu)
         self.lw_enlace_menu.setMinimumWidth(200)
         self.lw_enlace_menu.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        print(f"Items en listaWidget {self.lw_enlace_menu.count()}")
-        for i in range(self.lw_enlace_menu.count()):
-            print(f"Item {i}: {self.lw_enlace_menu.item(i).text()}")
 
         # Mapeo para rutas .ui (vistas simples)
         self.mapeo_menu = {
@@ -64,21 +67,26 @@ class Ventana_Menu_Principal(QWidget):
 
         # Mapeo para clases personalizadas (vistas con lógica)
         self.mapeo_menu_clases = {
+<<<<<<< HEAD
             0: Ventana_Bienvenida,  # menu_principal
             1: Ventana_Citas,
+=======
+            0: Ventana_Bienvenida,          # menu_principal
+            1: Ventana_Citas,               # citas
+>>>>>>> f6e0138 (Suben Cosas)
             2: Ventana_Modificar_Paciente,  # menu_pacientes
-            3: Ventana_Crear_Recetas,  # recetas
-            4: Ventana_Medicamentos,  # inventario
-            5: None,  # ventas
-            6: Ventana_Moficar_Usuario,  # personal
-            7: Ventana_Modificar_Consultorio, # consulotorio
-            8: None,  # reportes_caja
-            9: None, # reportes_medicamentoo
+            3: Ventana_Crear_Recetas,       # recetas
+            4: Ventana_Medicamentos,        # inventario
+            5: None,                        # ventas
+            6: Ventana_Moficar_Usuario,     # personal
+            7: Ventana_Modificar_Consultorio,  # consultorio
+            8: None,                        # reportes_caja
+            9: Ventana_Reportes,            # reportes_medicamento
             10: Ventana_Cambiar_Contrasena  # contrasena
         }
 
         self.layout_vistas = self.w_ventana.layout()
-        self.layout_vistas.setContentsMargins(0,0,0,0)
+        self.layout_vistas.setContentsMargins(0, 0, 0, 0)
 
         self.lw_enlace_menu.currentRowChanged.connect(self.cargar_ventanas)
 
@@ -133,4 +141,5 @@ class Ventana_Menu_Principal(QWidget):
         self.layout_vistas.addWidget(self.sub_ventana_actual)
         self.sub_ventana_actual.show()
 
-       titulo = self.sub_ventana_actual.windowTitle()
+        titulo = self.sub_ventana_actual.windowTitle()
+        self.window().setWindowTitle(titulo if titulo else "SIHMED")

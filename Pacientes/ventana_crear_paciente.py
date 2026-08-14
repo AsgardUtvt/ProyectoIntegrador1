@@ -1,5 +1,5 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QDialog, QMessageBox
+from PyQt6.QtWidgets import QDialog
 from BaseDatos.MySqlManager import MySqlManager
 from almacendar_id_us_con import Almacenar_Id_Usuario_Consultorio_SG as AIUC
 from message_box import Message_Box as MB
@@ -22,14 +22,14 @@ class Ventana_Crear_Paciente(QDialog):
             paterno = self.txt_paterno.text().strip()
             materno = self.txt_materno.text().strip()
             f_nacimiento = self.date_nacimiento.date().toString("yyyy-MM-dd")
-            
+
             if hasattr(self, "txt_sexo"):
                 sexo = self.txt_sexo.currentText()
             elif hasattr(self, "cmb_genero"):
                 sexo = self.cmb_genero.currentText()
             else:
                 sexo = "Masculino"
-            
+
             if hasattr(self, "text_alergias"):
                 if hasattr(self.text_alergias, "toPlainText"):
                     alergias = self.text_alergias.toPlainText().strip() or None
@@ -37,7 +37,7 @@ class Ventana_Crear_Paciente(QDialog):
                     alergias = self.text_alergias.text().strip() or None
             else:
                 alergias = None
-                
+
             telefono = self.txt_telefono.text().strip()
             email = self.txt_email.text().strip() or None
             if hasattr(self, "text_direccion"):
@@ -58,7 +58,7 @@ class Ventana_Crear_Paciente(QDialog):
                 return
 
             id_consultorio = AIUC.obetner_id_consultorio()
-            
+
             if hasattr(AIUC, "obtener_id_usuario"):
                 id_usuario = AIUC.obtener_id_usuario()
             else:
@@ -83,8 +83,9 @@ class Ventana_Crear_Paciente(QDialog):
                         paciente_fecha_nacimiento,
                         paciente_sexo,
                         paciente_correo_electronico,
-                        paciente_direccion
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                        paciente_direccion,
+                        paciente_alergia
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
                 """
                 valores = (
                     nombre,
@@ -99,9 +100,10 @@ class Ventana_Crear_Paciente(QDialog):
                     sexo,
                     email,
                     direccion,
+                    alergias,
                 )
                 cursor.execute(sql_insert, valores)
-                self.db.conexion.commit()
+                self.db.commit_conexion()
 
             self.mb.message_box(
                 self, "info", "Éxito", "Paciente registrado correctamente."
@@ -116,4 +118,3 @@ class Ventana_Crear_Paciente(QDialog):
                 "Error al registrar",
                 f"Ocurrió un error al registrar el paciente:\n{e}",
             )
-
