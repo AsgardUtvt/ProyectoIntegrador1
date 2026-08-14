@@ -16,7 +16,6 @@ class Ventana_Modificar_Paciente(QWidget):
         super().__init__()
         self.navegar = navegar
         self.db = db
-        #self.gps = GPS
         self.mb = MB()
         self.e = Encrypt()
         uic.loadUi("Documentacion/QtDesigner/pacientes_lista_modificar.ui", self)
@@ -65,18 +64,23 @@ class Ventana_Modificar_Paciente(QWidget):
         dialog_modificar = VMP(self.db, val)
         if dialog_modificar.exec():
             print("Modificar")
+            self.cargar_datos
 
 
     def eliminar(self,val):
         print(f"Eliminar {val}")
-        list_id = [val]
         if self.mb.message_box(self,"question","Eliminar","¿Estas seguro de eliminar a este paciente?") == QMessageBox.StandardButton.Yes:
+            try:
+                with self.db.obtener_cursor() as cursor:
+                    cursor.execute("DELETE FROM Paciente WHERE id_paciente = %s;", (val,))
+                    self.db.conexion.commit()
+                    
+                self.mb.message_box(self, "info", "Eliminado", "Se elimino el paciente con exito.")
+                self.cargar_datos()
+            except Exception as E:
+                print("Error al eliminar:", E)
+                self.mb.message_box(self, "error", "Error", "Ocurrio un error al eliminar el paciente.")
 
-            if UM.eliminar_paciente(self.db,list_id):
-                self.mb.message_box(self, "info","Eliminado", "Se elimino el paciente con exito.")
-            else:
-                self.mb.message_box(self, "error", "Error", "Ocurrio un error en al eliminar el paciente.")
-                
 
     def btn_nuevo_paciente(self):
         dialog_nuevo = VCP(self.db)
