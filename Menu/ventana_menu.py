@@ -24,8 +24,6 @@ class Ventana_Menu_Principal(QWidget):
 
         print(f"lw_enlace_menu: {self.lw_enlace_menu}")
         self.rutas_interfaces = {
-            "menu_principal": "../Documentacion/QtDesigner/menu_principal.ui",
-            "citas": "../Documentacion/QtDesigner/citasWidget.ui",
             "menu_pacientes": "../Documentacion/QtDesigner/pacientes_lista_modificar.ui",
             "recetas": "../Documentacion/QtDesigner/Recetas.ui",
             "inventario": "../Documentacion/QtDesigner/Medicamentoswidget.ui",

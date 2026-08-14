@@ -156,11 +156,14 @@
     </item>
     <item row="12" column="1">
      <widget class="QPushButton" name="pb_crear_consultorio">
+<<<<<<< Updated upstream
       <property name="styleSheet">
        <string notr="true">QPushButton#pb_crear_consultorio {
 background-color: rgb(170, 255, 0)
 }</string>
       </property>
+=======
+>>>>>>> Stashed changes
       <property name="text">
        <string>Crear clínica</string>
       </property>
