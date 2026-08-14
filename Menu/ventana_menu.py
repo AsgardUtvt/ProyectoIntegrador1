@@ -12,6 +12,7 @@ from Medicamentos.Medicamentos import Ventana_Medicamentos
 from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
 from Medicamentos.Medicamentos import Ventana_Medicamentos
 from citas.Citas import Ventana_Citas
+from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
 
 class Ventana_Menu_Principal(QWidget):
 
