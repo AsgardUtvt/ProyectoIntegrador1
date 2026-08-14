@@ -8,6 +8,7 @@ from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
 from Configuracion.ventana_cambiar_contrasena import Ventana_Cambiar_Contrasena
 from Consultorio.ventana_modificar_consultorio import Ventana_Modificar_Consultorio
 from Menu.ventana_bienvenida import Ventana_Bienvenida
+from Medicamentos.Medicamentos import Ventana_Medicamentos
 
 class Ventana_Menu_Principal(QWidget):
 
@@ -61,7 +62,7 @@ class Ventana_Menu_Principal(QWidget):
             1: None,  # menu_pacientes
             2: None, # citas
             3: Ventana_Crear_Recetas,  # recetas
-            4: None,  # inventario
+            4: Ventana_Medicamentos,  # inventario
             5: None,  # ventas
             6: Ventana_Moficar_Usuario,  # personal
             7: Ventana_Modificar_Consultorio, # consulotorio

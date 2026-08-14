@@ -574,7 +574,7 @@ CREATE TABLE `Medicamento` (
   CONSTRAINT `FK_MEDICAMENTO_DENOMINACION_GENERAL` FOREIGN KEY (`id_denominacion_general`) REFERENCES `Denominacion_General` (`id_denominacion_general`),
   CONSTRAINT `FK_MEDICAMENTO_DENOMINACION_QUIMICA` FOREIGN KEY (`id_denominacion_quimica`) REFERENCES `Denominacion_Quimica` (`id_denominacion_quimica`),
   CONSTRAINT `FK_MEDICAMENTO_VIAADMINISTRARMEDICAMENTO` FOREIGN KEY (`id_via_administrar_medicamento`) REFERENCES `Via_Administrar_Medicamento` (`id_via_administrar_medicamento`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -599,7 +599,8 @@ INSERT INTO `Medicamento` VALUES
 (12,'Naproxeno 250 mg tableta',75,15,'2027-01-31','250 mg cada 12 horas',42.00,13,13,1,2),
 (13,'Butilhioscina 10 mg tableta',50,10,'2026-12-31','10 mg cada 8 horas',55.00,14,14,1,2),
 (14,'Ambroxol jarabe 100 ml',40,8,'2026-09-30','10 ml cada 12 horas por 7 días',49.90,15,15,1,2),
-(15,'Ciprofloxacino 500 mg tableta',65,10,'2026-11-30','500 mg cada 12 horas por 7 días',78.00,16,16,1,2);
+(15,'Ciprofloxacino 500 mg tableta',65,10,'2026-11-30','500 mg cada 12 horas por 7 días',78.00,16,16,1,2),
+(16,'PruebaMed1',10,2,'2027-12-31','1 cada 8 horas',100.00,NULL,NULL,1,1);
 /*!40000 ALTER TABLE `Medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -654,6 +655,11 @@ CREATE TABLE `Paciente` (
   `id_consultorio` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `Ubicacion_Documento` varchar(500) DEFAULT NULL,
+  `paciente_alergia` varchar(500) DEFAULT NULL,
+  `paciente_fecha_nacimiento` datetime DEFAULT NULL,
+  `paciente_sexo` varchar(15) DEFAULT NULL,
+  `paciente_correo_electronico` varchar(300) DEFAULT NULL,
+  `paciente_direccion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_paciente`),
   UNIQUE KEY `paciente_telefono` (`paciente_telefono`),
   UNIQUE KEY `uq_ubicacion_documento` (`Ubicacion_Documento`),
@@ -674,26 +680,26 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Paciente` WRITE;
 /*!40000 ALTER TABLE `Paciente` DISABLE KEYS */;
 INSERT INTO `Paciente` VALUES
-(1,'Juan','Pérez','López','5510000001','5520000001',NULL,NULL,8,1,1,NULL),
-(2,'María','García','Martínez','5510000002','5520000002',NULL,NULL,8,1,1,NULL),
-(3,'Luis','Hernández','Sánchez','5510000003','5520000003',NULL,NULL,8,1,1,NULL),
-(4,'Laura','López','Ramírez','5510000004','5520000004',NULL,NULL,8,1,1,NULL),
-(5,'Carlos','Sánchez','Torres','5510000005','5520000005',NULL,NULL,8,1,1,NULL),
-(6,'Ana','Ramírez','Cruz','5510000006','5520000006',NULL,NULL,8,1,1,NULL),
-(7,'Pedro','Flores','Morales','5510000007','5520000007',NULL,NULL,8,1,1,NULL),
-(8,'Sofía','Morales','Reyes','5510000008','5520000008',NULL,NULL,8,1,1,NULL),
-(9,'Miguel','Torres','Gutiérrez','5510000009','5520000009',NULL,NULL,8,1,1,NULL),
-(10,'Lucía','Gutiérrez','Díaz','5510000010','5520000010',NULL,NULL,8,1,1,NULL),
-(11,'Jorge','Díaz','Vargas','5510000011','5520000011',NULL,NULL,8,1,1,NULL),
-(12,'Carmen','Vargas','Mendoza','5510000012','5520000012',NULL,NULL,8,1,1,NULL),
-(13,'Ricardo','Mendoza','Ruiz','5510000013','5520000013',NULL,NULL,8,1,1,NULL),
-(14,'Elena','Ruiz','Castro','5510000014','5520000014',NULL,NULL,8,1,1,NULL),
-(15,'Fernando','Castro','Ortiz','5510000015','5520000015',NULL,NULL,8,1,1,NULL),
-(31,'Valeria','Ortiz','Silva','5510000016','5520000016',NULL,NULL,8,1,1,NULL),
-(32,'Andrés','Silva','Rojas','5510000017','5520000017',NULL,NULL,8,1,1,NULL),
-(33,'Gabriela','Rojas','Vega','5510000018','5520000018',NULL,NULL,8,1,1,NULL),
-(34,'Raúl','Vega','Campos','5510000019','5520000019',NULL,NULL,8,1,1,NULL),
-(35,'Daniela','Campos','Nava','5510000020','5520000020',NULL,NULL,8,1,1,NULL);
+(1,'Juan','Pérez','López','5510000001','5520000001',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(2,'María','García','Martínez','5510000002','5520000002',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(3,'Luis','Hernández','Sánchez','5510000003','5520000003',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(4,'Laura','López','Ramírez','5510000004','5520000004',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(5,'Carlos','Sánchez','Torres','5510000005','5520000005',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(6,'Ana','Ramírez','Cruz','5510000006','5520000006',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(7,'Pedro','Flores','Morales','5510000007','5520000007',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(8,'Sofía','Morales','Reyes','5510000008','5520000008',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(9,'Miguel','Torres','Gutiérrez','5510000009','5520000009',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(10,'Lucía','Gutiérrez','Díaz','5510000010','5520000010',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(11,'Jorge','Díaz','Vargas','5510000011','5520000011',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(12,'Carmen','Vargas','Mendoza','5510000012','5520000012',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(13,'Ricardo','Mendoza','Ruiz','5510000013','5520000013',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(14,'Elena','Ruiz','Castro','5510000014','5520000014',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(15,'Fernando','Castro','Ortiz','5510000015','5520000015',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(31,'Valeria','Ortiz','Silva','5510000016','5520000016',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(32,'Andrés','Silva','Rojas','5510000017','5520000017',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(33,'Gabriela','Rojas','Vega','5510000018','5520000018',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(34,'Raúl','Vega','Campos','5510000019','5520000019',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL),
+(35,'Daniela','Campos','Nava','5510000020','5520000020',NULL,NULL,8,1,1,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `Paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -953,7 +959,7 @@ CREATE TABLE `Sub_Consultorio` (
   KEY `FK_SUB_CONSULTORIO_ID_ESTADO` (`id_estado`),
   CONSTRAINT `FK_SUB_CONSULTORIO_CONSULTORIO` FOREIGN KEY (`id_consultorio`) REFERENCES `Consultorio` (`id_consultorio`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_SUB_CONSULTORIO_ID_ESTADO` FOREIGN KEY (`id_estado`) REFERENCES `Estado` (`id_estado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -963,6 +969,9 @@ CREATE TABLE `Sub_Consultorio` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `Sub_Consultorio` WRITE;
 /*!40000 ALTER TABLE `Sub_Consultorio` DISABLE KEYS */;
+INSERT INTO `Sub_Consultorio` VALUES
+(1,'SubClinicaUno','arstarstarst','sraastarst','s','s','No encontrado','1235123532152','1235123512351',1,1,'12345','holamundo'),
+(2,'SubConsultoiroDos','arstarstrst','arstarstars','ss','ss','arstqw341234','1235123124351','1235123412341',1,1,'12312','arstarstarst');
 /*!40000 ALTER TABLE `Sub_Consultorio` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1310,4 +1319,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-08-13 22:40:13
+-- Dump completed on 2026-08-14  4:55:56
