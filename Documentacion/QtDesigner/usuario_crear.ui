@@ -118,11 +118,14 @@
     </item>
     <item row="8" column="1">
      <widget class="QPushButton" name="pb_crear_usuario">
+<<<<<<< Updated upstream
       <property name="styleSheet">
        <string notr="true">QPushButton#pb_crear_usuario {
 background-color: rgb(0, 255, 0)
 }</string>
       </property>
+=======
+>>>>>>> Stashed changes
       <property name="text">
        <string>Crear usuario</string>
       </property>

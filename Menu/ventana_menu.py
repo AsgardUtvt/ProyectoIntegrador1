@@ -8,7 +8,10 @@ from Recetas.ventana_crear_recetas import Ventana_Crear_Recetas
 from Configuracion.ventana_cambiar_contrasena import Ventana_Cambiar_Contrasena
 from Consultorio.ventana_modificar_consultorio import Ventana_Modificar_Consultorio
 from Menu.ventana_bienvenida import Ventana_Bienvenida
+<<<<<<< Updated upstream
 from Pacientes.ventana_pacientes_modif import Ventana_Modificar_Paciente
+=======
+>>>>>>> Stashed changes
 
 class Ventana_Menu_Principal(QWidget):
 
@@ -22,6 +25,7 @@ class Ventana_Menu_Principal(QWidget):
         self.rutas_interfaces = {
             "menu_principal": "../Documentacion/QtDesigner/menu_principal.ui",
             "citas": "../Documentacion/QtDesigner/citasWidget.ui",
+<<<<<<< Updated upstream
             "menu_pacientes": "../Documentacion/QtDesigner/pacientes_lista_modificar.ui",
             "recetas": "../Documentacion/QtDesigner/Recetas.ui",
             "inventario": "../Documentacion/QtDesigner/Medicamentoswidget.ui",
@@ -29,6 +33,15 @@ class Ventana_Menu_Principal(QWidget):
             "usuario": "../Documentacion/QtDesigner/usuario_modificar.ui",
             "consultorio": "../Documentacion/QtDesigner/consultorio_modificar.ui",
             "reportes_caja": "../Documentacion/QtDesigner/reportes_caja.ui",
+=======
+            "menu_pacientes": "../Pacientes/pacientes.ui",
+            "recetas": "../Recetas/Recetas.ui",
+            "inventario": "../Documentacion/QtDesigner/Medicamentoswidget.ui",
+            "ventas": "../Reportes/Ticket/ticket_pago.ui",
+            "usuario": "../Documentacion/QtDesigner/usuario_modificar.ui",
+            "consultorio": "../Documentacion/QtDesigner/consultorio_modificar.ui",
+            "reportes_caja": "../Reportes/Caja/reportes_caja.ui",
+>>>>>>> Stashed changes
             "reportes_medicamento": "../Documentacion/QtDesigner/Reportes_widget.ui",
             "contrasena": "../Documentacion/QtDesigner/combiar_contrasena.ui"
         }
@@ -59,8 +72,13 @@ class Ventana_Menu_Principal(QWidget):
         # Mapeo para clases personalizadas (vistas con lógica)
         self.mapeo_menu_clases = {
             0: Ventana_Bienvenida,  # menu_principal
+<<<<<<< Updated upstream
             1: None, # citas
             2: Ventana_Modificar_Paciente,  # menu_pacientes
+=======
+            1: None,  # menu_pacientes
+            2: None, # citas
+>>>>>>> Stashed changes
             3: Ventana_Crear_Recetas,  # recetas
             4: None,  # inventario
             5: None,  # ventas

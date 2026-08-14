@@ -74,6 +74,7 @@ class Consultorio_Model:
                 slq_update_consultorio = """
 UPDATE Consultorio
 SET consultorio_name = %s ,
+<<<<<<< Updated upstream
  consultorio_calle = %s,
  consultorio_colonia = %s,
  consultorio_num_exterior = %s,
@@ -85,6 +86,19 @@ SET consultorio_name = %s ,
  consultorio_municipio = %s,
  consultorio_cp = %s
 WHERE id_consultorio = %s;
+=======
+SET consultorio_calle = %s,
+SET consultorio_colonia = %s,
+SET consultorio_num_exterior = %s,
+SET consultorio_num_interior = %s,
+SET consultorio_localidad = %s,
+SET id_estado = %s,
+SET consultorio_telefono = %s,
+SET consultorio_telefono_dos = %s,
+SET consultorio_municipio = %s,
+SET consultorio_cp = %s
+WHERE Id_consultiro = %s;
+>>>>>>> Stashed changes
                 """
                 cursor.execute(slq_update_consultorio, __TUPLA_ACTUALIZAR)
                 db.commit_conexion()

@@ -16,11 +16,14 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QPushButton" name="pb_nuevo_usuario">
+<<<<<<< Updated upstream
      <property name="styleSheet">
       <string notr="true">QPushButton#pb_nuevo_usuario {
 background-color: rgb(226, 239, 83)
 }</string>
      </property>
+=======
+>>>>>>> Stashed changes
      <property name="text">
       <string>Nuevo usuario</string>
      </property>
